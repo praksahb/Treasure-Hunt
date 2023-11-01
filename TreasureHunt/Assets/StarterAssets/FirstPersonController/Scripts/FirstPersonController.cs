@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -64,6 +65,8 @@ namespace StarterAssets
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
+        //Action to register key Press
+        public Action useKeyPressed;
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -271,7 +274,7 @@ namespace StarterAssets
         {
             if (_input.use)
             {
-                Debug.Log("Pressed Use Key.");
+                useKeyPressed?.Invoke();
             }
         }
     }
