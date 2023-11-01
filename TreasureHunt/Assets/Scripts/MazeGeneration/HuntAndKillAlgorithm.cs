@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MazeGeneration
+namespace TreasureHunt.MazeGeneration
 {
     public class HuntAndKillAlgorithm : MazeAlgorithm
     {

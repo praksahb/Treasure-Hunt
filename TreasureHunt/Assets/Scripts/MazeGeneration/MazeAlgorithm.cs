@@ -1,4 +1,4 @@
-namespace MazeGeneration
+namespace TreasureHunt.MazeGeneration
 {
     public abstract class MazeAlgorithm
     {

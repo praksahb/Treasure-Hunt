@@ -1,9 +1,11 @@
+using TreasureHunt.MazeGeneration;
 using UnityEditor;
 using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
 
-namespace MazeGeneration
+namespace TreasureHunt.CustomEditorWindow.MazeGenerator
+
 {
     public class MazeGeneratorEditorWindow : EditorWindow
     {
