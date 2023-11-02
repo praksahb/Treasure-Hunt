@@ -13,6 +13,15 @@ namespace TreasureHunt.Player
             PlayerModel = playerModel;
             PlayerView = Object.Instantiate(playerPrefab);
             PlayerView.PlayerController = this;
+
+            // Set health UI
+            PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            PlayerModel.Health.CurrentHealth -= damage;
+            PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
         }
     }
 }

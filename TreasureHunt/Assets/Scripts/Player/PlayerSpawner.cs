@@ -15,6 +15,7 @@ namespace TreasureHunt.Player
             PlayerModel pModel = new PlayerModel();
 
             playerController = new PlayerController(pModel, playerPrefab);
+            playerController.TakeDamage(50); // test
         }
     }
 }

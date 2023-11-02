@@ -8,13 +8,15 @@ namespace TreasureHunt.Player
     {
         public PlayerController PlayerController { get; set; }
 
-        private FirstPersonController firstPersonController;
 
+        private HealthUI healthUI;
+        private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
 
         private void Awake()
         {
             firstPersonController = GetComponentInChildren<FirstPersonController>();
+            healthUI = GetComponentInChildren<HealthUI>();
         }
 
         private void OnEnable()
@@ -26,6 +28,8 @@ namespace TreasureHunt.Player
         {
             firstPersonController.useKeyPressed -= OnUseKeyPressed;
         }
+
+        // Interaction with use Key
 
         private void OnUseKeyPressed()
         {
@@ -52,6 +56,18 @@ namespace TreasureHunt.Player
             {
                 currentInteractable = null;
             }
+        }
+
+        // Health related 
+
+        public void SetMaxHealth(int health)
+        {
+            healthUI.SetMaxHealth(health);
+        }
+
+        public void SetHealth(int health)
+        {
+            healthUI.SetHealth(health);
         }
     }
 }
