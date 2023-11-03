@@ -6,8 +6,11 @@ namespace TreasureHunt.Player
 {
     public class PlayerView : MonoBehaviour
     {
+        //  Properties
         public PlayerController PlayerController { get; set; }
+        public Transform PlayerCameraRoot => playerCameraRoot;
 
+        [SerializeField] private Transform playerCameraRoot;
 
         private HealthUI healthUI;
         private FirstPersonController firstPersonController;
@@ -30,12 +33,11 @@ namespace TreasureHunt.Player
         }
 
         // Interaction with use Key
-
         private void OnUseKeyPressed()
         {
             Debug.Log("Pressed Use Key.");
 
-            currentInteractable?.Interact();
+            currentInteractable?.Interact(PlayerController);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -43,6 +45,7 @@ namespace TreasureHunt.Player
             other.TryGetComponent(out IInteractable interactable);
             if (interactable != null)
             {
+                Debug.Log("check");
                 interactable.UIFeedback();
                 currentInteractable = interactable;
             }

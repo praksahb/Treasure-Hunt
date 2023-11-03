@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 namespace TreasureHunt.Player
@@ -5,6 +6,8 @@ namespace TreasureHunt.Player
     public class PlayerSpawner : MonoBehaviour
     {
         [SerializeField] private PlayerView playerPrefab;
+
+        [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
         [SerializeField] private Transform spawnPosition = null;
 
@@ -15,7 +18,7 @@ namespace TreasureHunt.Player
             PlayerModel pModel = new PlayerModel();
 
             playerController = new PlayerController(pModel, playerPrefab);
-            playerController.TakeDamage(50); // test
+            virtualCamera.Follow = playerController.GetFollowCamera();
         }
     }
 }

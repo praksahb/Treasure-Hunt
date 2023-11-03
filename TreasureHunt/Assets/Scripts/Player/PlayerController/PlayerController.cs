@@ -23,5 +23,10 @@ namespace TreasureHunt.Player
             PlayerModel.Health.CurrentHealth -= damage;
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
         }
+
+        public Transform GetFollowCamera()
+        {
+            return PlayerView.PlayerCameraRoot;
+        }
     }
 }
