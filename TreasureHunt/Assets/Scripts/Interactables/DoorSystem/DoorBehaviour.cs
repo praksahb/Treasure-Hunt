@@ -6,7 +6,10 @@ namespace TreasureHunt.Interactions
 {
     public class DoorBehaviour : MonoBehaviour, IInteractable
     {
+        [SerializeField] private KeyType requiredKey;
+
         private bool isOpen;
+        private bool isLocked;
         private bool isInteractable;
 
         private Animator anim;
@@ -15,15 +18,30 @@ namespace TreasureHunt.Interactions
         {
             anim = GetComponent<Animator>();
             isOpen = false;
-            isInteractable = true;
+            isInteractable = false;
+            isLocked = true;
         }
 
         public void Interact(PlayerController player)
         {
-            OpenDoor(player);
+            if (isLocked)
+            {
+                if (player.HasKey(requiredKey))
+                {
+                    isLocked = false;
+                    isInteractable = true;
+                }
+                else
+                {
+                    player.PlayerView.SetInteractableText("Locked. Find Key.");
+                }
+            }
+
+            OpenCloseDoor(player);
         }
 
-        private void OpenDoor(PlayerController player)
+
+        private void OpenCloseDoor(PlayerController player)
         {
             Debug.Log("Door open/close action");
             if (isInteractable)
@@ -81,6 +99,10 @@ namespace TreasureHunt.Interactions
                 {
                     player.PlayerView.SetInteractableText("Close Door.");
                 }
+            }
+            else
+            {
+                player.PlayerView.SetInteractableText("Unlock Door");
             }
         }
     }
