@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TreasureHunt.Player
+namespace TreasureHunt.Player.UI
 {
     public class HealthUI : MonoBehaviour
     {

@@ -7,6 +7,6 @@ namespace TreasureHunt.Interactions
     {
         public void Interact(PlayerController player);
 
-        public void UIFeedback();
+        public void UIFeedback(PlayerController player);
     }
 }

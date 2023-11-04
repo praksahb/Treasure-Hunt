@@ -7,13 +7,15 @@ namespace TreasureHunt.Interactions
     public class DoorBehaviour : MonoBehaviour, IInteractable
     {
         private bool isOpen;
-        private bool isInteractable = true;
+        private bool isInteractable;
 
         private Animator anim;
 
         private void Start()
         {
             anim = GetComponent<Animator>();
+            isOpen = false;
+            isInteractable = true;
         }
 
         public void Interact(PlayerController player)
@@ -66,9 +68,20 @@ namespace TreasureHunt.Interactions
             }
         }
 
-        public void UIFeedback()
+        public void UIFeedback(PlayerController player)
         {
             // Send UI message for user interaction
+            if (isInteractable)
+            {
+                if (!isOpen)
+                {
+                    player.PlayerView.SetInteractableText("Open Door.");
+                }
+                else
+                {
+                    player.PlayerView.SetInteractableText("Close Door.");
+                }
+            }
         }
     }
 }
