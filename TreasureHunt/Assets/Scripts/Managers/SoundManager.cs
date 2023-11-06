@@ -15,27 +15,15 @@ namespace TreasureHunt
         protected override void Awake()
         {
             base.Awake();
-            // continue with any awake functionality
-            // InitializeAudioSource();
+            PlayMusic(MusicType.Bg_Seaside_Waves);
         }
 
-        private void InitializeAudioSource()
-        {
-            //foreach (Sound s in sounds)
-            //{
-            //    s.source = gameObject.AddComponent<AudioSource>();
-            //    s.source.clip = s.clip;
-            //    s.source.volume = s.volume;
-            //    s.source.pitch = s.pitch;
-            //}
-
-        }
-
-        private void PlayAudioMusic(SoundMusic sound)
+        private void PlayAudioMusic(SoundMusic sound, bool isLoop)
         {
             musicSource.clip = sound.clip;
             musicSource.volume = sound.volume;
             musicSource.pitch = sound.pitch;
+            musicSource.loop = isLoop;
             musicSource.Play();
         }
 
@@ -55,7 +43,7 @@ namespace TreasureHunt
                 Debug.LogWarning("Sound file: " + sName + " was not Found.");
                 return;
             }
-            PlayAudioMusic(s);
+            PlayAudioMusic(s, s.isLooping);
         }
 
         public void PlaySfx(SfxType sName)
