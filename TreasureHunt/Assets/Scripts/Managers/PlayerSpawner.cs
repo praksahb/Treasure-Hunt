@@ -7,6 +7,9 @@ namespace TreasureHunt.Player
     {
         [SerializeField] private PlayerView playerPrefab;
 
+        [SerializeField] private PlayerData playerData;
+
+        [SerializeField] private GameObject mainCamera;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
         [SerializeField] private Transform spawnPosition = null;
@@ -15,9 +18,9 @@ namespace TreasureHunt.Player
 
         private void Start()
         {
-            PlayerModel pModel = new PlayerModel();
+            PlayerModel pModel = new PlayerModel(playerData);
 
-            playerController = new PlayerController(pModel, playerPrefab);
+            playerController = new PlayerController(pModel, playerPrefab, mainCamera);
             virtualCamera.Follow = playerController.GetFollowCamera();
         }
     }

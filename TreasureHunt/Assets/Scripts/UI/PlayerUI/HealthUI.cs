@@ -20,7 +20,6 @@ namespace TreasureHunt.Player.UI
         public void SetMaxHealth(int maxHealth)
         {
             healthSlider.maxValue = maxHealth;
-            healthSlider.value = maxHealth;
         }
     }
 }

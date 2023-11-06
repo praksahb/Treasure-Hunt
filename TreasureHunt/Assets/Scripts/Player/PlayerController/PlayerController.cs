@@ -5,10 +5,11 @@ namespace TreasureHunt.Player
 {
     public class PlayerController
     {
+        // Public Properties
         public PlayerView PlayerView { get; }
         public PlayerModel PlayerModel { get; }
 
-
+        // Constructors 
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab)
         {
             PlayerModel = playerModel;
@@ -19,6 +20,20 @@ namespace TreasureHunt.Player
             PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
         }
 
+        public PlayerController(PlayerModel playerModel, PlayerView playerPrefab, GameObject mainCamera)
+        {
+            PlayerModel = playerModel;
+            PlayerView = Object.Instantiate(playerPrefab);
+            PlayerView.PlayerController = this;
+
+            // Set health UI
+            PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
+            PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
+            // Set Values for FirstPersonController
+            PlayerView.SetFPSControllerValues(PlayerModel.MoveSpeed, PlayerModel.SprintSpeed, mainCamera);
+        }
+
+        // Member Functions 
         public void TakeDamage(int damage)
         {
             PlayerModel.Health.CurrentHealth -= damage;

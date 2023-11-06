@@ -20,7 +20,7 @@ namespace TreasureHunt.Player
 
         private void Awake()
         {
-            firstPersonController = GetComponentInChildren<FirstPersonController>();
+            firstPersonController = GetComponent<FirstPersonController>();
             healthUI = GetComponentInChildren<HealthUI>();
             interactableUI = GetComponentInChildren<InteractableUI>();
         }
@@ -33,6 +33,13 @@ namespace TreasureHunt.Player
         private void OnDisable()
         {
             firstPersonController.useKeyPressed -= OnUseKeyPressed;
+        }
+
+        // Set values for the FirstPersonController from playerData
+
+        public void SetFPSControllerValues(float moveSpeed, float sprintSpeed, GameObject mainCamera)
+        {
+            firstPersonController.SetValues(moveSpeed, sprintSpeed, mainCamera);
         }
 
         // Interaction with use Key
