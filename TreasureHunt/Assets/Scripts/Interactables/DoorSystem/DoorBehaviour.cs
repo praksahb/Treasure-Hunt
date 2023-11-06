@@ -6,24 +6,44 @@ namespace TreasureHunt.Interactions
 {
     public class DoorBehaviour : MonoBehaviour, IInteractable
     {
-        private bool isOpen;
-        private bool isInteractable = true;
+        [SerializeField] private KeyType requiredKey;
 
         private Animator anim;
+
+        private bool isOpen;
+        private bool isLocked;
+        private bool isInteractable;
+
 
         private void Start()
         {
             anim = GetComponent<Animator>();
+            isOpen = false;
+            isInteractable = false;
+            isLocked = true;
         }
 
         public void Interact(PlayerController player)
         {
-            OpenDoor(player);
+            if (isLocked)
+            {
+                if (player.HasKey(requiredKey))
+                {
+                    isLocked = false;
+                    isInteractable = true;
+                }
+                else
+                {
+                    player.PlayerView.SetInteractableText("Locked. Find Key.");
+                }
+            }
+
+            OpenCloseDoor(player);
         }
 
-        private void OpenDoor(PlayerController player)
+
+        private void OpenCloseDoor(PlayerController player)
         {
-            Debug.Log("Door open/close action");
             if (isInteractable)
             {
                 isOpen = !isOpen;
@@ -31,7 +51,6 @@ namespace TreasureHunt.Interactions
                 Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
                 Vector3 playerTransformDirection = player.PlayerView.transform.position - transform.position;
                 float dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
-                Debug.Log("Dot Product: " + dot);
                 anim.SetFloat("Dot", dot);
                 anim.SetBool("IsOpen", isOpen);
                 isInteractable = false;
@@ -66,9 +85,24 @@ namespace TreasureHunt.Interactions
             }
         }
 
-        public void UIFeedback()
+        public void UIFeedback(PlayerController player)
         {
             // Send UI message for user interaction
+            if (isInteractable)
+            {
+                if (!isOpen)
+                {
+                    player.PlayerView.SetInteractableText("Open Door.");
+                }
+                else
+                {
+                    player.PlayerView.SetInteractableText("Close Door.");
+                }
+            }
+            else
+            {
+                player.PlayerView.SetInteractableText("Unlock Door");
+            }
         }
     }
 }

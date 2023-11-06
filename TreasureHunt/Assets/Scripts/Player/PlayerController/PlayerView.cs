@@ -1,5 +1,6 @@
 using StarterAssets;
 using TreasureHunt.Interactions;
+using TreasureHunt.Player.UI;
 using UnityEngine;
 
 namespace TreasureHunt.Player
@@ -13,6 +14,7 @@ namespace TreasureHunt.Player
         [SerializeField] private Transform playerCameraRoot;
 
         private HealthUI healthUI;
+        private InteractableUI interactableUI;
         private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
 
@@ -20,6 +22,7 @@ namespace TreasureHunt.Player
         {
             firstPersonController = GetComponentInChildren<FirstPersonController>();
             healthUI = GetComponentInChildren<HealthUI>();
+            interactableUI = GetComponentInChildren<InteractableUI>();
         }
 
         private void OnEnable()
@@ -46,7 +49,7 @@ namespace TreasureHunt.Player
             if (interactable != null)
             {
                 Debug.Log("check");
-                interactable.UIFeedback();
+                interactable.UIFeedback(PlayerController);
                 currentInteractable = interactable;
             }
         }
@@ -58,6 +61,21 @@ namespace TreasureHunt.Player
             if (currentInteractable == interactable)
             {
                 currentInteractable = null;
+                SetInteractableText();
+            }
+        }
+
+        // Interaction UI related
+
+        public void SetInteractableText(string text = null)
+        {
+            if (text == null)
+            {
+                interactableUI.ClearText();
+            }
+            else
+            {
+                interactableUI.SetText(text);
             }
         }
 

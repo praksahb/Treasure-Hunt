@@ -1,3 +1,4 @@
+using TreasureHunt.Interactions;
 using UnityEngine;
 
 namespace TreasureHunt.Player
@@ -27,6 +28,16 @@ namespace TreasureHunt.Player
         public Transform GetFollowCamera()
         {
             return PlayerView.PlayerCameraRoot;
+        }
+
+        public void CollectKey(KeyType keyType)
+        {
+            PlayerModel.KeyInventory.AddKey(keyType);
+        }
+
+        public bool HasKey(KeyType keyType)
+        {
+            return PlayerModel.KeyInventory.FindKey(keyType);
         }
     }
 }
