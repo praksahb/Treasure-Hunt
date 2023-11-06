@@ -12,6 +12,7 @@ namespace TreasureHunt
         {
             player.CollectKey(keyType);
             gameObject.SetActive(false);
+            player.PlayerView.SetInteractableText();
         }
 
         public void UIFeedback(PlayerController player)

@@ -43,9 +43,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6317434159638031904}
   - component: {fileID: 6253792340240248094}
-  - component: {fileID: 7802765329332505534}
   - component: {fileID: 9056975172110627195}
   - component: {fileID: 3229745213533826361}
+  - component: {fileID: 820369123}
   m_Layer: 0
   m_Name: Door_XAxisCorrected
   m_TagString: Untagged
@@ -89,18 +89,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &7802765329332505534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3218778739757908273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d4b9a969aef6bd43b3787acf519acfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &9056975172110627195
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,6 +118,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.9139037, y: 10.574915, z: 0.9027202}
   m_Center: {x: -2.9467895, y: 5.2900696, z: 0.37854373}
+--- !u!114 &820369123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218778739757908273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4b9a969aef6bd43b3787acf519acfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredKey: 4
 --- !u!1001 &2615550677201455589
 PrefabInstance:
   m_ObjectHideFlags: 0

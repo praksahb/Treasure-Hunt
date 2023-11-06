@@ -8,11 +8,12 @@ namespace TreasureHunt.Interactions
     {
         [SerializeField] private KeyType requiredKey;
 
+        private Animator anim;
+
         private bool isOpen;
         private bool isLocked;
         private bool isInteractable;
 
-        private Animator anim;
 
         private void Start()
         {
@@ -43,7 +44,6 @@ namespace TreasureHunt.Interactions
 
         private void OpenCloseDoor(PlayerController player)
         {
-            Debug.Log("Door open/close action");
             if (isInteractable)
             {
                 isOpen = !isOpen;
@@ -51,7 +51,6 @@ namespace TreasureHunt.Interactions
                 Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
                 Vector3 playerTransformDirection = player.PlayerView.transform.position - transform.position;
                 float dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
-                Debug.Log("Dot Product: " + dot);
                 anim.SetFloat("Dot", dot);
                 anim.SetBool("IsOpen", isOpen);
                 isInteractable = false;
