@@ -1,4 +1,5 @@
 ﻿using System;
+using TreasureHunt;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -52,6 +53,15 @@ namespace StarterAssets
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -90.0f;
 
+        [Header("Footstep Parameters")]
+        [SerializeField] private float baseStepSpeed = 0.5f;
+        [SerializeField] private float sprintSpeedMultiplier = 0.6f;
+        private float footstepTimer = 0;
+        private float GetCurrentOffset => _input.sprint ? baseStepSpeed * sprintSpeedMultiplier : baseStepSpeed;
+
+        // public Action to register key Press
+        public Action useKeyPressed;
+
         // cinemachine
         private float _cinemachineTargetPitch;
 
@@ -65,8 +75,7 @@ namespace StarterAssets
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
-        //Action to register key Press
-        public Action useKeyPressed;
+
 
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
@@ -118,6 +127,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            HandleFootsteps();
             UsePressed();
         }
 
@@ -286,6 +296,22 @@ namespace StarterAssets
             }
         }
 
+        // Using in Update loop after move function sets value for the _speed;
+        private void HandleFootsteps()
+        {
+            if (!Grounded) return;
+            if (_input.move == Vector2.zero) return;
+
+            footstepTimer -= Time.deltaTime;
+
+            if (footstepTimer <= 0)
+            {
+                SoundManager.Instance.PlaySfx(TreasureHunt.Sounds.SfxType.Footsteps);
+                footstepTimer = GetCurrentOffset;
+            }
+
+
+        }
 
     }
 }

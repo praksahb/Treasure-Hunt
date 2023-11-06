@@ -46,6 +46,15 @@ namespace TreasureHunt.Interactions
         {
             if (isInteractable)
             {
+                if (isOpen)
+                {
+                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorClosed);
+                }
+                else
+                {
+                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorOpen);
+                }
+
                 isOpen = !isOpen;
 
                 Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
@@ -81,6 +90,7 @@ namespace TreasureHunt.Interactions
                     isOpen = false;
                     anim.SetFloat("Dot", 0);
                     anim.SetBool("IsOpen", isOpen);
+                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorClosed);
                 }
             }
         }
