@@ -269,6 +269,14 @@ namespace StarterAssets
             Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
         }
 
+        // Custom functions added
+
+        public void SetValues(float moveSpeed, float sprintSpeed, GameObject mainCamera)
+        {
+            MoveSpeed = moveSpeed;
+            SprintSpeed = sprintSpeed;
+            _mainCamera = mainCamera;
+        }
 
         private void UsePressed()
         {
