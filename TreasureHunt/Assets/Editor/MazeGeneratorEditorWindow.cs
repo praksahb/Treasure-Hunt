@@ -60,7 +60,7 @@ namespace TreasureHunt.CustomEditorWindow.MazeGenerator
             {
                 if (parentObj == null)
                 {
-                    parentObj = new GameObject("MazeParent");
+                    parentObj = new GameObject("MazeParent_" + seedVal);
                 }
 
                 // Set the parameters and generate the maze.
