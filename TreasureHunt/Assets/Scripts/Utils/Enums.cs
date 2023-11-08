@@ -32,3 +32,15 @@ namespace TreasureHunt.Sounds
         Footsteps,
     }
 }
+
+namespace TreasureHunt.UI
+{
+    public enum FitType
+    {
+        Uniform,
+        Width,
+        Height,
+        FixedRows,
+        FixedColumns,
+    }
+}

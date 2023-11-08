@@ -13,6 +13,8 @@ namespace StarterAssets
         public bool jump;
         public bool sprint;
         public bool use; // added to test door opening/ closing, stealing keys etc.
+        public bool pause;
+        public bool unpause;
 
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -23,6 +25,20 @@ namespace StarterAssets
 
 #if ENABLE_INPUT_SYSTEM
         // adding use key functionality
+        public void OnPause(InputValue value)
+        {
+
+            PauseGame(value.isPressed);
+
+        }
+
+        public void OnUnpause(InputValue value)
+        {
+
+            UnpauseGame(value.isPressed);
+
+        }
+
         public void OnUse(InputValue value)
         {
             UseFuncInput(value.isPressed);
@@ -54,6 +70,16 @@ namespace StarterAssets
         public void UseFuncInput(bool newUseState)
         {
             use = newUseState;
+        }
+
+        public void PauseGame(bool newPauseState)
+        {
+            pause = newPauseState;
+        }
+
+        public void UnpauseGame(bool newUnpauseState)
+        {
+            unpause = !newUnpauseState;
         }
 
         public void MoveInput(Vector2 newMoveDirection)

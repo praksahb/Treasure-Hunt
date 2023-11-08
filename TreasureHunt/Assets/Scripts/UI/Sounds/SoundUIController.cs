@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TreasureHunt.Assets.Scripts.UI.Sounds
+namespace TreasureHunt.Sounds
 {
     public class SoundUIController : MonoBehaviour
     {

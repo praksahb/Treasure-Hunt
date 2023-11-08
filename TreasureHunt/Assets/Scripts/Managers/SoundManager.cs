@@ -1,8 +1,7 @@
 ﻿using System;
-using TreasureHunt.Sounds;
 using UnityEngine;
 
-namespace TreasureHunt
+namespace TreasureHunt.Sounds
 {
     public class SoundManager : GenericMonoSingleton<SoundManager>
     {

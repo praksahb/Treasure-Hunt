@@ -1,5 +1,6 @@
 using System.Collections;
 using TreasureHunt.Player;
+using TreasureHunt.Sounds;
 using UnityEngine;
 
 namespace TreasureHunt.Interactions

@@ -1,4 +1,5 @@
 using StarterAssets;
+using TreasureHunt.InputSystem;
 using TreasureHunt.Interactions;
 using TreasureHunt.Player.UI;
 using UnityEngine;
@@ -15,24 +16,41 @@ namespace TreasureHunt.Player
 
         private HealthUI healthUI;
         private InteractableUI interactableUI;
+        private InputReader _input;
         private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
+
 
         private void Awake()
         {
             firstPersonController = GetComponent<FirstPersonController>();
             healthUI = GetComponentInChildren<HealthUI>();
             interactableUI = GetComponentInChildren<InteractableUI>();
+            _input = Resources.Load<InputReader>("InputSystem/InputReader");
         }
 
         private void OnEnable()
         {
             firstPersonController.useKeyPressed += OnUseKeyPressed;
+            _input.PauseEvent += Input_PauseEvent;
+            _input.UnpauseEvent += Input_UnpauseEvent;
+        }
+
+        private void Input_UnpauseEvent()
+        {
+            firstPersonController.SetPause(false);
+        }
+
+        private void Input_PauseEvent()
+        {
+            firstPersonController.SetPause(true);
         }
 
         private void OnDisable()
         {
             firstPersonController.useKeyPressed -= OnUseKeyPressed;
+            _input.PauseEvent -= Input_PauseEvent;
+            _input.UnpauseEvent -= Input_UnpauseEvent;
         }
 
         // Set values for the FirstPersonController from playerData
@@ -55,7 +73,6 @@ namespace TreasureHunt.Player
             other.TryGetComponent(out IInteractable interactable);
             if (interactable != null)
             {
-                Debug.Log("check");
                 interactable.UIFeedback(PlayerController);
                 currentInteractable = interactable;
             }

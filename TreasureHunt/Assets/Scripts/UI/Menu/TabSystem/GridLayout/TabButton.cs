@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace TreasureHunt
+namespace TreasureHunt.UI
 {
     public class TabButton : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     {
@@ -22,6 +22,13 @@ namespace TreasureHunt
         private void Awake()
         {
             background = GetComponent<Image>();
+        }
+
+        private void Start()
+        {
+            background = GetComponent<Image>();
+            Deselect();
+            tabGroup.Subscribe(this);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -52,13 +59,6 @@ namespace TreasureHunt
             {
                 graphics[i].color = tabGroup.inactiveColors[i];
             }
-        }
-
-        private void Start()
-        {
-            background = GetComponent<Image>();
-            Deselect();
-            tabGroup.Subscribe(this);
         }
     }
 }

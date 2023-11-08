@@ -14,7 +14,14 @@ namespace TreasureHunt.Player
 
         [SerializeField] private Transform spawnPosition = null;
 
+        private GameManager gameManager;
+
         private PlayerController playerController;
+
+        private void Awake()
+        {
+            gameManager = GetComponent<GameManager>();
+        }
 
         private void Start()
         {

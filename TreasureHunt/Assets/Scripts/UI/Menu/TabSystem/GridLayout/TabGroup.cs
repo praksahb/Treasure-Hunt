@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TreasureHunt
+namespace TreasureHunt.UI
 {
     public class TabGroup : MonoBehaviour
     {
         public List<TabButton> tabButtons;
-        public List<GameObject> objectsToSwap;
+        public List<GameObject> bodyPanels;
 
         public List<Color> activeColors;
         public List<Color> inactiveColors;
@@ -37,7 +37,7 @@ namespace TreasureHunt
                 // move selectedtab left
                 currentIdx = (currentIdx + 1) % tabButtons.Count;
                 selectedTab = tabButtons[currentIdx];
-                ResetTabs();
+                OnTabSelected(selectedTab);
 
             }
             if (Input.GetKeyDown(KeyCode.E))
@@ -45,13 +45,13 @@ namespace TreasureHunt
                 // move selectedTab right
                 currentIdx = (currentIdx - 1 + tabButtons.Count) % tabButtons.Count;
                 selectedTab = tabButtons[currentIdx];
-                ResetTabs();
+                OnTabSelected(selectedTab);
             }
         }
 
         public void OnTabExit(TabButton button)
         {
-            //ResetTabs();
+            ResetTabs();
         }
 
         public void OnTabSelected(TabButton button)
@@ -64,18 +64,23 @@ namespace TreasureHunt
             selectedTab = button;
             selectedTab.Select();
 
+            SwitchBodyPanel();
+            ResetTabs();
+        }
 
+        private void SwitchBodyPanel() // Show Current Panel
+        {
             // sets the current tab body active
-            int index = button.transform.GetSiblingIndex();
-            for (int i = 0; i < objectsToSwap.Count; i++)
+            int index = selectedTab.transform.GetSiblingIndex();
+            for (int i = 0; i < bodyPanels.Count; i++)
             {
                 if (i == index)
                 {
-                    objectsToSwap[i].SetActive(true);
+                    bodyPanels[i].SetActive(true);
                 }
                 else
                 {
-                    objectsToSwap[i].SetActive(false);
+                    bodyPanels[i].SetActive(false);
                 }
             }
         }
