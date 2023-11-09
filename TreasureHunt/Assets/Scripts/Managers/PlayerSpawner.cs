@@ -14,6 +14,8 @@ namespace TreasureHunt.Player
 
         [SerializeField] private Transform spawnPosition = null;
 
+        [SerializeField] private KeysInventoryUI keyInventoryUI;
+
         private GameManager gameManager;
 
         private PlayerController playerController;
@@ -30,7 +32,7 @@ namespace TreasureHunt.Player
             virtualCamera.Follow = playerController.GetFollowCamera();
             playerController.TakeDamage(45);
             playerController.TakeDamage(45);
-            playerController.TakeDamage(45);
+            keyInventoryUI.SetPlayerController(playerController);
         }
     }
 }

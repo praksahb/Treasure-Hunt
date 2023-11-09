@@ -11,8 +11,6 @@ namespace TreasureHunt
         [SerializeField] private Button menuBtn;
         [SerializeField] private Button restartBtn;
 
-
-
         private LevelManager levelManager;
 
         private void Awake()

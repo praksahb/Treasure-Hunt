@@ -13,7 +13,7 @@ namespace TreasureHunt.Player
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab)
         {
             PlayerModel = playerModel;
-            PlayerView = Object.Instantiate(playerPrefab);
+            PlayerView = UnityEngine.Object.Instantiate(playerPrefab);
             PlayerView.PlayerController = this;
 
             // Set health UI
@@ -23,7 +23,7 @@ namespace TreasureHunt.Player
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab, GameObject mainCamera)
         {
             PlayerModel = playerModel;
-            PlayerView = Object.Instantiate(playerPrefab);
+            PlayerView = UnityEngine.Object.Instantiate(playerPrefab);
             PlayerView.PlayerController = this;
 
             // Set health UI

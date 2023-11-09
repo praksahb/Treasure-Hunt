@@ -63,7 +63,7 @@ namespace TreasureHunt.InputSystem
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            Debug.Log("val: " + context.ReadValue<Vector2>());
+            //Debug.Log("val: " + context.ReadValue<Vector2>());
         }
 
         public void OnSprint(InputAction.CallbackContext context)
@@ -73,7 +73,7 @@ namespace TreasureHunt.InputSystem
 
         public void OnUse(InputAction.CallbackContext context)
         {
-            Debug.Log("USE: " + context.phase);
+            // Debug.Log("USE: " + context.phase);
         }
 
         public void OnPause(InputAction.CallbackContext context)

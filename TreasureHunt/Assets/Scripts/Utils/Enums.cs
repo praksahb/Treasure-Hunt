@@ -3,10 +3,10 @@ namespace TreasureHunt.Interactions
     public enum KeyType
     {
         None,
-        RedKey,
-        BlueKey,
-        GreenKey,
-        BlackKey,
+        KeyType1,
+        KeyType2,
+        KeyType3,
+        KeyType4,
     }
 }
 

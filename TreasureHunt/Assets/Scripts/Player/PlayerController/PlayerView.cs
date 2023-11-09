@@ -119,7 +119,6 @@ namespace TreasureHunt.Player
         public void GameOver()
         {
             _input.GameOverAction?.Invoke(true);
-            //Input_PauseEvent(); or
             firstPersonController.enabled = false;
         }
     }
