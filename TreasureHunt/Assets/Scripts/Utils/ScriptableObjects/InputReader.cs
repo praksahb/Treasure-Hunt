@@ -36,7 +36,20 @@ namespace TreasureHunt.InputSystem
         // rest all are being managed by the standard assets using the unity messages
 
         public event Action PauseEvent;
-        public Action UnpauseEvent;
+        public event Action UnpauseEvent;
+        public Action<bool> GameOverAction;
+
+        private void GameOverSwitchDefaultMap(bool value)
+        {
+            if (!value)
+            {
+                SetPlayer();
+            }
+            else
+            {
+                SetUI();
+            }
+        }
 
         public void OnJump(InputAction.CallbackContext context)
         {
@@ -50,7 +63,7 @@ namespace TreasureHunt.InputSystem
 
         public void OnMove(InputAction.CallbackContext context)
         {
-
+            Debug.Log("val: " + context.ReadValue<Vector2>());
         }
 
         public void OnSprint(InputAction.CallbackContext context)
@@ -60,7 +73,7 @@ namespace TreasureHunt.InputSystem
 
         public void OnUse(InputAction.CallbackContext context)
         {
-
+            Debug.Log("USE: " + context.phase);
         }
 
         public void OnPause(InputAction.CallbackContext context)

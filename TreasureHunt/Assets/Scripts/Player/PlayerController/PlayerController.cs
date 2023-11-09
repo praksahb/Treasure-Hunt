@@ -9,7 +9,7 @@ namespace TreasureHunt.Player
         public PlayerView PlayerView { get; }
         public PlayerModel PlayerModel { get; }
 
-        // Constructors 
+        // Constructors
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab)
         {
             PlayerModel = playerModel;
@@ -38,6 +38,11 @@ namespace TreasureHunt.Player
         {
             PlayerModel.Health.CurrentHealth -= damage;
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
+            if (PlayerModel.Health.CurrentHealth == 0)
+            {
+                // game Over.
+                PlayerView.GameOver();
+            }
         }
 
         public Transform GetFollowCamera()

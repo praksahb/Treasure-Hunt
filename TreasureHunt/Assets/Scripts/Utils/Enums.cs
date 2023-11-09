@@ -44,3 +44,11 @@ namespace TreasureHunt.UI
         FixedColumns,
     }
 }
+
+namespace TreasureHunt.MainMenu
+{
+    public enum Level
+    {
+        TestLevel = 2,
+    }
+}

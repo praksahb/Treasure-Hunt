@@ -1,6 +1,6 @@
-using StarterAssets;
 using TreasureHunt.InputSystem;
 using TreasureHunt.Interactions;
+using TreasureHunt.Player.StarterAssets;
 using TreasureHunt.Player.UI;
 using UnityEngine;
 
@@ -113,6 +113,14 @@ namespace TreasureHunt.Player
         public void SetHealth(int health)
         {
             healthUI.SetHealth(health);
+        }
+
+        // trigger game over action 
+        public void GameOver()
+        {
+            _input.GameOverAction?.Invoke(true);
+            //Input_PauseEvent(); or
+            firstPersonController.enabled = false;
         }
     }
 }

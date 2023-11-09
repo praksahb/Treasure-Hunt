@@ -26,9 +26,11 @@ namespace TreasureHunt.Player
         private void Start()
         {
             PlayerModel pModel = new PlayerModel(playerData);
-
             playerController = new PlayerController(pModel, playerPrefab, mainCamera);
             virtualCamera.Follow = playerController.GetFollowCamera();
+            playerController.TakeDamage(45);
+            playerController.TakeDamage(45);
+            playerController.TakeDamage(45);
         }
     }
 }

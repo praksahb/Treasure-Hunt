@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
+namespace TreasureHunt.Player.StarterAssets
 {
     public class StarterAssetsInputs : MonoBehaviour
     {
