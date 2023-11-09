@@ -49,6 +49,7 @@ namespace TreasureHunt.MainMenu
 {
     public enum Level
     {
+        MainMenu = 0,
         TestLevel = 2,
     }
 }

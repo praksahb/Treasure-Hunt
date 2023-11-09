@@ -6,7 +6,7 @@ namespace TreasureHunt
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private GameObject pauseMenu;
-        [SerializeField] private GameObject gameOverMenu = null;
+        [SerializeField] private GameOverPanel gameOverMenu;
 
         private InputReader _input;
         public InputReader InputReader { get { return _input; } }
@@ -55,11 +55,11 @@ namespace TreasureHunt
         {
             if (!value)
             {
-                gameOverMenu.SetActive(false);
+                gameOverMenu.gameObject.SetActive(false);
             }
             else
             {
-                gameOverMenu.SetActive(true);
+                gameOverMenu.gameObject.SetActive(true);
                 UnsubscribePauseEvents();
             }
         }
