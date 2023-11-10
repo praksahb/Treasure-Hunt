@@ -3,23 +3,24 @@ using UnityEngine;
 
 namespace TreasureHunt
 {
-    public class GenericPooling<T> where T : Component
+    public class GenericPool<T> where T : Component
     {
         private T item;
         private Stack<T> poolList;
 
-        public GenericPooling(int poolLength, T item)
+        public GenericPool(int poolLength, T item, Transform parentTransform)
         {
             this.item = item;
-            InitializePool(poolLength);
+            InitializePool(poolLength, parentTransform);
         }
 
-        private void InitializePool(int poolLength)
+        private void InitializePool(int poolLength, Transform parent)
         {
             poolList = new Stack<T>();
             for (int i = 0; i < poolLength; i++)
             {
                 T newItem = NewItem();
+                newItem.transform.parent = parent;
             }
         }
 
