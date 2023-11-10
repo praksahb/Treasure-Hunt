@@ -1,8 +1,7 @@
 ﻿using System;
-using TreasureHunt.Sounds;
 using UnityEngine;
 
-namespace TreasureHunt
+namespace TreasureHunt.Sounds
 {
     public class SoundManager : GenericMonoSingleton<SoundManager>
     {
@@ -21,7 +20,7 @@ namespace TreasureHunt
         private void PlayAudioMusic(SoundMusic sound, bool isLoop)
         {
             musicSource.clip = sound.clip;
-            musicSource.volume = sound.volume;
+            //musicSource.volume = sound.volume;
             musicSource.pitch = sound.pitch;
             musicSource.loop = isLoop;
             musicSource.Play();
@@ -29,7 +28,7 @@ namespace TreasureHunt
 
         private void PlayAudioSfx(SoundSfx sound)
         {
-            sfxSource.volume = sound.volume;
+            //sfxSource.volume = sound.volume;
             sfxSource.pitch = sound.pitch;
             sfxSource.PlayOneShot(sound.clip);
         }
@@ -57,14 +56,14 @@ namespace TreasureHunt
             PlayAudioSfx(sound);
         }
 
-        public void ToggleMusic()
+        public void ToggleMusic(bool isMute)
         {
-            musicSource.mute = !musicSource.mute;
+            musicSource.mute = isMute;
         }
 
-        public void ToggleSfx()
+        public void ToggleSfx(bool isMute)
         {
-            sfxSource.mute = !sfxSource.mute;
+            sfxSource.mute = isMute;
         }
 
         public void SetMusicVolume(float value)

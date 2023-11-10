@@ -4,6 +4,9 @@ using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 using UnityEngine.Networking.PlayerConnection;
 
+// Currently using the older IMGUI, can be shifted to the new unity ui toolkit.
+// https://docs.unity.cn/2023.1/Documentation/Manual/UIE-IMGUI-migration.html
+
 namespace TreasureHunt.CustomEditorWindow.MazeGenerator
 
 {

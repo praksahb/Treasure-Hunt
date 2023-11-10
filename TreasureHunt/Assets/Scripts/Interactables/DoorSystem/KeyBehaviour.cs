@@ -1,8 +1,7 @@
-using TreasureHunt.Interactions;
 using TreasureHunt.Player;
 using UnityEngine;
 
-namespace TreasureHunt
+namespace TreasureHunt.Interactions
 {
     public class KeyBehaviour : MonoBehaviour, IInteractable
     {

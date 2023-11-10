@@ -566,6 +566,8 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 9189596450811867962}
   TopClamp: 89
   BottomClamp: -89
+  baseStepSpeed: 0.5
+  sprintSpeedMultiplier: 0.6
 --- !u!114 &1874251233581618748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,8 +697,8 @@ MonoBehaviour:
     m_ActionName: Player/Sprint[/Keyboard/leftShift,/XInputControllerWindows/leftTrigger]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: e4ce1614-c754-48c1-9103-33130441661f
-    m_ActionName: UI/New action
+    m_ActionId: 948b056e-2e41-4bd0-8932-a4db8bef6905
+    m_ActionName: Player/Use[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

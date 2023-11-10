@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StarterAssets
+namespace TreasureHunt.Player.StarterAssets
 {
     public class UICanvasControllerInput : MonoBehaviour
     {
@@ -27,7 +27,7 @@ namespace StarterAssets
         {
             starterAssetsInputs.SprintInput(virtualSprintState);
         }
-        
+
     }
 
 }

@@ -1,11 +1,11 @@
 ﻿using System;
-using TreasureHunt;
+using TreasureHunt.Sounds;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
+namespace TreasureHunt.Player.StarterAssets
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
@@ -83,6 +83,7 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
+        private bool isPause; // manual trigger from PlayerView
 
         private const float _threshold = 0.01f;
 
@@ -105,6 +106,7 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            isPause = false;
         }
 
         private void Start()
@@ -113,6 +115,7 @@ namespace StarterAssets
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
+
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -124,16 +127,22 @@ namespace StarterAssets
 
         private void Update()
         {
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
-            HandleFootsteps();
-            UsePressed();
+            if (!isPause)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+                HandleFootsteps();
+                UsePressed();
+            }
         }
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if (!isPause)
+            {
+                CameraRotation();
+            }
         }
 
         private void GroundedCheck()
@@ -288,13 +297,22 @@ namespace StarterAssets
             _mainCamera = mainCamera;
         }
 
+        public void SetPause(bool pause)
+        {
+            isPause = pause;
+        }
+
+
         private void UsePressed()
         {
             if (_input.use)
             {
                 useKeyPressed?.Invoke();
+                _input.use = false; // only trigger button press once
             }
         }
+
+
 
         // Using in Update loop after move function sets value for the _speed;
         private void HandleFootsteps()

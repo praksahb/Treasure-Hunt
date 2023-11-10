@@ -1,32 +1,54 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TreasureHunt.Assets.Scripts.UI.Sounds
+namespace TreasureHunt.Sounds
 {
     public class SoundUIController : MonoBehaviour
     {
         [SerializeField] private Slider musicSlider, sfxSlider;
+        [SerializeField] private Toggle musicToggle, sfxToggle;
 
-
-        public void ToggleMusic()
+        private void OnEnable()
         {
-            SoundManager.Instance.ToggleMusic();
+            musicSlider.onValueChanged.AddListener(MusicVolume);
+            sfxSlider.onValueChanged.AddListener(SfxVolume);
+
+            musicToggle.onValueChanged.AddListener(ToggleMusic);
+            sfxToggle.onValueChanged.AddListener(ToggleSfx);
         }
 
-
-        public void ToggleSfx()
+        private void Start()
         {
-            SoundManager.Instance.ToggleSfx();
+            MusicVolume(musicSlider.value);
+            SfxVolume(sfxSlider.value);
         }
 
-        public void MusicVolume()
+        private void OnDisable()
         {
-            SoundManager.Instance.SetMusicVolume(musicSlider.value);
+            musicSlider.onValueChanged.RemoveAllListeners();
+            sfxSlider.onValueChanged.RemoveAllListeners();
+            musicToggle.onValueChanged.RemoveAllListeners();
+            sfxToggle.onValueChanged.RemoveAllListeners();
         }
 
-        public void SfxVolume()
+        private void ToggleMusic(bool value)
         {
-            SoundManager.Instance.SetSfxVolume(musicSlider.value);
+            SoundManager.Instance.ToggleMusic(value);
+        }
+
+        private void ToggleSfx(bool value)
+        {
+            SoundManager.Instance.ToggleSfx(value);
+        }
+
+        private void MusicVolume(float value)
+        {
+            SoundManager.Instance.SetMusicVolume(value);
+        }
+
+        private void SfxVolume(float value)
+        {
+            SoundManager.Instance.SetSfxVolume(value);
         }
     }
 }

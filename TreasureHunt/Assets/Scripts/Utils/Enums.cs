@@ -3,10 +3,10 @@ namespace TreasureHunt.Interactions
     public enum KeyType
     {
         None,
-        RedKey,
-        BlueKey,
-        GreenKey,
-        BlackKey,
+        KeyType1,
+        KeyType2,
+        KeyType3,
+        KeyType4,
     }
 }
 
@@ -30,5 +30,26 @@ namespace TreasureHunt.Sounds
         DoorLocked,
         DoorUnlocked,
         Footsteps,
+    }
+}
+
+namespace TreasureHunt.UI
+{
+    public enum FitType
+    {
+        Uniform,
+        Width,
+        Height,
+        FixedRows,
+        FixedColumns,
+    }
+}
+
+namespace TreasureHunt.MainMenu
+{
+    public enum Level
+    {
+        MainMenu = 0,
+        TestLevel = 2,
     }
 }
