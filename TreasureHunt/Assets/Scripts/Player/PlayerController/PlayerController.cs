@@ -44,6 +44,7 @@ namespace TreasureHunt.Player
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             // Set Values for FirstPersonController
             PlayerView.SetFPSControllerValues(PlayerModel.MoveSpeed, PlayerModel.SprintSpeed, mainCamera);
+
         }
 
         // Public Member Functions

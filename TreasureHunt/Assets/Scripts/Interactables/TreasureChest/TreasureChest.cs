@@ -28,6 +28,7 @@ namespace TreasureHunt.Interactions
                 isOpen = true;
                 animation.Play();
                 player.CollectChestItem();
+                player.PlayerView.SetInteractableText();
             }
         }
 

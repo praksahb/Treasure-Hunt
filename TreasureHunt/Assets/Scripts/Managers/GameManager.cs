@@ -1,4 +1,3 @@
-using System;
 using TreasureHunt.InputSystem;
 using UnityEngine;
 
@@ -8,6 +7,7 @@ namespace TreasureHunt
     {
         [SerializeField] private GameObject pauseMenu;
         [SerializeField] private GameOverPanel gameOverMenu;
+        [SerializeField] private GameOverPanel gameWonMenu;
 
         private InputReader _input;
         public InputReader InputReader { get { return _input; } }
@@ -63,7 +63,8 @@ namespace TreasureHunt
 
         private void GameWin()
         {
-            throw new NotImplementedException();
+            gameWonMenu.gameObject.SetActive(true);
+            UnsubscribePauseEvents();
         }
     }
 }
