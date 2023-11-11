@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using TreasureHunt.Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace TreasureHunt
@@ -6,19 +8,22 @@ namespace TreasureHunt
     public class FireTrapBehaviour : MonoBehaviour
     {
         [SerializeField] private Transform flameSpawnPoint;
-        [SerializeField] private float timeBetweenFlames;
-        [SerializeField] private int damagePerSecond;
-        [SerializeField] private float damageTimeInterval;
 
         private ParticleSystem flameParticles;
+        private CapsuleCollider capsuleCollider;
+        private List<IDamageable> damageableObjects;
 
         private WaitForSeconds waitTime;
         private WaitForSeconds flameTime;
-        private CapsuleCollider capsuleCollider;
+
+        private int damagePerSecond;
+        private float timeBetweenFlames;
+        private float damageTimeInterval;
 
         private void Awake()
         {
             capsuleCollider = GetComponentInChildren<CapsuleCollider>();
+            damageableObjects = new List<IDamageable>();
         }
 
         private void StartFiringCoroutine()
@@ -36,7 +41,6 @@ namespace TreasureHunt
         {
             flameParticles.Play();
 
-            //enable attack radius collider
             EnableCollider();
 
             yield return flameTime;
@@ -61,6 +65,13 @@ namespace TreasureHunt
             if (capsuleCollider != null)
             {
                 capsuleCollider.enabled = false;
+
+                // Stops any damage-taking object(Player) not exited trigger collider
+                foreach (IDamageable damageable in damageableObjects)
+                {
+                    damageable.StopDamage();
+                }
+                damageableObjects.Clear();
             }
         }
 
@@ -70,6 +81,7 @@ namespace TreasureHunt
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
+                damageableObjects.Add(damageable);
                 damageable.StartDamage(damagePerSecond, damageTimeInterval);
             }
         }
@@ -78,11 +90,12 @@ namespace TreasureHunt
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
+                damageableObjects.Remove(damageable);
                 damageable.StopDamage();
             }
         }
 
-        // assign transform values for fire particle system to launch fire at correct position and rotation
+        // fire particle system transform values set using transform from flameSpawnPoint
         private void SetTransform()
         {
             flameParticles.transform.parent = transform;
@@ -91,11 +104,17 @@ namespace TreasureHunt
 
         // PUBLIC METHOD
 
-        // assign fire particle system from object pool script in particleSystemManager
-        public void SetParticleSystem(ParticleSystem particleSystem)
+        // assign/ Set values required for trap
+
+        public void SetDataValues(TrapData fireTrap)
         {
-            flameParticles = particleSystem;
+            flameParticles = fireTrap.flameParticle;
             SetTransform();
+
+            timeBetweenFlames = fireTrap.timeBetweenFlames;
+            damagePerSecond = fireTrap.damagePerSecond;
+            damageTimeInterval = fireTrap.damageTimeInterval;
+
             StartFiringCoroutine();
         }
     }
