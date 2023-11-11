@@ -14,7 +14,7 @@ namespace TreasureHunt.Player
             if (PlayerModel.Health.CurrentHealth == 0)
             {
                 // game Over.
-                PlayerView.GameOver();
+                PlayerView.GameOver("Player Died");
             }
         }
 
@@ -72,6 +72,14 @@ namespace TreasureHunt.Player
                 TakeDamage(damagePerSecond);
                 yield return waitTime;
             }
+        }
+
+
+        // Collect chest/treasure
+        public void CollectChestItem()
+        {
+            PlayerModel.TreasureCollected = true;
+            PlayerView.GameWon();
         }
     }
 }

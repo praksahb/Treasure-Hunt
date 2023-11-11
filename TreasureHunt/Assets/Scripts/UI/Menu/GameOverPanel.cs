@@ -39,5 +39,10 @@ namespace TreasureHunt
             menuBtn.onClick.RemoveAllListeners();
             restartBtn.onClick.RemoveAllListeners();
         }
+
+        public void SetReasonText(string reason)
+        {
+            reasonText.SetText(reason);
+        }
     }
 }

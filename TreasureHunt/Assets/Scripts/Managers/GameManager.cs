@@ -1,3 +1,4 @@
+using System;
 using TreasureHunt.InputSystem;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace TreasureHunt
         {
             SubscribePauseEvents();
             _input.GameOverAction += _input_GameOverAction;
+            _input.GameWon += GameWin;
         }
 
 
@@ -27,6 +29,7 @@ namespace TreasureHunt
         {
             UnsubscribePauseEvents();
             _input.GameOverAction -= _input_GameOverAction;
+            _input.GameWon -= GameWin;
         }
 
         private void SubscribePauseEvents()
@@ -51,17 +54,16 @@ namespace TreasureHunt
             pauseMenu.SetActive(true);
         }
 
-        private void _input_GameOverAction(bool value)
+        private void _input_GameOverAction(string reason)
         {
-            if (!value)
-            {
-                gameOverMenu.gameObject.SetActive(false);
-            }
-            else
-            {
-                gameOverMenu.gameObject.SetActive(true);
-                UnsubscribePauseEvents();
-            }
+            gameOverMenu.gameObject.SetActive(true);
+            gameOverMenu.SetReasonText(reason);
+            UnsubscribePauseEvents();
+        }
+
+        private void GameWin()
+        {
+            throw new NotImplementedException();
         }
     }
 }
