@@ -10,6 +10,7 @@ namespace TreasureHunt.Player
         // public access Properties
         public BaseHealth Health { get; set; }
         public KeyInventory KeyInventory { get; set; }
+        public bool IsTakingDamage { get; set; }
 
         // public read-only Properties
         public float MoveSpeed { get { return moveSpeed; } }

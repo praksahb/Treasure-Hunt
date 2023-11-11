@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TreasureHunt.Assets.Scripts.Managers
 {
-    public class ParticleSystemManager : MonoBehaviour
+    public class TrapManager : MonoBehaviour
     {
         [SerializeField] private List<FireTrapBehaviour> fireTraps;
         [SerializeField] private ParticleSystem flameParticles;

@@ -9,7 +9,6 @@ namespace TreasureHunt.Player
         // Private Member Functions 
         private void TakeDamage(int damage)
         {
-            Debug.Log("chk");
             PlayerModel.Health.CurrentHealth -= damage;
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             if (PlayerModel.Health.CurrentHealth == 0)
@@ -18,7 +17,6 @@ namespace TreasureHunt.Player
                 PlayerView.GameOver();
             }
         }
-
 
         // Public Properties
         public PlayerView PlayerView { get; }
@@ -69,7 +67,7 @@ namespace TreasureHunt.Player
         public IEnumerator BurnDamage(int damagePerSecond, float damageTimeInterval)
         {
             WaitForSeconds waitTime = new WaitForSeconds(damageTimeInterval);
-            while (PlayerView.IsTakingDamage)
+            while (PlayerModel.IsTakingDamage)
             {
                 TakeDamage(damagePerSecond);
                 yield return waitTime;

@@ -11,7 +11,6 @@ namespace TreasureHunt.Player
         //  Properties
         public PlayerController PlayerController { get; set; }
         public Transform PlayerCameraRoot => playerCameraRoot;
-        public bool IsTakingDamage { get { return isTakingDamage; } }
 
         [SerializeField] private Transform playerCameraRoot;
 
@@ -21,8 +20,6 @@ namespace TreasureHunt.Player
         private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
 
-        // Private variables - damage related to traps
-        private bool isTakingDamage;
         private Coroutine TakeDamageCoroutine;
 
         private void Awake()
@@ -130,7 +127,7 @@ namespace TreasureHunt.Player
 
         public void StartDamage(int damagePerSecond, float damageTimeInterval)
         {
-            isTakingDamage = true;
+            PlayerController.PlayerModel.IsTakingDamage = true;
             if (TakeDamageCoroutine != null)
             {
                 StopCoroutine(TakeDamageCoroutine);
@@ -140,10 +137,9 @@ namespace TreasureHunt.Player
 
         public void StopDamage()
         {
-            isTakingDamage = false;
+            PlayerController.PlayerModel.IsTakingDamage = false;
             if (TakeDamageCoroutine != null)
             {
-                Debug.Log("chk");
                 StopCoroutine(TakeDamageCoroutine);
             }
         }
