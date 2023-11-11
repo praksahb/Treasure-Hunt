@@ -22,7 +22,6 @@ namespace TreasureHunt.Assets.Scripts.Managers
         private void Start()
         {
             AssignTrapData();
-
         }
 
         private void AssignTrapData()

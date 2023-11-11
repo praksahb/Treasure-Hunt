@@ -37,7 +37,8 @@ namespace TreasureHunt.InputSystem
 
         public event Action PauseEvent;
         public event Action UnpauseEvent;
-        public Action<bool> GameOverAction;
+        public Action<string> GameOverAction;
+        public Action GameWon;
 
         private void GameOverSwitchDefaultMap(bool value)
         {

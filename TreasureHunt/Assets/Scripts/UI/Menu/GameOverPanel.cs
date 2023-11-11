@@ -7,9 +7,9 @@ namespace TreasureHunt
 {
     public class GameOverPanel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI reasonText;
+        [SerializeField] private TextMeshProUGUI reasonText = null;
         [SerializeField] private Button menuBtn;
-        [SerializeField] private Button restartBtn;
+        [SerializeField] private Button restartBtn = null;
 
         private LevelManager levelManager;
 
@@ -21,7 +21,10 @@ namespace TreasureHunt
         private void OnEnable()
         {
             menuBtn.onClick.AddListener(LoadMenu);
-            restartBtn.onClick.AddListener(RestartLevel);
+            if (restartBtn != null)
+            {
+                restartBtn?.onClick.AddListener(RestartLevel);
+            }
         }
 
         private void LoadMenu()
@@ -37,7 +40,18 @@ namespace TreasureHunt
         private void OnDisable()
         {
             menuBtn.onClick.RemoveAllListeners();
-            restartBtn.onClick.RemoveAllListeners();
+            if (restartBtn != null)
+            {
+                restartBtn.onClick.RemoveAllListeners();
+            }
+        }
+
+        public void SetReasonText(string reason)
+        {
+            if (reasonText != null)
+            {
+                reasonText.SetText(reason);
+            }
         }
     }
 }

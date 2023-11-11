@@ -117,9 +117,16 @@ namespace TreasureHunt.Player
         }
 
         // trigger game over action 
-        public void GameOver()
+        public void GameOver(string reason)
         {
-            _input.GameOverAction?.Invoke(true);
+            _input.GameOverAction?.Invoke(reason);
+            firstPersonController.enabled = false;
+        }
+
+        // trigger game won action
+        public void GameWon()
+        {
+            _input.GameWon?.Invoke();
             firstPersonController.enabled = false;
         }
 

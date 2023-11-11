@@ -6,11 +6,13 @@ namespace TreasureHunt.Player
         // FPScontroller script attached to player prefab
         private float moveSpeed;
         private float sprintSpeed;
+        private bool isTreasureCollected;
 
         // public access Properties
         public BaseHealth Health { get; set; }
         public KeyInventory KeyInventory { get; set; }
         public bool IsTakingDamage { get; set; }
+        public bool TreasureCollected { get { return isTreasureCollected; } set { isTreasureCollected = value; } }
 
         // public read-only Properties
         public float MoveSpeed { get { return moveSpeed; } }
@@ -35,6 +37,7 @@ namespace TreasureHunt.Player
             KeyInventory = new KeyInventory();
             moveSpeed = playerData.moveSpeed;
             sprintSpeed = playerData.sprintSpeed;
+            isTreasureCollected = false;
         }
     }
 }

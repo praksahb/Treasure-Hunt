@@ -14,7 +14,7 @@ namespace TreasureHunt.Player
             if (PlayerModel.Health.CurrentHealth == 0)
             {
                 // game Over.
-                PlayerView.GameOver();
+                PlayerView.GameOver("Player Died");
             }
         }
 
@@ -44,6 +44,7 @@ namespace TreasureHunt.Player
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             // Set Values for FirstPersonController
             PlayerView.SetFPSControllerValues(PlayerModel.MoveSpeed, PlayerModel.SprintSpeed, mainCamera);
+
         }
 
         // Public Member Functions
@@ -72,6 +73,14 @@ namespace TreasureHunt.Player
                 TakeDamage(damagePerSecond);
                 yield return waitTime;
             }
+        }
+
+
+        // Collect chest/treasure
+        public void CollectChestItem()
+        {
+            PlayerModel.TreasureCollected = true;
+            PlayerView.GameWon();
         }
     }
 }
