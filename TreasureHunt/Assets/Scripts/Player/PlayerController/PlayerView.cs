@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TreasureHunt.Player
 {
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : MonoBehaviour, IDamageable
     {
         //  Properties
         public PlayerController PlayerController { get; set; }
@@ -20,6 +20,7 @@ namespace TreasureHunt.Player
         private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
 
+        private Coroutine TakeDamageCoroutine;
 
         private void Awake()
         {
@@ -120,6 +121,27 @@ namespace TreasureHunt.Player
         {
             _input.GameOverAction?.Invoke(true);
             firstPersonController.enabled = false;
+        }
+
+        // Taking damage from traps
+
+        public void StartDamage(int damagePerSecond, float damageTimeInterval)
+        {
+            PlayerController.PlayerModel.IsTakingDamage = true;
+            if (TakeDamageCoroutine != null)
+            {
+                StopCoroutine(TakeDamageCoroutine);
+            }
+            TakeDamageCoroutine = StartCoroutine(PlayerController.BurnDamage(damagePerSecond, damageTimeInterval));
+        }
+
+        public void StopDamage()
+        {
+            PlayerController.PlayerModel.IsTakingDamage = false;
+            if (TakeDamageCoroutine != null)
+            {
+                StopCoroutine(TakeDamageCoroutine);
+            }
         }
     }
 }
