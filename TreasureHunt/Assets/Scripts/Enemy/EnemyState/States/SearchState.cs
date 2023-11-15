@@ -4,7 +4,6 @@ namespace TreasureHunt.Enemy
     {
         private EnemyStateManager enemyStateManager;
 
-
         public SearchState(EnemyStateManager enemyStateManager)
         {
             this.enemyStateManager = enemyStateManager;

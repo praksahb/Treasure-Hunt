@@ -4,35 +4,28 @@ namespace TreasureHunt.Enemy
 {
     public class IdleState : IState
     {
-        public float currentIdleTime;
+        private EnemyStateManager enemyStateManager;
 
-        private Animator animator;
-        private float idleTime;
-        private readonly int LongIdle = Animator.StringToHash("LongIdle");
+        public float totalIdleTime;
 
-        public IdleState(float idleTime, Animator animator)
+        public IdleState(EnemyStateManager enemyStateManager)
         {
-            this.animator = animator;
-            this.idleTime = idleTime;
+            this.enemyStateManager = enemyStateManager;
         }
 
         public void OnEnter()
         {
-            currentIdleTime = 0f;
+            totalIdleTime = 0f;
+            enemyStateManager.TotalDistanceTravelled = 0f;
         }
 
         public void OnExit()
         {
-            animator.SetBool(LongIdle, false);
         }
 
         public void Tick()
         {
-            currentIdleTime += Time.deltaTime;
-            if (currentIdleTime > idleTime)
-            {
-                animator.SetBool(LongIdle, true);
-            }
+            totalIdleTime += Time.deltaTime;
         }
     }
 }

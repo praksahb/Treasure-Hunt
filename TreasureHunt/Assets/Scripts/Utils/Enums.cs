@@ -10,6 +10,17 @@ namespace TreasureHunt.Interactions
     }
 }
 
+namespace TreasureHunt.Enemy
+{
+    public enum EnemyType
+    {
+        None,
+        Enemy1,
+        Enemy2,
+        Enemy3,
+    }
+}
+
 namespace TreasureHunt.Sounds
 {
     public enum MusicType

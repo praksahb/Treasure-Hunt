@@ -1,21 +1,18 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace TreasureHunt.Enemy
 {
     public class TurnState : IState
     {
         private Animator animator;
-        private NavMeshAgent navmeshAgent;
 
         private static readonly int Turn180 = Animator.StringToHash("Turn180");
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int IsWalking = Animator.StringToHash("IsWalking");
 
-        public TurnState(Animator animator, NavMeshAgent navMeshAgent)
+        public TurnState(Animator animator)
         {
             this.animator = animator;
-            this.navmeshAgent = navMeshAgent;
         }
 
         public void OnEnter()
