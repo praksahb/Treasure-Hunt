@@ -1,7 +1,6 @@
 using UnityEngine;
 
 namespace TreasureHunt.Enemy
-
 {
     public class EnemyView : MonoBehaviour
     {
@@ -15,11 +14,6 @@ namespace TreasureHunt.Enemy
         {
             Rigidbody = GetComponent<Rigidbody>();
             AnimatorController = GetComponentInChildren<Animator>();
-            if (AnimatorController)
-            {
-                Debug.Log("Yes");
-                Debug.Log(AnimatorController.GetCurrentAnimatorClipInfoCount(0));
-            }
         }
     }
 }
