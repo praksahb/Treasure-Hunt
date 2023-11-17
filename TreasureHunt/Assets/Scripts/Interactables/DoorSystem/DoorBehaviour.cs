@@ -7,7 +7,7 @@ namespace TreasureHunt.Interactions
 {
     public class DoorBehaviour : MonoBehaviour, IInteractable
     {
-        [SerializeField] private KeyType requiredKey;
+        private KeyType requiredKey;
 
         private Animator anim;
 
@@ -15,47 +15,46 @@ namespace TreasureHunt.Interactions
         private bool isLocked;
         private bool isInteractable;
 
-
         private void Start()
         {
-            anim = GetComponent<Animator>();
+            anim = GetComponentInChildren<Animator>();
             isOpen = false;
             isInteractable = false;
             isLocked = true;
+
+            TrimDoorCloseSound();
         }
 
-        public void Interact(PlayerController player)
+        private void TrimDoorCloseSound()
         {
-            if (isLocked)
+            // Assuming you have a reference to the SoundManager and the animation clip name is "DoorClose"
+            float doorCloseClipLength = GetAnimationClipLength("CloseFromIn");
+
+            if (!float.IsNaN(doorCloseClipLength) && SoundManager.Instance != null)
             {
-                if (player.HasKey(requiredKey))
+                // Update the SoundSfx in the SoundManager for DoorClose
+                SoundManager.Instance.UpdateSoundSfx(SfxType.DoorClosed, doorCloseClipLength);
+            }
+        }
+
+        private float GetAnimationClipLength(string clipName)
+        {
+            foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == clipName)
                 {
-                    isLocked = false;
-                    isInteractable = true;
-                }
-                else
-                {
-                    player.PlayerView.SetInteractableText("Locked. Find Key.");
+                    return clip.length;
                 }
             }
 
-            OpenCloseDoor(player);
+            Debug.LogError("Animation Clip '" + clipName + "' not found in the Animator Controller!");
+            return float.NaN;
         }
-
 
         private void OpenCloseDoor(PlayerController player)
         {
             if (isInteractable)
             {
-                if (isOpen)
-                {
-                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorClosed);
-                }
-                else
-                {
-                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorOpen);
-                }
-
                 isOpen = !isOpen;
 
                 Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
@@ -64,6 +63,15 @@ namespace TreasureHunt.Interactions
                 anim.SetFloat("Dot", dot);
                 anim.SetBool("IsOpen", isOpen);
                 isInteractable = false;
+
+                if (!isOpen)
+                {
+                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorClosed);
+                }
+                else
+                {
+                    SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorOpen);
+                }
 
                 // if auto-closing
                 StartCoroutine(AutoClose(player.PlayerView.transform));
@@ -94,6 +102,29 @@ namespace TreasureHunt.Interactions
                     SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorClosed);
                 }
             }
+        }
+
+        public void SetRequiredKey(KeyType keyType)
+        {
+            requiredKey = keyType;
+        }
+
+        public void Interact(PlayerController player)
+        {
+            if (isLocked)
+            {
+                if (player.HasKey(requiredKey))
+                {
+                    isLocked = false;
+                    isInteractable = true;
+                }
+                else
+                {
+                    player.PlayerView.SetInteractableText("Locked. Find Key.");
+                }
+            }
+
+            OpenCloseDoor(player);
         }
 
         public void UIFeedback(PlayerController player)

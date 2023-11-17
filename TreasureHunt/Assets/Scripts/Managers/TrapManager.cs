@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TreasureHunt.Assets.Scripts.Managers
+namespace TreasureHunt.Interactions
 {
     public class TrapManager : MonoBehaviour
     {

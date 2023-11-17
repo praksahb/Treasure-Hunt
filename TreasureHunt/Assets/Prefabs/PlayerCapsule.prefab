@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 855631903840648960}
   - component: {fileID: 8322633207840237618}
   - component: {fileID: 1618042844136264722}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: InteractableTextField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 7202558524026680300}
   - component: {fileID: 8630430061642289242}
   - component: {fileID: 3520564556688123928}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 315656323743715598}
   - component: {fileID: 6264822025578361349}
   - component: {fileID: 3301583116596760380}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: UI_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 2200963448653301834}
   - component: {fileID: 4932435370225219473}
   - component: {fileID: 8635494347435463616}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 8804042500430033225}
   - component: {fileID: 335530866285793271}
   - component: {fileID: 3320527121161141203}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 6216918866692854082}
   - component: {fileID: 5280349763350951040}
   - component: {fileID: 9071338660406381378}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: PlayerCapsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 3406884028186504881}
   - component: {fileID: 4667661511194160439}
   - component: {fileID: 2718546807202876537}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 8863365522535700785}
   - component: {fileID: 3089250586897225742}
   - component: {fileID: 8227743468202485938}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -960,7 +960,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3187916332686552204}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerCameraRoot
   m_TagString: CinemachineTarget
   m_Icon: {fileID: 0}

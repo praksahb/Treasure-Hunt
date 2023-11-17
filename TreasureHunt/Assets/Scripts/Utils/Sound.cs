@@ -23,5 +23,12 @@ namespace TreasureHunt.Sounds
         public float volume;
         [Range(0.1f, 3f)]
         public float pitch;
+
+        public SoundSfx(AudioClip new_clip, float pitch)
+        {
+            this.clip = new_clip;
+            this.pitch = pitch;
+
+        }
     }
 }

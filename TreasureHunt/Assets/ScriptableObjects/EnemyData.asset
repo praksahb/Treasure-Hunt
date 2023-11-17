@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb16a45e73847d4cb4b91e3200f3169, type: 3}
+  m_Name: EnemyData
+  m_EditorClassIdentifier: 
+  visionData:
+    timeBetweenFOVChecks: 0.2
+    meshResolution: 5
+    viewRadius: 10
+    ViewAngle: 90
+    targetMask:
+      serializedVersion: 2
+      m_Bits: 1024
+    obstructionMask:
+      serializedVersion: 2
+      m_Bits: 768
+  enemyData:
+  - enemyType: 1
+    enemyPrefab: {fileID: 3193769585435593349, guid: b106ab649df6c654b9157f3a6596c244,
+      type: 3}
+    patrollingPoints:
+    - {fileID: 7050431033765023071, guid: 819bb210b57eaaa4db279afc7c12f943, type: 3}
+    - {fileID: 1390743912167155313, guid: 3ec8d11f19015b84b9fecd01a86d84ba, type: 3}
+    totalIdleTime: 12
+    totalDistanceBeforeIdling: 75
+    heldKey: 1

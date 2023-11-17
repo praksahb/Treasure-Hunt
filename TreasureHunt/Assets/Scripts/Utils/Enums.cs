@@ -7,6 +7,18 @@ namespace TreasureHunt.Interactions
         KeyType2,
         KeyType3,
         KeyType4,
+        TreasureKey,
+    }
+}
+
+namespace TreasureHunt.Enemy
+{
+    public enum EnemyType
+    {
+        None,
+        Enemy1,
+        Enemy2,
+        Enemy3,
     }
 }
 

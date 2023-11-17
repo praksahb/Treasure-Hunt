@@ -5,7 +5,12 @@ namespace TreasureHunt.Interactions
 {
     public class KeyBehaviour : MonoBehaviour, IInteractable
     {
-        [SerializeField] private KeyType keyType;
+        private KeyType keyType;
+
+        public void SetKeyType(KeyType keyType)
+        {
+            this.keyType = keyType;
+        }
 
         public void Interact(PlayerController player)
         {
