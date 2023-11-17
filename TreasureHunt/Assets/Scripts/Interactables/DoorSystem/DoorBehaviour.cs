@@ -7,7 +7,7 @@ namespace TreasureHunt.Interactions
 {
     public class DoorBehaviour : MonoBehaviour, IInteractable
     {
-        [SerializeField] private KeyType requiredKey;
+        private KeyType requiredKey;
 
         private Animator anim;
 
@@ -17,14 +17,13 @@ namespace TreasureHunt.Interactions
 
         private void Start()
         {
-            anim = GetComponent<Animator>();
+            anim = GetComponentInChildren<Animator>();
             isOpen = false;
             isInteractable = false;
             isLocked = true;
 
             TrimDoorCloseSound();
         }
-
 
         private void TrimDoorCloseSound()
         {
@@ -103,6 +102,11 @@ namespace TreasureHunt.Interactions
                     SoundManager.Instance.PlaySfx(Sounds.SfxType.DoorClosed);
                 }
             }
+        }
+
+        public void SetRequiredKey(KeyType keyType)
+        {
+            requiredKey = keyType;
         }
 
         public void Interact(PlayerController player)

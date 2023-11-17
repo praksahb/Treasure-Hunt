@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using TreasureHunt.Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace TreasureHunt
+namespace TreasureHunt.Interactions
 {
     public class FireTrapBehaviour : MonoBehaviour
     {

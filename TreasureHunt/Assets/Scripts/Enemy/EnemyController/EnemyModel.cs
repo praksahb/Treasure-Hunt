@@ -20,6 +20,9 @@ namespace TreasureHunt.Enemy
         public LayerMask TargetMask { get; private set; }
         public LayerMask ObstructionMask { get; private set; }
 
+        // Held key values
+        public Interactions.KeyType KeyType { get; private set; }
+
         public EnemyModel(BaseEnemyData enemyData, FOVData fovData)
         {
             SpawnPoint = enemyData.patrollingPoints[0].position;
@@ -34,6 +37,8 @@ namespace TreasureHunt.Enemy
             ViewAngle = fovData.ViewAngle;
             TargetMask = fovData.targetMask;
             ObstructionMask = fovData.obstructionMask;
+
+            KeyType = enemyData.heldKey;
         }
 
     }

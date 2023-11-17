@@ -1,3 +1,4 @@
+//using TreasureHunt.Interactions;
 using UnityEngine;
 
 namespace TreasureHunt.Enemy
@@ -8,6 +9,7 @@ namespace TreasureHunt.Enemy
         public Animator AnimatorController { get; set; }
         public EnemyController EnemyController { get; set; }
         public Mesh ViewMesh { get; private set; }
+        public Interactions.KeyBehaviour Key { get; private set; }
 
         private MeshFilter viewMeshFilter;
         private Coroutine fieldOfViewCoroutine;
@@ -16,6 +18,7 @@ namespace TreasureHunt.Enemy
         {
             viewMeshFilter = GetComponent<MeshFilter>();
             AnimatorController = GetComponent<Animator>();
+            Key = GetComponentInChildren<Interactions.KeyBehaviour>();
 
             ViewMesh = new Mesh();
             ViewMesh.name = "View Mesh";

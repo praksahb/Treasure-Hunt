@@ -7,7 +7,6 @@ namespace TreasureHunt.Enemy
     {
         public FOVData visionData;
         public BaseEnemyData[] enemyData;
-
     }
 
     [System.Serializable]
@@ -18,6 +17,7 @@ namespace TreasureHunt.Enemy
         public Transform[] patrollingPoints;
         public float totalIdleTime;
         public float totalDistanceBeforeIdling;
+        public Interactions.KeyType heldKey;
     }
 
     [System.Serializable]

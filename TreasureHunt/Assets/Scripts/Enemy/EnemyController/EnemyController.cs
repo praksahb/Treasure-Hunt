@@ -16,6 +16,14 @@ namespace TreasureHunt.Enemy
             EnemyModel = new EnemyModel(enemyData, enemyVisionData);
             EnemyView = Object.Instantiate(enemyData.enemyPrefab, EnemyModel.SpawnPoint, Quaternion.identity, parent);
             EnemyView.EnemyController = this;
+
+            SetKeyValue();
+        }
+
+        // Set held key type value
+        private void SetKeyValue()
+        {
+            EnemyView.Key.SetKeyType(EnemyModel.KeyType);
         }
 
         // Coroutine for checking if player is inside FOV

@@ -19,6 +19,12 @@ namespace TreasureHunt.Interactions
             animationState = animation[animation.clip.name];
         }
 
+        private void Start()
+        {
+            isLocked = true;
+            isOpen = false;
+        }
+
         private void OpenChest(PlayerController player)
         {
 
@@ -61,6 +67,10 @@ namespace TreasureHunt.Interactions
 
         public void UIFeedback(PlayerController player)
         {
+            if (isLocked)
+            {
+                player.PlayerView.SetInteractableText("Find Key.");
+            }
             if (!isOpen)
             {
                 player.PlayerView.SetInteractableText("Open Chest.");

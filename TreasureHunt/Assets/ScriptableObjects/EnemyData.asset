@@ -32,3 +32,4 @@ MonoBehaviour:
     - {fileID: 1390743912167155313, guid: 3ec8d11f19015b84b9fecd01a86d84ba, type: 3}
     totalIdleTime: 12
     totalDistanceBeforeIdling: 75
+    heldKey: 1
