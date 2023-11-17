@@ -1,4 +1,3 @@
-//using TreasureHunt.Interactions;
 using UnityEngine;
 
 namespace TreasureHunt.Enemy

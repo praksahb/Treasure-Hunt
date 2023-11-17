@@ -20,12 +20,6 @@ namespace TreasureHunt.Enemy
             SetKeyValue();
         }
 
-        // Set held key type value
-        private void SetKeyValue()
-        {
-            EnemyView.Key.SetKeyType(EnemyModel.KeyType);
-        }
-
         // Coroutine for checking if player is inside FOV
         public IEnumerator FOVRoutine()
         {
@@ -38,7 +32,9 @@ namespace TreasureHunt.Enemy
             }
         }
 
+        // unoptimized
         // Draws a triangle mesh to show FOV of enemy
+        // No. of rays created per frame = stepCount
         public void DrawFieldOfView()
         {
             int stepCount = Mathf.RoundToInt(EnemyModel.ViewAngle * EnemyModel.MeshResolution);
@@ -74,6 +70,13 @@ namespace TreasureHunt.Enemy
             EnemyView.ViewMesh.RecalculateBounds();
         }
 
+        // Set held key type value
+        private void SetKeyValue()
+        {
+            EnemyView.Key.SetKeyType(EnemyModel.KeyType);
+        }
+
+        // checks if player is within the view field
         private void FieldOfViewCheck()
         {
             // Only one player so rangeCheck size is 1
@@ -93,20 +96,20 @@ namespace TreasureHunt.Enemy
                     // if no obstruction
                     if (!Physics.Raycast(EnemyView.transform.position, directionToTarget, distanceToTarget, EnemyModel.ObstructionMask))
                     {
-                        // Found player
-                        if (target.GetComponent<Player.PlayerView>())
+                        if (target.TryGetComponent(out IDetectable playerDetected))
                         {
-                            Debug.Log("Player Caught");
+                            playerDetected.Detected();
                         }
                     }
                 }
             }
         }
 
-        // Used for drawing field of view
+        // calculates ray info at one angle within the viewingAngle range, 
+        // used in drawing the mesh for the view zone
         private ViewCastInfo ViewCast(float globalAngle)
         {
-            Vector3 dir = DirFromAngle(globalAngle, true);
+            Vector3 dir = DirFromAngle(globalAngle);
             RaycastHit hit;
 
             if (Physics.Raycast(EnemyView.transform.position, dir, out hit, EnemyModel.ViewRadius, EnemyModel.ObstructionMask))
@@ -119,17 +122,13 @@ namespace TreasureHunt.Enemy
             }
         }
 
-        private Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+        private Vector3 DirFromAngle(float angleInDegrees)
         {
-            if (!angleIsGlobal)
-            {
-                angleInDegrees += EnemyView.transform.eulerAngles.y;
-            }
             return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }
     }
 
-    // helper class/struct for getting ray info 
+    // helper class/struct for getting individual ray's info 
     public struct ViewCastInfo
     {
         public bool hit;

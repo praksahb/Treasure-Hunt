@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionData:
     timeBetweenFOVChecks: 0.2
-    meshResolution: 5
+    meshResolution: 1
     viewRadius: 10
     ViewAngle: 90
     targetMask:

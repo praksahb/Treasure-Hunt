@@ -1,5 +1,4 @@
 using System.Collections;
-using TreasureHunt.Interactions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -55,12 +54,12 @@ namespace TreasureHunt.Player
             return PlayerView.PlayerCameraRoot;
         }
 
-        public void CollectKey(KeyType keyType)
+        public void CollectKey(Interactions.KeyType keyType)
         {
             PlayerModel.KeyInventory.AddKey(keyType);
         }
 
-        public bool HasKey(KeyType keyType)
+        public bool HasKey(Interactions.KeyType keyType)
         {
             return PlayerModel.KeyInventory.FindKey(keyType);
         }

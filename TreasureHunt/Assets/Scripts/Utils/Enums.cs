@@ -6,7 +6,6 @@ namespace TreasureHunt.Interactions
         KeyType1,
         KeyType2,
         KeyType3,
-        KeyType4,
         TreasureKey,
     }
 }
