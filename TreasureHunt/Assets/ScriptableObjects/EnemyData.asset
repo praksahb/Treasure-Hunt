@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb16a45e73847d4cb4b91e3200f3169, type: 3}
   m_Name: EnemyData
   m_EditorClassIdentifier: 
+  visionData:
+    timeBetweenFOVChecks: 0.2
+    meshResolution: 5
+    viewRadius: 10
+    ViewAngle: 90
+    targetMask:
+      serializedVersion: 2
+      m_Bits: 1024
+    obstructionMask:
+      serializedVersion: 2
+      m_Bits: 768
   enemyData:
   - enemyType: 1
     enemyPrefab: {fileID: 3193769585435593349, guid: b106ab649df6c654b9157f3a6596c244,

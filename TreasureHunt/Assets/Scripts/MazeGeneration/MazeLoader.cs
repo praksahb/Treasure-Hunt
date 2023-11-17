@@ -15,6 +15,8 @@ namespace TreasureHunt.MazeGeneration
         {
             mazeGrid = new MazeCell[mazeRows, mazeColumns];
 
+            InitializeParents(parentObj, out Transform floorParent, out Transform wallParent);
+
             for (int row = 0; row < mazeRows; row++)
             {
                 for (int col = 0; col < mazeColumns; col++)
@@ -32,25 +34,37 @@ namespace TreasureHunt.MazeGeneration
                     // South: +(size/2f) on x(row)
                     // West: -(size/2f) on z(col)
                     // floor position = rowVal * size, -(size / 2f) , col * size 
-                    cell.floor = Object.Instantiate(wallPrefab, new Vector3(row * size, -(size / 2f), col * size), Quaternion.identity, parentObj);
+                    cell.floor = Object.Instantiate(wallPrefab, new Vector3(row * size, -(size / 2f), col * size), Quaternion.identity, floorParent);
                     cell.floor.transform.Rotate(Vector3.right, 90f);
                     SetupFloorMaterial(cell.floor);
 
-                    cell.eastWall = Object.Instantiate(wallPrefab, new Vector3(row * size, 0, (col * size) + (size / 2f)), Quaternion.identity, parentObj);
-                    cell.southWall = Object.Instantiate(wallPrefab, new Vector3(row * size + (size / 2f), 0, col * size), Quaternion.identity, parentObj);
+                    cell.eastWall = Object.Instantiate(wallPrefab, new Vector3(row * size, 0, (col * size) + (size / 2f)), Quaternion.identity, wallParent);
+                    cell.southWall = Object.Instantiate(wallPrefab, new Vector3(row * size + (size / 2f), 0, col * size), Quaternion.identity, wallParent);
                     cell.southWall.transform.Rotate(Vector3.up * 90f);
 
                     if (col == 0)
                     {
-                        cell.westWall = Object.Instantiate(wallPrefab, new Vector3(row * size, 0, (col * size) - (size / 2f)), Quaternion.identity, parentObj);
+                        cell.westWall = Object.Instantiate(wallPrefab, new Vector3(row * size, 0, (col * size) - (size / 2f)), Quaternion.identity, wallParent);
                     }
                     if (row == 0)
                     {
-                        cell.northWall = Object.Instantiate(wallPrefab, new Vector3((row * size) - (size / 2f), 0, col * size), Quaternion.identity, parentObj);
+                        cell.northWall = Object.Instantiate(wallPrefab, new Vector3((row * size) - (size / 2f), 0, col * size), Quaternion.identity, wallParent);
                         cell.northWall.transform.Rotate(Vector3.up * 90f);
                     }
                 }
             }
+        }
+
+        // for separating gameobjects into walls and floors - used for making floors navigation static
+        private void InitializeParents(Transform parentObj, out Transform floorParent, out Transform wallParent)
+        {
+            GameObject floorParentObj = new GameObject("Floor");
+            floorParent = floorParentObj.transform;
+            floorParent.parent = parentObj;
+
+            GameObject wallParentObj = new GameObject("Walls");
+            wallParent = wallParentObj.transform;
+            wallParent.parent = parentObj;
         }
 
         private void SetupFloorMaterial(GameObject floor)

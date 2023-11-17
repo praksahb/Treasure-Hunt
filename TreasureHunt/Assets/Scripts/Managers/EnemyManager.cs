@@ -6,7 +6,7 @@ namespace TreasureHunt.Enemy
     {
         [SerializeField] EnemyData enemyDataList;
 
-        public EnemyController[] enemyList;
+        private EnemyController[] enemyList;
 
         private void Awake()
         {
@@ -16,11 +16,9 @@ namespace TreasureHunt.Enemy
         private void InitializeEnemies()
         {
             enemyList = new EnemyController[enemyDataList.enemyData.Length];
-            int i = 0;
-            foreach (var enemy in enemyDataList.enemyData)
+            for (int i = 0; i < enemyDataList.enemyData.Length; i++)
             {
-                EnemyModel enemyModel = new EnemyModel(enemy);
-                EnemyController enemyController = new EnemyController(enemy.enemyPrefab, enemyModel);
+                EnemyController enemyController = new EnemyController(enemyDataList.enemyData[i], enemyDataList.visionData, transform);
                 enemyList[i++] = enemyController;
             }
         }

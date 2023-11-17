@@ -1,6 +1,7 @@
 using System.Collections;
 using TreasureHunt.Interactions;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TreasureHunt.Player
 {
@@ -26,7 +27,7 @@ namespace TreasureHunt.Player
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab)
         {
             PlayerModel = playerModel;
-            PlayerView = UnityEngine.Object.Instantiate(playerPrefab);
+            PlayerView = Object.Instantiate(playerPrefab);
             PlayerView.PlayerController = this;
 
             // Set health UI
@@ -36,7 +37,7 @@ namespace TreasureHunt.Player
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab, GameObject mainCamera)
         {
             PlayerModel = playerModel;
-            PlayerView = UnityEngine.Object.Instantiate(playerPrefab);
+            PlayerView = Object.Instantiate(playerPrefab);
             PlayerView.PlayerController = this;
 
             // Set health UI
