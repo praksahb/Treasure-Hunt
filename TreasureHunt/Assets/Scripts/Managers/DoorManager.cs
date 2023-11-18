@@ -4,12 +4,13 @@ namespace TreasureHunt.Interactions
 {
     public class DoorManager : MonoBehaviour
     {
-        [SerializeField] private DoorData doors;
         [SerializeField] private KeyBehaviour treasureKey;
 
+        private DoorData doors;
 
         private void Start()
         {
+            doors = Resources.Load<DoorData>("ScriptableObjects/DoorData");
             InitializeDoors();
             treasureKey.SetKeyType(KeyType.TreasureKey);
         }

@@ -4,12 +4,13 @@ namespace TreasureHunt.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
-        [SerializeField] EnemyData enemyDataList;
+        EnemyData enemyDataList;
 
         private EnemyController[] enemyList;
 
         private void Awake()
         {
+            enemyDataList = Resources.Load<EnemyData>("ScriptableObjects/EnemyData");
             InitializeEnemies();
         }
 

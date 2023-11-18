@@ -7,7 +7,6 @@ namespace TreasureHunt.Player
     {
         [SerializeField] private PlayerView playerPrefab;
 
-        [SerializeField] private PlayerData playerData;
 
         [SerializeField] private GameObject mainCamera;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
@@ -17,12 +16,14 @@ namespace TreasureHunt.Player
         [SerializeField] private KeysInventoryUI keyInventoryUI;
 
         private GameManager gameManager;
+        private PlayerData playerData;
 
         private PlayerController playerController;
 
         private void Awake()
         {
             gameManager = GetComponent<GameManager>();
+            playerData = Resources.Load<PlayerData>("ScriptableObjects/PlayerData");
         }
 
         private void Start()

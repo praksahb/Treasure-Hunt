@@ -8,19 +8,23 @@ namespace TreasureHunt.Sounds
         [SerializeField] private Slider musicSlider, sfxSlider;
         [SerializeField] private Toggle musicToggle, sfxToggle;
 
+        private SoundData soundData;
+        private SoundManager SMInstance;
+
+        private void Awake()
+        {
+            SMInstance = SoundManager.Instance;
+            soundData = Resources.Load<SoundData>("ScriptableObjects/SoundData");
+
+            SetValuesAtLoad();
+        }
+
         private void OnEnable()
         {
             musicSlider.onValueChanged.AddListener(MusicVolume);
             sfxSlider.onValueChanged.AddListener(SfxVolume);
-
             musicToggle.onValueChanged.AddListener(ToggleMusic);
             sfxToggle.onValueChanged.AddListener(ToggleSfx);
-        }
-
-        private void Start()
-        {
-            MusicVolume(musicSlider.value);
-            SfxVolume(sfxSlider.value);
         }
 
         private void OnDisable()
@@ -31,24 +35,43 @@ namespace TreasureHunt.Sounds
             sfxToggle.onValueChanged.RemoveAllListeners();
         }
 
+        private void SetValuesAtLoad()
+        {
+            // sound ui values
+            musicSlider.value = soundData.musicVolume;
+            sfxSlider.value = soundData.sfxVolume;
+            musicToggle.isOn = soundData.isMusicOff;
+            sfxToggle.isOn = soundData.isSfxOff;
+
+            // sound values
+            SMInstance.ToggleMusic(soundData.isMusicOff);
+            SMInstance.ToggleSfx(soundData.isSfxOff);
+            SMInstance.SetMusicVolume(soundData.musicVolume);
+            SMInstance.SetSfxVolume(soundData.sfxVolume);
+        }
+
         private void ToggleMusic(bool value)
         {
-            SoundManager.Instance.ToggleMusic(value);
+            SMInstance.ToggleMusic(value);
+            soundData.isMusicOff = value;
         }
 
         private void ToggleSfx(bool value)
         {
-            SoundManager.Instance.ToggleSfx(value);
+            SMInstance.ToggleSfx(value);
+            soundData.isSfxOff = value;
         }
 
         private void MusicVolume(float value)
         {
-            SoundManager.Instance.SetMusicVolume(value);
+            SMInstance.SetMusicVolume(value);
+            soundData.musicVolume = value;
         }
 
         private void SfxVolume(float value)
         {
-            SoundManager.Instance.SetSfxVolume(value);
+            SMInstance.SetSfxVolume(value);
+            soundData.sfxVolume = value;
         }
     }
 }

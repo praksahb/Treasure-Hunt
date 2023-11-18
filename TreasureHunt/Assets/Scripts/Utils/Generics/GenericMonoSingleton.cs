@@ -17,7 +17,11 @@ namespace TreasureHunt
             }
             else
             {
-                Destroy(this);
+                if (Instance != this)
+                {
+                    // Ensure that the existing instance is not the same as the current instance
+                    Destroy(gameObject);
+                }
             }
         }
     }

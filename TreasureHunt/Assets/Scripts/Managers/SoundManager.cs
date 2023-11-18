@@ -10,7 +10,6 @@ namespace TreasureHunt.Sounds
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
 
-
         protected override void Awake()
         {
             base.Awake();
@@ -20,7 +19,6 @@ namespace TreasureHunt.Sounds
         private void PlayAudioMusic(SoundMusic sound, bool isLoop)
         {
             musicSource.clip = sound.clip;
-            //musicSource.volume = sound.volume;
             musicSource.pitch = sound.pitch;
             musicSource.loop = isLoop;
             musicSource.Play();
@@ -28,7 +26,6 @@ namespace TreasureHunt.Sounds
 
         private void PlayAudioSfx(SoundSfx sound)
         {
-            //sfxSource.volume = sound.volume;
             sfxSource.pitch = sound.pitch;
             sfxSource.PlayOneShot(sound.clip);
         }
@@ -67,6 +64,13 @@ namespace TreasureHunt.Sounds
             sound.clip = TrimSoundClip(sound.clip, doorCloseClipLength);
         }
 
+
+        // Properties
+        public float CurrentMusicVolume => musicSource.volume;
+        public float CurrentSFXVolume => sfxSource.volume;
+        public bool IsMusicOn => musicSource.mute;
+        public bool IsSFXOn => sfxSource.mute;
+
         public void PlayMusic(MusicType sName)
         {
             SoundMusic s = Array.Find(musicSounds, item => item.name == sName);
@@ -86,7 +90,7 @@ namespace TreasureHunt.Sounds
                 Debug.LogWarning("Sound sfx: " + sName + " was not Found.");
                 return;
             }
-            Debug.Log("name:" + sound.name + "len: " + sound.clip.length);
+            Debug.Log("name:" + sound.name + ", len: " + sound.clip.length);
             PlayAudioSfx(sound);
         }
 
