@@ -4,12 +4,14 @@ namespace TreasureHunt.Enemy
 {
     public class EnemyView : MonoBehaviour
     {
-        // public read-only properties
+        // properties
         public Animator AnimatorController { get; set; }
         public EnemyController EnemyController { get; set; }
+        // read-only properties
         public Mesh ViewMesh { get; private set; }
         public Interactions.KeyBehaviour Key { get; private set; }
 
+        // private variables
         private MeshFilter viewMeshFilter;
         private Coroutine fieldOfViewCoroutine;
 
@@ -33,7 +35,5 @@ namespace TreasureHunt.Enemy
         {
             EnemyController.DrawFieldOfView();
         }
-
-
     }
 }
