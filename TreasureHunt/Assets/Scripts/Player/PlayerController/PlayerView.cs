@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TreasureHunt.Player
 {
-    public class PlayerView : MonoBehaviour, IDamageable
+    public class PlayerView : MonoBehaviour, IDamageable, IDetectable
     {
         //  Properties
         public PlayerController PlayerController { get; set; }
@@ -64,8 +64,6 @@ namespace TreasureHunt.Player
         // Interaction with use Key
         private void OnUseKeyPressed()
         {
-            Debug.Log("Pressed Use Key.");
-
             currentInteractable?.Interact(PlayerController);
         }
 
@@ -114,6 +112,12 @@ namespace TreasureHunt.Player
         public void SetHealth(int health)
         {
             healthUI.SetHealth(health);
+        }
+
+        // Detected by enemy vision
+        public void Detected()
+        {
+            GameOver("Player Caught.");
         }
 
         // trigger game over action 

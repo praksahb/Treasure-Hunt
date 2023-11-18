@@ -10,7 +10,7 @@ namespace TreasureHunt.Interactions
 
         private ParticleSystem flameParticles;
         private CapsuleCollider capsuleCollider;
-        private List<IDamageable> damageableObjects;
+        private List<IDamageable> damageableObjects; // can be a array instead of size 1 for one player
 
         private WaitForSeconds waitTime;
         private WaitForSeconds flameTime;

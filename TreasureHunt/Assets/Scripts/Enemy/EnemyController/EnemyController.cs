@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TreasureHunt.Enemy
@@ -18,12 +17,13 @@ namespace TreasureHunt.Enemy
             EnemyView.EnemyController = this;
 
             SetKeyValue();
-        }
 
-        // Set held key type value
-        private void SetKeyValue()
-        {
-            EnemyView.Key.SetKeyType(EnemyModel.KeyType);
+            rangeChecks = new Collider[1];
+            stepCount = Mathf.RoundToInt(EnemyModel.ViewAngle * EnemyModel.MeshResolution);
+            viewPoints = new Vector3[stepCount];
+            vertexCount = viewPoints.Length + 1;
+            vertices = new Vector3[vertexCount];
+            triangles = new int[(vertexCount - 2) * 3];
         }
 
         // Coroutine for checking if player is inside FOV
@@ -39,21 +39,16 @@ namespace TreasureHunt.Enemy
         }
 
         // Draws a triangle mesh to show FOV of enemy
+        // No. of rays created per frame = stepCount
         public void DrawFieldOfView()
         {
-            int stepCount = Mathf.RoundToInt(EnemyModel.ViewAngle * EnemyModel.MeshResolution);
             float stepAngleSize = EnemyModel.ViewAngle / stepCount;
-            List<Vector3> viewPoints = new List<Vector3>();
             for (int i = 0; i < stepCount; i++)
             {
                 float angle = EnemyView.transform.eulerAngles.y - EnemyModel.ViewAngle / 2 + stepAngleSize * i;
                 ViewCastInfo newViewCast = ViewCast(angle);
-                viewPoints.Add(newViewCast.point);
+                viewPoints[i] = (newViewCast.point);
             }
-
-            int vertexCount = viewPoints.Count + 1;
-            Vector3[] vertices = new Vector3[vertexCount];
-            int[] triangles = new int[(vertexCount - 2) * 3];
 
             vertices[0] = Vector3.zero;
             for (int i = 0; i < vertexCount - 1; i++)
@@ -74,10 +69,30 @@ namespace TreasureHunt.Enemy
             EnemyView.ViewMesh.RecalculateBounds();
         }
 
+        // Private variables 
+
+        // draw fov
+        private readonly int stepCount;
+        private readonly Vector3[] viewPoints;
+        private readonly int vertexCount;
+        private readonly Vector3[] vertices;
+        private readonly int[] triangles;
+        private Vector3 directionFromAngle;
+        private RaycastHit hit;
+
+        // fov checks
+        // Only one player so rangeCheck size is 1
+        private readonly Collider[] rangeChecks;
+
+        // Set held key type value
+        private void SetKeyValue()
+        {
+            EnemyView.Key.SetKeyType(EnemyModel.KeyType);
+        }
+
+        // checks if player is within the view field
         private void FieldOfViewCheck()
         {
-            // Only one player so rangeCheck size is 1
-            Collider[] rangeChecks = new Collider[1];
             int numColliders = Physics.OverlapSphereNonAlloc(EnemyView.transform.position, EnemyModel.ViewRadius, rangeChecks, EnemyModel.TargetMask);
 
             if (numColliders != 0)
@@ -93,43 +108,43 @@ namespace TreasureHunt.Enemy
                     // if no obstruction
                     if (!Physics.Raycast(EnemyView.transform.position, directionToTarget, distanceToTarget, EnemyModel.ObstructionMask))
                     {
-                        // Found player
-                        if (target.GetComponent<Player.PlayerView>())
+                        if (target.TryGetComponent(out IDetectable playerDetected))
                         {
-                            Debug.Log("Player Caught");
+                            playerDetected.Detected();
                         }
                     }
                 }
             }
         }
 
-        // Used for drawing field of view
+        // calculates ray info at one angle within the viewingAngle range, 
+        // used in drawing the mesh for the view zone
         private ViewCastInfo ViewCast(float globalAngle)
         {
-            Vector3 dir = DirFromAngle(globalAngle, true);
-            RaycastHit hit;
+            DirFromAngle(globalAngle, out directionFromAngle);
 
-            if (Physics.Raycast(EnemyView.transform.position, dir, out hit, EnemyModel.ViewRadius, EnemyModel.ObstructionMask))
+            // return obstructed ray length to be drawn till hit.point
+            if (Physics.Raycast(EnemyView.transform.position, directionFromAngle, out hit, EnemyModel.ViewRadius, EnemyModel.ObstructionMask))
             {
                 return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
             }
-            else
+            else // return ray of max length equal to radius length
             {
-                return new ViewCastInfo(false, EnemyView.transform.position + dir * EnemyModel.ViewRadius, EnemyModel.ViewRadius, globalAngle);
+                return new ViewCastInfo(false, EnemyView.transform.position + directionFromAngle * EnemyModel.ViewRadius, EnemyModel.ViewRadius, globalAngle);
             }
         }
 
-        private Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+        private void DirFromAngle(float angleInDegrees, out Vector3 directionFromAngle)
         {
-            if (!angleIsGlobal)
-            {
-                angleInDegrees += EnemyView.transform.eulerAngles.y;
-            }
-            return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+            directionFromAngle.x = Mathf.Sin(angleInDegrees * Mathf.Deg2Rad);
+            directionFromAngle.y = 0f;
+            directionFromAngle.z = Mathf.Cos(angleInDegrees * Mathf.Deg2Rad);
+
+            //return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }
     }
 
-    // helper class/struct for getting ray info 
+    // helper class/struct for getting individual ray's info 
     public struct ViewCastInfo
     {
         public bool hit;

@@ -21,6 +21,7 @@ namespace TreasureHunt.Interactions
             {
                 BaseDoorData doorInfo = doors.doorInfoList[i];
                 GameObject door = Object.Instantiate(doorInfo.doorPrefab, doorInfo.spawnPosition, Quaternion.Euler(0f, doorInfo.spawnRotation.y, 0f));
+                door.name = doorInfo.doorName;
                 DoorBehaviour doorController = door.GetComponentInChildren<DoorBehaviour>();
                 doorController.SetRequiredKey(doorInfo.requiredKey);
             }
