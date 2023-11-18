@@ -48,7 +48,7 @@ namespace TreasureHunt.Enemy
             navmeshAgent.updateRotation = false;
             distance += DistanceTravelled();
             enemyStateManager.TotalDistanceTravelled += distance;
-            Debug.Log("Dist: " + enemyStateManager.TotalDistanceTravelled);
+            //Debug.Log("Dist: " + enemyStateManager.TotalDistanceTravelled);
         }
 
         public void Tick()

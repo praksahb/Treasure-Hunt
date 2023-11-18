@@ -9,7 +9,7 @@ namespace TreasureHunt.Sounds
         public float musicVolume;
         [Range(0f, 1f)]
         public float sfxVolume;
-        public bool isMusicOff;
-        public bool isSfxOff;
+        public bool muteMusic;
+        public bool muteSFX;
     }
 }

@@ -16,7 +16,8 @@ namespace TreasureHunt.Interactions
 
         private void Awake()
         {
-            flamesPooler = new GenericPool<ParticleSystem>(flamePoolItemSize, flameParticles, transform);
+            Debug.Log("Trap len: " + fireTraps.Count);
+            flamesPooler = new GenericPool<ParticleSystem>(fireTraps.Count, flameParticles, transform);
         }
 
         private void Start()
@@ -26,10 +27,10 @@ namespace TreasureHunt.Interactions
 
         private void AssignTrapData()
         {
-            TrapData fireTrapData = new TrapData(flamesPooler.GetItem(), damagePerSecond, timeBetweenFlames, damageTimeInterval);
 
             for (int i = 0; i < fireTraps.Count; i++)
             {
+                TrapData fireTrapData = new TrapData(flamesPooler.GetItem(), damagePerSecond, timeBetweenFlames, damageTimeInterval);
                 fireTraps[i].SetDataValues(fireTrapData);
             }
         }

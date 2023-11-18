@@ -20,8 +20,14 @@ MonoBehaviour:
     spawnPosition: {x: 17.92, y: -2.18, z: 2.75}
     spawnRotation: {x: 0, y: 180, z: 0}
   - doorName: SecondDoor
-    requiredKey: 1
+    requiredKey: 2
     doorPrefab: {fileID: 2615550677934133808, guid: a41da42dc76e28041b6845a75941e729,
       type: 3}
     spawnPosition: {x: -2.09, y: -2.18, z: 27.55}
     spawnRotation: {x: 0, y: 180, z: 0}
+  - doorName: ThirdDoor
+    requiredKey: 3
+    doorPrefab: {fileID: 2615550677934133808, guid: a41da42dc76e28041b6845a75941e729,
+      type: 3}
+    spawnPosition: {x: 22.29, y: -2.25, z: 27.39775}
+    spawnRotation: {x: 0, y: 0, z: 0}

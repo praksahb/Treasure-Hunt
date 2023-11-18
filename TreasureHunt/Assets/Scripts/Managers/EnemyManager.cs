@@ -20,7 +20,7 @@ namespace TreasureHunt.Enemy
             for (int i = 0; i < enemyDataList.enemyData.Length; i++)
             {
                 EnemyController enemyController = new EnemyController(enemyDataList.enemyData[i], enemyDataList.visionData, transform);
-                enemyList[i++] = enemyController;
+                enemyList[i] = enemyController;
             }
         }
     }

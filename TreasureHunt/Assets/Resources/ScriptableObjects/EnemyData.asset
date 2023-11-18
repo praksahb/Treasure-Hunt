@@ -28,8 +28,26 @@ MonoBehaviour:
     enemyPrefab: {fileID: 3193769585435593349, guid: b106ab649df6c654b9157f3a6596c244,
       type: 3}
     patrollingPoints:
-    - {fileID: 7050431033765023071, guid: 819bb210b57eaaa4db279afc7c12f943, type: 3}
-    - {fileID: 1390743912167155313, guid: 3ec8d11f19015b84b9fecd01a86d84ba, type: 3}
+    - {fileID: 2747940064180627344, guid: 8036e6e884eac9d459a5b4fc148262dc, type: 3}
+    - {fileID: 1118431042761063289, guid: 3ec8d11f19015b84b9fecd01a86d84ba, type: 3}
     totalIdleTime: 12
     totalDistanceBeforeIdling: 75
     heldKey: 1
+  - enemyType: 2
+    enemyPrefab: {fileID: 3193769585435593349, guid: b106ab649df6c654b9157f3a6596c244,
+      type: 3}
+    patrollingPoints:
+    - {fileID: 6554306062400964779, guid: ff2abad4018fe7d4db135fa99ff7dd60, type: 3}
+    - {fileID: 768991043881599528, guid: ab7fe9c48de78a64db79032c0a1f6f5a, type: 3}
+    totalIdleTime: 12
+    totalDistanceBeforeIdling: 75
+    heldKey: 2
+  - enemyType: 3
+    enemyPrefab: {fileID: 3193769585435593349, guid: b106ab649df6c654b9157f3a6596c244,
+      type: 3}
+    patrollingPoints:
+    - {fileID: 5499944822582679328, guid: 5411b408f70fa754a97ab5ea712f1289, type: 3}
+    - {fileID: 5425091843092914884, guid: dc86ccf8fc8fdf14d901da14002aec16, type: 3}
+    totalIdleTime: 12
+    totalDistanceBeforeIdling: 75
+    heldKey: 3

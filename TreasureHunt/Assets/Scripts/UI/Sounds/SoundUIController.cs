@@ -40,12 +40,12 @@ namespace TreasureHunt.Sounds
             // sound ui values
             musicSlider.value = soundData.musicVolume;
             sfxSlider.value = soundData.sfxVolume;
-            musicToggle.isOn = soundData.isMusicOff;
-            sfxToggle.isOn = soundData.isSfxOff;
+            musicToggle.isOn = soundData.muteMusic;
+            sfxToggle.isOn = soundData.muteSFX;
 
             // sound values
-            SMInstance.ToggleMusic(soundData.isMusicOff);
-            SMInstance.ToggleSfx(soundData.isSfxOff);
+            SMInstance.ToggleMusic(soundData.muteMusic);
+            SMInstance.ToggleSfx(soundData.muteSFX);
             SMInstance.SetMusicVolume(soundData.musicVolume);
             SMInstance.SetSfxVolume(soundData.sfxVolume);
         }
@@ -53,13 +53,13 @@ namespace TreasureHunt.Sounds
         private void ToggleMusic(bool value)
         {
             SMInstance.ToggleMusic(value);
-            soundData.isMusicOff = value;
+            soundData.muteMusic = value;
         }
 
         private void ToggleSfx(bool value)
         {
             SMInstance.ToggleSfx(value);
-            soundData.isSfxOff = value;
+            soundData.muteSFX = value;
         }
 
         private void MusicVolume(float value)
