@@ -57,6 +57,7 @@ namespace TreasureHunt.Player
         public void CollectKey(Interactions.KeyType keyType)
         {
             PlayerModel.KeyInventory.AddKey(keyType);
+            Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.CollectKey, PlayerView.PlayerAudioSource);
         }
 
         public bool HasKey(Interactions.KeyType keyType)
@@ -70,6 +71,7 @@ namespace TreasureHunt.Player
             WaitForSeconds waitTime = new WaitForSeconds(damageTimeInterval);
             while (PlayerModel.IsTakingDamage)
             {
+                Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.TakeDamage, PlayerView.PlayerAudioSource);
                 TakeDamage(damagePerSecond);
                 yield return waitTime;
             }

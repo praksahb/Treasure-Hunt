@@ -16,10 +16,12 @@ namespace TreasureHunt.Interactions
         private bool isInteractable;
 
         private SoundManager soundInstance;
+        private AudioSource sfxSource;
 
         private void Awake()
         {
             soundInstance = SoundManager.Instance;
+            sfxSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -73,11 +75,11 @@ namespace TreasureHunt.Interactions
 
                 if (!isOpen)
                 {
-                    soundInstance.PlaySfx(Sounds.SfxType.DoorClosed);
+                    soundInstance.PlaySfx(Sounds.SfxType.DoorClosed, sfxSource);
                 }
                 else
                 {
-                    soundInstance.PlaySfx(Sounds.SfxType.DoorOpen);
+                    soundInstance.PlaySfx(Sounds.SfxType.DoorOpen, sfxSource);
                 }
 
                 // if auto-closing
@@ -106,7 +108,7 @@ namespace TreasureHunt.Interactions
                     isOpen = false;
                     anim.SetFloat("Dot", 0);
                     anim.SetBool("IsOpen", isOpen);
-                    soundInstance.PlaySfx(Sounds.SfxType.DoorClosed);
+                    soundInstance.PlaySfx(Sounds.SfxType.DoorClosed, sfxSource);
                 }
             }
         }
@@ -127,7 +129,7 @@ namespace TreasureHunt.Interactions
                 }
                 else
                 {
-                    soundInstance.PlaySfx(SfxType.DoorLocked);
+                    soundInstance.PlaySfx(SfxType.DoorLocked, sfxSource);
                     player.PlayerView.SetInteractableText("Locked. Find Key.");
                 }
             }

@@ -8,7 +8,9 @@ namespace TreasureHunt.Sounds
         [SerializeField] private SoundMusic[] musicSounds;
         [SerializeField] private SoundSfx[] sfxSounds;
         [SerializeField] private AudioSource musicSource;
-        [SerializeField] private AudioSource sfxSource;
+
+        private float sfxVolume;
+        private bool sfxMute;
 
         protected override void Awake()
         {
@@ -24,8 +26,10 @@ namespace TreasureHunt.Sounds
             musicSource.Play();
         }
 
-        private void PlayAudioSfx(SoundSfx sound)
+        private void PlayAudioSfx(SoundSfx sound, AudioSource sfxSource)
         {
+            sfxSource.volume = sfxVolume;
+            sfxSource.mute = sfxMute;
             sfxSource.pitch = sound.pitch;
             sfxSource.PlayOneShot(sound.clip);
         }
@@ -67,9 +71,9 @@ namespace TreasureHunt.Sounds
 
         // Properties
         public float CurrentMusicVolume => musicSource.volume;
-        public float CurrentSFXVolume => sfxSource.volume;
+        //public float CurrentSFXVolume => sfxSource.volume;
         public bool IsMusicOn => musicSource.mute;
-        public bool IsSFXOn => sfxSource.mute;
+        //public bool IsSFXOn => sfxSource.mute;
 
         public void PlayMusic(MusicType sName)
         {
@@ -82,16 +86,20 @@ namespace TreasureHunt.Sounds
             PlayAudioMusic(s, s.isLooping);
         }
 
-        public void PlaySfx(SfxType sName)
+        public void PlaySfx(SfxType sName, AudioSource audioSource)
         {
+            if (audioSource == null)
+            {
+                Debug.Log("Audio Source not found.");
+            }
             SoundSfx sound = Array.Find(sfxSounds, item => item.name == sName);
             if (sound == null)
             {
                 Debug.LogWarning("Sound sfx: " + sName + " was not Found.");
                 return;
             }
-            Debug.Log("name:" + sound.name + ", len: " + sound.clip.length);
-            PlayAudioSfx(sound);
+            //Debug.Log("name:" + sound.name + ", len: " + sound.clip.length);
+            PlayAudioSfx(sound, audioSource);
         }
 
         public void ToggleMusic(bool isMute)
@@ -101,7 +109,7 @@ namespace TreasureHunt.Sounds
 
         public void ToggleSfx(bool isMute)
         {
-            sfxSource.mute = isMute;
+            sfxMute = isMute;
         }
 
         public void SetMusicVolume(float value)
@@ -111,7 +119,7 @@ namespace TreasureHunt.Sounds
 
         public void SetSfxVolume(float value)
         {
-            sfxSource.volume = value;
+            sfxVolume = value;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace TreasureHunt.Player
         //  Properties
         public PlayerController PlayerController { get; set; }
         public Transform PlayerCameraRoot => playerCameraRoot;
+        public AudioSource PlayerAudioSource { get; private set; }
 
         [SerializeField] private Transform playerCameraRoot;
 
@@ -19,7 +20,6 @@ namespace TreasureHunt.Player
         private InputReader _input;
         private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
-
         private Coroutine TakeDamageCoroutine;
 
         private void Awake()
@@ -27,6 +27,7 @@ namespace TreasureHunt.Player
             firstPersonController = GetComponent<FirstPersonController>();
             healthUI = GetComponentInChildren<HealthUI>();
             interactableUI = GetComponentInChildren<InteractableUI>();
+            PlayerAudioSource = GetComponent<AudioSource>();
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
             LockCursor();
         }
