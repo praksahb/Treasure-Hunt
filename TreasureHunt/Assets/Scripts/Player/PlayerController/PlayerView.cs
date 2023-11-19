@@ -28,6 +28,7 @@ namespace TreasureHunt.Player
             healthUI = GetComponentInChildren<HealthUI>();
             interactableUI = GetComponentInChildren<InteractableUI>();
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
+            LockCursor();
         }
 
         private void OnEnable()
@@ -40,11 +41,25 @@ namespace TreasureHunt.Player
         private void Input_UnpauseEvent()
         {
             firstPersonController.SetPause(false);
+            LockCursor();
         }
 
         private void Input_PauseEvent()
         {
             firstPersonController.SetPause(true);
+            UnlockCursor();
+        }
+
+        private void UnlockCursor()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        private void LockCursor()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void OnDisable()
@@ -125,6 +140,7 @@ namespace TreasureHunt.Player
         {
             _input.GameOverAction?.Invoke(reason);
             firstPersonController.enabled = false;
+            UnlockCursor();
         }
 
         // trigger game won action
@@ -132,6 +148,7 @@ namespace TreasureHunt.Player
         {
             _input.GameWon?.Invoke();
             firstPersonController.enabled = false;
+            UnlockCursor();
         }
 
         // Taking damage from traps

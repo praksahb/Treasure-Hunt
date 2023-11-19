@@ -16,7 +16,6 @@ namespace TreasureHunt.Interactions
 
         private void Awake()
         {
-            Debug.Log("Trap len: " + fireTraps.Count);
             flamesPooler = new GenericPool<ParticleSystem>(fireTraps.Count, flameParticles, transform);
         }
 

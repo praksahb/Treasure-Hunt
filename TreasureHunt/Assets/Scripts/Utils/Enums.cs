@@ -41,6 +41,9 @@ namespace TreasureHunt.Sounds
         DoorLocked,
         DoorUnlocked,
         Footsteps,
+        CollectKey,
+        TakeDamage,
+        Flamethrower,
     }
 }
 

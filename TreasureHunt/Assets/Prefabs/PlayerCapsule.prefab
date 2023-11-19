@@ -606,7 +606,7 @@ MonoBehaviour:
   pause: 0
   unpause: 0
   analogMovement: 0
-  cursorLocked: 0
+  cursorLocked: 1
   cursorInputForLook: 1
 --- !u!114 &7119023563403122140
 MonoBehaviour:

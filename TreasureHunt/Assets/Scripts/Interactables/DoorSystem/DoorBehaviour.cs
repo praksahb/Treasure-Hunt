@@ -127,6 +127,7 @@ namespace TreasureHunt.Interactions
                 }
                 else
                 {
+                    soundInstance.PlaySfx(SfxType.DoorLocked);
                     player.PlayerView.SetInteractableText("Locked. Find Key.");
                 }
             }

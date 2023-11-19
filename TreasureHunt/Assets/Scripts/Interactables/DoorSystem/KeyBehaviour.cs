@@ -14,6 +14,7 @@ namespace TreasureHunt.Interactions
 
         public void Interact(PlayerController player)
         {
+            Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.CollectKey);
             player.CollectKey(keyType);
             gameObject.SetActive(false);
             player.PlayerView.SetInteractableText();
