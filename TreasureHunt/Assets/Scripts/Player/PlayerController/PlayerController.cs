@@ -10,6 +10,7 @@ namespace TreasureHunt.Player
         private void TakeDamage(int damage)
         {
             PlayerModel.Health.CurrentHealth -= damage;
+            //PlayerView.SetHealth(PlayerModel.Health.CurrentHealth, PlayerModel.Health.MaxHealth);
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             if (PlayerModel.Health.CurrentHealth == 0)
             {
@@ -40,6 +41,7 @@ namespace TreasureHunt.Player
             PlayerView.PlayerController = this;
 
             // Set health UI
+            // PlayerView.SetHealth(PlayerModel.Health.CurrentHealth, PlayerModel.Health.MaxHealth);
             PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             // Set Values for FirstPersonController

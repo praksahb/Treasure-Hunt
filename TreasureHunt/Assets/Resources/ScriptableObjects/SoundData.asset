@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicVolume: 0.2646986
   sfxVolume: 0.28819773
-  isMusicOff: 0
-  isSfxOff: 0
+  muteMusic: 0
+  muteSFX: 0

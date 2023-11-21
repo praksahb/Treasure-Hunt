@@ -122,11 +122,13 @@ namespace TreasureHunt.Player
 
         public void SetMaxHealth(int health)
         {
+            if (healthUI == null) return;
             healthUI.SetMaxHealth(health);
         }
 
         public void SetHealth(int health)
         {
+            if (healthUI == null) return;
             healthUI.SetHealth(health);
         }
 

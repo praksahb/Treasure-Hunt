@@ -30,34 +30,6 @@ namespace TreasureHunt.Interactions
             isOpen = false;
             isInteractable = false;
             isLocked = true;
-
-            TrimDoorCloseSound();
-        }
-
-        private void TrimDoorCloseSound()
-        {
-            // Assuming you have a reference to the SoundManager and the animation clip name is "DoorClose"
-            float doorCloseClipLength = GetAnimationClipLength("CloseFromIn");
-
-            if (!float.IsNaN(doorCloseClipLength) && soundInstance != null)
-            {
-                // Update the SoundSfx in the SoundManager for DoorClose
-                soundInstance.UpdateSoundSfx(SfxType.DoorClosed, doorCloseClipLength);
-            }
-        }
-
-        private float GetAnimationClipLength(string clipName)
-        {
-            foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
-            {
-                if (clip.name == clipName)
-                {
-                    return clip.length;
-                }
-            }
-
-            Debug.LogError("Animation Clip '" + clipName + "' not found in the Animator Controller!");
-            return float.NaN;
         }
 
         private void OpenCloseDoor(PlayerController player)
