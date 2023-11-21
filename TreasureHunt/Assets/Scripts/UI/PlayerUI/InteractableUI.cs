@@ -13,7 +13,6 @@ namespace TreasureHunt.Player.UI
             textField = GetComponent<TextMeshProUGUI>();
         }
 
-
         public void SetText(string text)
         {
             textField.SetText(text);

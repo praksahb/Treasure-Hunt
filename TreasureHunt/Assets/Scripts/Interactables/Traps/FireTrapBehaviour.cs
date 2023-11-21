@@ -10,6 +10,8 @@ namespace TreasureHunt.Interactions
 
         private ParticleSystem flameParticles;
         private CapsuleCollider capsuleCollider;
+        private AudioSource sfxSource;
+
         private List<IDamageable> damageableObjects; // can be a array instead of size 1 for one player
 
         private WaitForSeconds waitTime;
@@ -21,6 +23,7 @@ namespace TreasureHunt.Interactions
 
         private void Awake()
         {
+            sfxSource = GetComponent<AudioSource>();
             capsuleCollider = GetComponentInChildren<CapsuleCollider>();
             damageableObjects = new List<IDamageable>();
         }
@@ -39,7 +42,7 @@ namespace TreasureHunt.Interactions
         private IEnumerator StartFiringRecursive()
         {
             flameParticles.Play();
-
+            Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.Flamethrower, sfxSource);
             EnableCollider();
 
             yield return flameTime;

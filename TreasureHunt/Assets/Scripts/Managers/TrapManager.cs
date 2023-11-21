@@ -19,6 +19,7 @@ namespace TreasureHunt.Interactions
             flamesPooler = new GenericPool<ParticleSystem>(fireTraps.Count, flameParticles, transform);
         }
 
+
         private void Start()
         {
             AssignTrapData();

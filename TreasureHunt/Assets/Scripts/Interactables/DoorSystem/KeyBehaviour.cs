@@ -6,6 +6,15 @@ namespace TreasureHunt.Interactions
     public class KeyBehaviour : MonoBehaviour, IInteractable
     {
         private KeyType keyType;
+        [SerializeField] private AudioSource sfxSource;
+
+        private void Awake()
+        {
+            if (sfxSource == null)
+            {
+                Debug.Log("k");
+            }
+        }
 
         public void SetKeyType(KeyType keyType)
         {
@@ -14,7 +23,7 @@ namespace TreasureHunt.Interactions
 
         public void Interact(PlayerController player)
         {
-            Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.CollectKey);
+            //Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.CollectKey, sfxSource);
             player.CollectKey(keyType);
             gameObject.SetActive(false);
             player.PlayerView.SetInteractableText();

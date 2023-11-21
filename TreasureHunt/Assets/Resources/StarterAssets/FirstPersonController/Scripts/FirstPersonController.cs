@@ -75,6 +75,8 @@ namespace TreasureHunt.Player.StarterAssets
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
+        private AudioSource sfxSource;
+
 
 
 #if ENABLE_INPUT_SYSTEM
@@ -111,6 +113,7 @@ namespace TreasureHunt.Player.StarterAssets
 
         private void Start()
         {
+            sfxSource = GetComponent<AudioSource>();
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -324,7 +327,7 @@ namespace TreasureHunt.Player.StarterAssets
 
             if (footstepTimer <= 0)
             {
-                SoundManager.Instance.PlaySfx(TreasureHunt.Sounds.SfxType.Footsteps);
+                SoundManager.Instance.PlaySfx(TreasureHunt.Sounds.SfxType.Footsteps, sfxSource);
                 footstepTimer = GetCurrentOffset;
             }
 

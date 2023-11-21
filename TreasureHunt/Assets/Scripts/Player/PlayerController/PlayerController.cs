@@ -10,6 +10,7 @@ namespace TreasureHunt.Player
         private void TakeDamage(int damage)
         {
             PlayerModel.Health.CurrentHealth -= damage;
+            //PlayerView.SetHealth(PlayerModel.Health.CurrentHealth, PlayerModel.Health.MaxHealth);
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             if (PlayerModel.Health.CurrentHealth == 0)
             {
@@ -40,6 +41,7 @@ namespace TreasureHunt.Player
             PlayerView.PlayerController = this;
 
             // Set health UI
+            // PlayerView.SetHealth(PlayerModel.Health.CurrentHealth, PlayerModel.Health.MaxHealth);
             PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             // Set Values for FirstPersonController
@@ -57,6 +59,7 @@ namespace TreasureHunt.Player
         public void CollectKey(Interactions.KeyType keyType)
         {
             PlayerModel.KeyInventory.AddKey(keyType);
+            Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.CollectKey, PlayerView.PlayerAudioSource);
         }
 
         public bool HasKey(Interactions.KeyType keyType)
@@ -70,6 +73,7 @@ namespace TreasureHunt.Player
             WaitForSeconds waitTime = new WaitForSeconds(damageTimeInterval);
             while (PlayerModel.IsTakingDamage)
             {
+                Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.TakeDamage, PlayerView.PlayerAudioSource);
                 TakeDamage(damagePerSecond);
                 yield return waitTime;
             }
