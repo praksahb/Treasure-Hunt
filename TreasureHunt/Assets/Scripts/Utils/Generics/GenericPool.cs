@@ -8,25 +8,27 @@ namespace TreasureHunt
         private T item;
         private Stack<T> poolList;
 
+        private Transform parentTransform;
+
         public GenericPool(int poolLength, T item, Transform parentTransform)
         {
             this.item = item;
-            InitializePool(poolLength, parentTransform);
+            this.parentTransform = parentTransform;
+            InitializePool(poolLength);
         }
 
-        private void InitializePool(int poolLength, Transform parent)
+        private void InitializePool(int poolLength)
         {
             poolList = new Stack<T>();
             for (int i = 0; i < poolLength; i++)
             {
-                T newItem = NewItem();
-                newItem.transform.parent = parent;
+                T newItem = NewItem(parentTransform);
             }
         }
 
-        private T NewItem()
+        private T NewItem(Transform parent)
         {
-            T newItem = Object.Instantiate(item);
+            T newItem = Object.Instantiate(item, parent);
             poolList.Push(newItem);
             return newItem;
         }
@@ -37,7 +39,7 @@ namespace TreasureHunt
             {
                 return poolList.Pop();
             }
-            return NewItem();
+            return NewItem(parentTransform);
         }
 
         public void FreeItem(T item)

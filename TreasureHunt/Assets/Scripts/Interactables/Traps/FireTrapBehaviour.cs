@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TreasureHunt.Interactions
@@ -12,7 +11,9 @@ namespace TreasureHunt.Interactions
         private CapsuleCollider capsuleCollider;
         private AudioSource sfxSource;
 
-        private List<IDamageable> damageableObjects; // can be a array instead of size 1 for one player
+        // private int numOfDamageableObjects;
+        //private IDamageable[] damageableObjects; // can be a array instead of size 1 for one player 
+        private IDamageable player;
 
         private WaitForSeconds waitTime;
         private WaitForSeconds flameTime;
@@ -25,7 +26,8 @@ namespace TreasureHunt.Interactions
         {
             sfxSource = GetComponent<AudioSource>();
             capsuleCollider = GetComponentInChildren<CapsuleCollider>();
-            damageableObjects = new List<IDamageable>();
+            //numOfDamageableObjects = 1; // currently only one player can be damaged by fire
+            //damageableObjects = new IDamageable[numOfDamageableObjects];
         }
 
         private void StartFiringCoroutine()
@@ -69,11 +71,13 @@ namespace TreasureHunt.Interactions
                 capsuleCollider.enabled = false;
 
                 // Stops any damage-taking object(Player) not exited trigger collider
-                foreach (IDamageable damageable in damageableObjects)
-                {
-                    damageable.StopDamage();
-                }
-                damageableObjects.Clear();
+                //foreach (IDamageable damageable in damageableObjects)
+                //{
+                //    damageable.StopDamage();
+                //}
+                //damageableObjects.Clear();
+
+                player?.StopDamage();
             }
         }
 
@@ -83,7 +87,8 @@ namespace TreasureHunt.Interactions
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                damageableObjects.Add(damageable);
+                //damageableObjects.Add(damageable);
+                player = damageable;
                 damageable.StartDamage(damagePerSecond, damageTimeInterval);
             }
         }
@@ -92,7 +97,8 @@ namespace TreasureHunt.Interactions
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                damageableObjects.Remove(damageable);
+                //damageableObjects.Remove(damageable);
+                player = null;
                 damageable.StopDamage();
             }
         }
