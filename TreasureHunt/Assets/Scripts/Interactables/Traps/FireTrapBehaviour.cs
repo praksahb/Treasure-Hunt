@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TreasureHunt.Interactions
@@ -12,27 +11,28 @@ namespace TreasureHunt.Interactions
         private CapsuleCollider capsuleCollider;
         private AudioSource sfxSource;
 
-        private List<IDamageable> damageableObjects; // can be a array instead of size 1 for one player
+        // private int numOfDamageableObjects;
+        //private IDamageable[] damageableObjects; // can be a array instead of size 1 for one player 
+        private IDamageable player;
 
         private WaitForSeconds waitTime;
         private WaitForSeconds flameTime;
 
-        private int damagePerSecond;
-        private float timeBetweenFlames;
-        private float damageTimeInterval;
+        private FireTrapData fireTrapData;
 
         private void Awake()
         {
             sfxSource = GetComponent<AudioSource>();
             capsuleCollider = GetComponentInChildren<CapsuleCollider>();
-            damageableObjects = new List<IDamageable>();
+            //numOfDamageableObjects = 1; // currently only one player can be damaged by fire
+            //damageableObjects = new IDamageable[numOfDamageableObjects];
         }
 
         private void StartFiringCoroutine()
         {
             float flameDuration = flameParticles.main.duration;
             flameTime = new WaitForSeconds(flameDuration);
-            waitTime = new WaitForSeconds(timeBetweenFlames - flameDuration);
+            waitTime = new WaitForSeconds(fireTrapData.timeBetweenFlames - flameDuration);
 
             StartCoroutine(StartFiringRecursive());
         }
@@ -69,11 +69,13 @@ namespace TreasureHunt.Interactions
                 capsuleCollider.enabled = false;
 
                 // Stops any damage-taking object(Player) not exited trigger collider
-                foreach (IDamageable damageable in damageableObjects)
-                {
-                    damageable.StopDamage();
-                }
-                damageableObjects.Clear();
+                //foreach (IDamageable damageable in damageableObjects)
+                //{
+                //    damageable.StopDamage();
+                //}
+                //damageableObjects.Clear();
+
+                player?.StopDamage();
             }
         }
 
@@ -83,8 +85,9 @@ namespace TreasureHunt.Interactions
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                damageableObjects.Add(damageable);
-                damageable.StartDamage(damagePerSecond, damageTimeInterval);
+                //damageableObjects.Add(damageable);
+                player = damageable;
+                damageable.StartDamage(fireTrapData.damagePerSecond, fireTrapData.damageTimeInterval);
             }
         }
 
@@ -92,30 +95,45 @@ namespace TreasureHunt.Interactions
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                damageableObjects.Remove(damageable);
+                //damageableObjects.Remove(damageable);
+                player = null;
                 damageable.StopDamage();
             }
         }
 
         // fire particle system transform values set using transform from flameSpawnPoint
-        private void SetTransform()
+        private void PositionFlameParticleTransform()
         {
-            flameParticles.transform.parent = transform;
+            // flameParticles.transform.parent = transform;
             flameParticles.transform.SetPositionAndRotation(flameSpawnPoint.transform.position, flameSpawnPoint.transform.rotation);
+        }
+
+        // set time duration of flame, 
+        private void SetFlamesDuration()
+        {
+            ParticleSystem.MainModule flamePS = flameParticles.main;
+            flamePS.duration = fireTrapData.flameDuration;
+
+            // change in child fireEmber PS
+            Transform childTf = flameParticles.transform.GetChild(0);
+            if (childTf.TryGetComponent(out ParticleSystem childParticle))
+            {
+                var childPS = childParticle.main;
+                childPS.duration = fireTrapData.flameDuration;
+            }
         }
 
         // PUBLIC METHOD
 
-        // assign/ Set values required for trap
+        // assign/ Set values required for trap and start firing coroutine
 
-        public void SetDataValues(TrapData fireTrap)
+        public void SetReferencesAndStart(ParticleSystem flameParticle, FireTrapData fireTrapData)
         {
-            flameParticles = fireTrap.flameParticle;
-            SetTransform();
+            this.flameParticles = flameParticle;
+            this.fireTrapData = fireTrapData;
 
-            timeBetweenFlames = fireTrap.timeBetweenFlames;
-            damagePerSecond = fireTrap.damagePerSecond;
-            damageTimeInterval = fireTrap.damageTimeInterval;
+            PositionFlameParticleTransform();
+            SetFlamesDuration();
 
             StartFiringCoroutine();
         }

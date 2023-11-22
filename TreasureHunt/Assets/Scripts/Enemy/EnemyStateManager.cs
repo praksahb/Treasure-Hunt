@@ -8,13 +8,11 @@ namespace TreasureHunt.Enemy
     {
         public EnemyController EnemyController { get; private set; }
         public Vector3 TargetPoint { get; private set; }
-        public float TotalIdleTime { get { return EnemyController.EnemyModel.TotalIdleTime; } }
+        public float TotalIdleTime { get { return EnemyController.GetTotalIdleTime(); } }
         public float TotalDistanceTravelled { get; set; }
 
         private StateMachine stateMachine;
 
-        private int currentIndex;
-        private int totalPatrolPoints;
         private bool targetFound;
 
         // States to add
@@ -27,17 +25,12 @@ namespace TreasureHunt.Enemy
             NavMeshAgent navmeshAgent = GetComponent<NavMeshAgent>();
             Animator animator = GetComponentInChildren<Animator>();
 
-
             InitializeStateMachine(navmeshAgent, animator);
         }
 
         private void Start()
         {
             EnemyController = GetComponent<EnemyView>().EnemyController;
-
-            // assign values 
-            currentIndex = 0;
-            totalPatrolPoints = EnemyController.EnemyModel.PatrolPoints.Length;
         }
 
         private void Update()
@@ -61,7 +54,7 @@ namespace TreasureHunt.Enemy
             At(idle, search, MaxIdleTime());
 
             // any transition - can be set from any state
-            stateMachine.AddAnyTransition(idle, () => TotalDistanceTravelled > EnemyController.EnemyModel.TotalDistanceBeforeIdle);
+            stateMachine.AddAnyTransition(idle, () => TotalDistanceTravelled > EnemyController.GetDistanceBeforeIdle());
 
             // Initial state
             stateMachine.SetState(search);
@@ -77,7 +70,7 @@ namespace TreasureHunt.Enemy
         // sets patrol point from list and increment current index
         public void SetPatrolPoint()
         {
-            TargetPoint = EnemyController.EnemyModel.PatrolPoints[++currentIndex % totalPatrolPoints].position;
+            TargetPoint = EnemyController.GetNextPatrolPoint();
             targetFound = true;
         }
 

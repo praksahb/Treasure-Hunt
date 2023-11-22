@@ -14,10 +14,9 @@ namespace TreasureHunt.Enemy
 {
     public enum EnemyType
     {
-        None,
-        Enemy1,
-        Enemy2,
-        Enemy3,
+        Enemy1 = 0,
+        Enemy2 = 1,
+        Enemy3 = 2,
     }
 }
 

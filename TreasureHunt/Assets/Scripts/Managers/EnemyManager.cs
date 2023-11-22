@@ -16,10 +16,12 @@ namespace TreasureHunt.Enemy
 
         private void InitializeEnemies()
         {
-            enemyList = new EnemyController[enemyDataList.enemyData.Length];
-            for (int i = 0; i < enemyDataList.enemyData.Length; i++)
+            enemyList = new EnemyController[enemyDataList.baseEnemiesData.Length];
+            EnemyModel enemyModel = new EnemyModel(enemyDataList);
+            for (int i = 0; i < enemyDataList.baseEnemiesData.Length; i++)
             {
-                EnemyController enemyController = new EnemyController(enemyDataList.enemyData[i], enemyDataList.visionData, transform);
+                EnemyController enemyController = new EnemyController(enemyModel, enemyDataList.baseEnemiesData[i].enemyType, transform);
+
                 enemyList[i] = enemyController;
             }
         }

@@ -8,17 +8,15 @@ namespace TreasureHunt.Interactions
         [SerializeField] private List<FireTrapBehaviour> fireTraps;
         [SerializeField] private ParticleSystem flameParticles;
         [SerializeField] private int flamePoolItemSize;
-        [SerializeField] private float timeBetweenFlames = 10f;
-        [SerializeField] private int damagePerSecond = 5;
-        [SerializeField] private float damageTimeInterval = 1f;
 
         private GenericPool<ParticleSystem> flamesPooler;
+        private TrapData trapData;
 
         private void Awake()
         {
             flamesPooler = new GenericPool<ParticleSystem>(fireTraps.Count, flameParticles, transform);
+            trapData = Resources.Load<TrapData>("ScriptableObjects/TrapData");
         }
-
 
         private void Start()
         {
@@ -30,25 +28,8 @@ namespace TreasureHunt.Interactions
 
             for (int i = 0; i < fireTraps.Count; i++)
             {
-                TrapData fireTrapData = new TrapData(flamesPooler.GetItem(), damagePerSecond, timeBetweenFlames, damageTimeInterval);
-                fireTraps[i].SetDataValues(fireTrapData);
+                fireTraps[i].SetReferencesAndStart(flamesPooler.GetItem(), trapData.fireTrapData);
             }
-        }
-    }
-
-    public struct TrapData
-    {
-        public ParticleSystem flameParticle;
-        public int damagePerSecond;
-        public float timeBetweenFlames;
-        public float damageTimeInterval;
-
-        public TrapData(ParticleSystem flameParticle, int damagePerSecond, float timeBetweenFlames, float damageTimeInterval)
-        {
-            this.flameParticle = flameParticle;
-            this.damagePerSecond = damagePerSecond;
-            this.timeBetweenFlames = timeBetweenFlames;
-            this.damageTimeInterval = damageTimeInterval;
         }
     }
 }
