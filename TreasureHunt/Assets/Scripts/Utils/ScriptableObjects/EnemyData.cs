@@ -6,7 +6,7 @@ namespace TreasureHunt.Enemy
     public class EnemyData : ScriptableObject
     {
         public FOVData visionData;
-        public BaseEnemyData[] enemyData;
+        public BaseEnemyData[] baseEnemiesData;
     }
 
     [System.Serializable]

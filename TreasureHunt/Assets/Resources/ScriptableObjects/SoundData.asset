@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953a373442c8ae9489a86a9f47f3c22d, type: 3}
   m_Name: SoundData
   m_EditorClassIdentifier: 
-  musicVolume: 0.2646986
-  sfxVolume: 0.28819773
+  musicVolume: 0.5
+  sfxVolume: 0.5
   muteMusic: 0
   muteSFX: 0

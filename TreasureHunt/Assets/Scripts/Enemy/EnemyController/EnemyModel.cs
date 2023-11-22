@@ -1,18 +1,25 @@
-using System;
+using System.Collections.Generic;
+using TreasureHunt.Interactions;
 using UnityEngine;
 
 namespace TreasureHunt.Enemy
 {
+    // Storing enemy data in a common EnemyModel class
     public class EnemyModel
     {
-        public Vector3 SpawnPoint { get; private set; }
+        // for accessing individual data which can be different using a dictionary
+        private Dictionary<EnemyType, BaseEnemyData> enemyDataDictionary;
 
-        // used in StateManager
-        public Transform[] PatrolPoints { get; private set; }
-        public float TotalIdleTime { get; private set; }
-        public float TotalDistanceBeforeIdle { get; private set; }
+        private void InitializeDictionary(ref BaseEnemyData[] enemyData)
+        {
+            enemyDataDictionary = new Dictionary<EnemyType, BaseEnemyData>();
+            for (EnemyType enemyType = 0; enemyType < (EnemyType)enemyData.Length; enemyType++)
+            {
+                enemyDataDictionary.Add(enemyType, enemyData[(int)enemyType]);
+            }
+        }
 
-        // Field Of View values
+        // common properties for all enemy with FOV
         public float FovCoroutineCheckTimer { get; private set; }
         public float MeshResolution { get; private set; }
         public float ViewRadius { get; private set; }
@@ -20,26 +27,84 @@ namespace TreasureHunt.Enemy
         public LayerMask TargetMask { get; private set; }
         public LayerMask ObstructionMask { get; private set; }
 
-        // Held key values
-        public Interactions.KeyType KeyType { get; private set; }
-
-        public EnemyModel(BaseEnemyData enemyData, FOVData fovData)
+        public EnemyModel(EnemyData enemyData)
         {
-            SpawnPoint = enemyData.patrollingPoints[0].position;
-            PatrolPoints = new Transform[enemyData.patrollingPoints.Length];
-            Array.Copy(enemyData.patrollingPoints, PatrolPoints, enemyData.patrollingPoints.Length);
-            TotalIdleTime = enemyData.totalIdleTime;
-            TotalDistanceBeforeIdle = enemyData.totalDistanceBeforeIdling;
+            InitializeDictionary(ref enemyData.baseEnemiesData);
 
-            FovCoroutineCheckTimer = fovData.timeBetweenFOVChecks;
-            MeshResolution = fovData.meshResolution;
-            ViewRadius = fovData.viewRadius;
-            ViewAngle = fovData.ViewAngle;
-            TargetMask = fovData.targetMask;
-            ObstructionMask = fovData.obstructionMask;
+            FovCoroutineCheckTimer = enemyData.visionData.timeBetweenFOVChecks;
+            MeshResolution = enemyData.visionData.meshResolution;
+            ViewRadius = enemyData.visionData.viewRadius;
+            ViewAngle = enemyData.visionData.ViewAngle;
+            TargetMask = enemyData.visionData.targetMask;
+            ObstructionMask = enemyData.visionData.obstructionMask;
 
-            KeyType = enemyData.heldKey;
         }
 
+        public EnemyView GetEnemyPrefab(EnemyType enemyType)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                throw new System.Exception("Invalid enemyType value, enemy data not found/ does not exist.");
+            }
+            return enemyDataDictionary[enemyType].enemyPrefab;
+        }
+
+        public Vector3 GetSpawnPoint(EnemyType enemyType)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                Debug.LogError("Enemy not found. Spawning at origin");
+                return Vector3.zero;
+            }
+            return enemyDataDictionary[enemyType].patrollingPoints[0].position;
+        }
+
+        public float? GetTotalIdleTime(EnemyType enemyType)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                return null;
+            }
+
+            return enemyDataDictionary[enemyType].totalIdleTime;
+        }
+
+        public float? GetDistanceBeforeIdle(EnemyType enemyType)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                return null;
+            }
+            return enemyDataDictionary[enemyType].totalDistanceBeforeIdling;
+        }
+
+        public int GetPatrolPointsLength(EnemyType enemyType)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                throw new System.Exception("Invalid enemyType value, enemy data not found/ does not exist.");
+            }
+            return enemyDataDictionary[enemyType].patrollingPoints.Length;
+        }
+
+        public Vector3 GetNextPatrolPoint(EnemyType enemyType, int index)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                throw new System.Exception("Invalid enemyType value, enemy data not found/ does not exist.");
+            }
+            return enemyDataDictionary[enemyType].patrollingPoints[index].position;
+        }
+
+        public KeyType GetKeyType(EnemyType enemyType)
+        {
+            if (!enemyDataDictionary.ContainsKey(enemyType))
+            {
+                Debug.LogError("enemy data not found.");
+                return KeyType.None;
+            }
+
+            return enemyDataDictionary[enemyType].heldKey;
+        }
     }
 }

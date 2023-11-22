@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TreasureHunt.Enemy
 {
@@ -9,21 +10,64 @@ namespace TreasureHunt.Enemy
         public EnemyView EnemyView { get; }
         public EnemyModel EnemyModel { get; }
 
-        // CTOR
-        public EnemyController(BaseEnemyData enemyData, FOVData enemyVisionData, Transform parent)
+        public EnemyController(EnemyModel enemyModel, EnemyType enemyType, Transform parent)
         {
-            EnemyModel = new EnemyModel(enemyData, enemyVisionData);
-            EnemyView = Object.Instantiate(enemyData.enemyPrefab, EnemyModel.SpawnPoint, Quaternion.identity, parent);
+            // clone game object from prefab
+            this.enemyType = enemyType;
+            EnemyModel = enemyModel;
+            EnemyView = Object.Instantiate(EnemyModel.GetEnemyPrefab(this.enemyType), EnemyModel.GetSpawnPoint(this.enemyType), Quaternion.identity, parent);
             EnemyView.EnemyController = this;
 
             SetKeyValue();
 
+            // initialize values for patrol points - enemyStateManager
+            currentIndex = 0;
+            totalPatrolPoints = EnemyModel.GetPatrolPointsLength(this.enemyType);
+
+            // Fov readonly values initialization
             rangeChecks = new Collider[1];
             stepCount = Mathf.RoundToInt(EnemyModel.ViewAngle * EnemyModel.MeshResolution);
             viewPoints = new Vector3[stepCount];
             vertexCount = viewPoints.Length + 1;
             vertices = new Vector3[vertexCount];
             triangles = new int[(vertexCount - 2) * 3];
+        }
+
+        //Getters for state manager
+
+        public float GetTotalIdleTime()
+        {
+            float? val = EnemyModel.GetTotalIdleTime(enemyType);
+            if (val.HasValue)
+            {
+                return (float)val;
+            }
+            else
+            {
+                // can return default value for idle time
+                return 0f;
+            }
+        }
+
+        public float GetDistanceBeforeIdle()
+        {
+            float? val = EnemyModel.GetDistanceBeforeIdle(enemyType);
+            if (val.HasValue)
+            {
+                return (float)val;
+            }
+            else
+            {
+                // return default value
+                return 0f;
+            }
+        }
+
+        public Vector3 GetNextPatrolPoint()
+        {
+            // first index is the spawn point
+            int index = ++currentIndex % totalPatrolPoints;
+            return EnemyModel.GetNextPatrolPoint(enemyType, index);
         }
 
         // Coroutine for checking if player is inside FOV
@@ -71,6 +115,12 @@ namespace TreasureHunt.Enemy
 
         // Private variables 
 
+        private EnemyType enemyType;
+
+        // patrol points index
+        private int currentIndex = 0;
+        private int totalPatrolPoints;
+
         // draw fov
         private readonly int stepCount;
         private readonly Vector3[] viewPoints;
@@ -87,7 +137,7 @@ namespace TreasureHunt.Enemy
         // Set held key type value
         private void SetKeyValue()
         {
-            EnemyView.Key.SetKeyType(EnemyModel.KeyType);
+            EnemyView.Key.SetKeyType(EnemyModel.GetKeyType(enemyType));
         }
 
         // checks if player is within the view field
