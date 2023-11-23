@@ -58,11 +58,13 @@ namespace TreasureHunt.UI
     }
 }
 
-namespace TreasureHunt.MainMenu
+// root
+namespace TreasureHunt
 {
     public enum Level
     {
         MainMenu = 0,
-        TestLevel = 2,
+        TestLevel = 1,
+        Restart = 10,
     }
 }

@@ -15,7 +15,7 @@ namespace TreasureHunt.Player
 
         [SerializeField] private Transform playerCameraRoot;
 
-        private HealthUI healthUI;
+        private UI.HealthUI healthUI;
         private InteractableUI interactableUI;
         private InputReader _input;
         private FirstPersonController firstPersonController;

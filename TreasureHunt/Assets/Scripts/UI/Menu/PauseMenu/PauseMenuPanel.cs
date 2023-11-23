@@ -1,21 +1,20 @@
-using TreasureHunt.MainMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace TreasureHunt
+namespace TreasureHunt.UI
 {
     public class PauseMenuPanel : MonoBehaviour
     {
         [SerializeField] private Button menuButton;
         [SerializeField] private Button returnButton;
 
-        private LevelManager levelManager;
         private GameManager gameManager;
+        private LevelLoader levelLoaderInstance;
 
         private void Awake()
         {
-            levelManager = new LevelManager();
+            levelLoaderInstance = LevelLoader.Instance;
         }
 
         private void OnEnable()
@@ -35,7 +34,7 @@ namespace TreasureHunt
 
         private void GoToMainMenuScene()
         {
-            levelManager.LoadMainMenu();
+            levelLoaderInstance.LoadLevel(Level.MainMenu);
         }
 
         private void ReturnToGame()

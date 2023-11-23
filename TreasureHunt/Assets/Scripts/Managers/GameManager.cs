@@ -1,4 +1,5 @@
 using TreasureHunt.InputSystem;
+using TreasureHunt.UI;
 using UnityEngine;
 
 namespace TreasureHunt
@@ -10,7 +11,6 @@ namespace TreasureHunt
         [SerializeField] private GameOverPanel gameWonMenu;
 
         private InputReader _input;
-        public InputReader InputReader { get { return _input; } }
 
         private void Awake()
         {
