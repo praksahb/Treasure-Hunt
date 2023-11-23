@@ -48,6 +48,7 @@ namespace TreasureHunt.Player.StarterAssets
 
         public void OnUse(InputValue value)
         {
+            Debug.Log("E");
             UseFuncInput(value.isPressed);
         }
 

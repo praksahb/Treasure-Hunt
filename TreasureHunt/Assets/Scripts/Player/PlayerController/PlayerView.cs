@@ -48,6 +48,13 @@ namespace TreasureHunt.Player
             _input.UnpauseEvent += Input_UnpauseEvent;
         }
 
+        private void OnDisable()
+        {
+            firstPersonController.useKeyPressed -= OnUseKeyPressed;
+            _input.PauseEvent -= Input_PauseEvent;
+            _input.UnpauseEvent -= Input_UnpauseEvent;
+        }
+
         private void Input_UnpauseEvent()
         {
             firstPersonController.SetPause(false);
@@ -70,13 +77,6 @@ namespace TreasureHunt.Player
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        private void OnDisable()
-        {
-            firstPersonController.useKeyPressed -= OnUseKeyPressed;
-            _input.PauseEvent -= Input_PauseEvent;
-            _input.UnpauseEvent -= Input_UnpauseEvent;
         }
 
         // Set values for the FirstPersonController from playerData
