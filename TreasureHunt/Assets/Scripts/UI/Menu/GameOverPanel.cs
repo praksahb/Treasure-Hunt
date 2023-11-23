@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace TreasureHunt
 {
+    // also works as game won panel
     public class GameOverPanel : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI reasonText = null;

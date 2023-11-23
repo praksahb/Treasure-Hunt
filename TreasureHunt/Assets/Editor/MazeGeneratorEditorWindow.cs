@@ -13,6 +13,7 @@ namespace TreasureHunt.CustomEditorWindow.MazeGenerator
     public class MazeGeneratorEditorWindow : EditorWindow
     {
         [SerializeField] private float wallSize = 6;
+        [SerializeField] private Material floorMaterial;
 
         [SerializeField] private int min = 1;
         [SerializeField] private int max = 10;
@@ -22,7 +23,6 @@ namespace TreasureHunt.CustomEditorWindow.MazeGenerator
         private int mazeColumns = 10;
 
         private GameObject wallPrefab;
-        private Material floorMaterial;
         private MazeLoader mazeGenerator;
         private GameObject parentObj;
 
@@ -128,9 +128,11 @@ namespace TreasureHunt.CustomEditorWindow.MazeGenerator
         private void PrefabSetting()
         {
             // Prefabs - Walls / Floors
+
             // get wall prefab and floor material from file location
+            // For auto-loading at opening a new custom window
             wallPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Wall.prefab");
-            floorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Floor Material.mat");
+            floorMaterial = Resources.Load<Material>("Materials/Floor Material");
 
             EditorGUILayout.LabelField("Maze Prefabs", EditorStyles.boldLabel);
             EditorGUILayout.BeginVertical("Box");
