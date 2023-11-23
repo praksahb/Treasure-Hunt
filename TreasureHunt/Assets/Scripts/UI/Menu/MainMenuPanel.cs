@@ -1,19 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TreasureHunt.MainMenu
+namespace TreasureHunt.UI
 {
-    public class UIManager : MonoBehaviour
+    public class MainMenuPanel : MonoBehaviour
     {
         [SerializeField] private Button startGameBtn;
-
-
-        private LevelManager levelManager;
-
-        private void Awake()
-        {
-            levelManager = new LevelManager();
-        }
 
         private void OnEnable()
         {
@@ -27,7 +19,7 @@ namespace TreasureHunt.MainMenu
 
         private void LoadTestLevel()
         {
-            levelManager.LoadTestLevel();
+            LevelLoader.Instance.LoadLevel(Level.TestLevel);
         }
     }
 }

@@ -28,7 +28,16 @@ namespace TreasureHunt.Enemy
 
         private void Start()
         {
+            if (fieldOfViewCoroutine != null)
+            {
+                StopCoroutine(fieldOfViewCoroutine);
+            }
             fieldOfViewCoroutine = StartCoroutine(EnemyController.FOVRoutine());
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(ViewMesh);
         }
 
         private void LateUpdate()

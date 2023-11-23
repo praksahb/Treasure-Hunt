@@ -12,7 +12,8 @@ namespace TreasureHunt.Enemy
 
         public EnemyController(EnemyModel enemyModel, EnemyType enemyType, Transform parent)
         {
-            // clone game object from prefab
+
+            // Set References
             this.enemyType = enemyType;
             EnemyModel = enemyModel;
             EnemyView = Object.Instantiate(EnemyModel.GetEnemyPrefab(this.enemyType), EnemyModel.GetSpawnPoint(this.enemyType), Quaternion.identity, parent);
@@ -119,7 +120,7 @@ namespace TreasureHunt.Enemy
 
         // patrol points index
         private int currentIndex = 0;
-        private int totalPatrolPoints;
+        private readonly int totalPatrolPoints;
 
         // draw fov
         private readonly int stepCount;

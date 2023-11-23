@@ -1,6 +1,7 @@
+using TreasureHunt.Player.StarterAssets;
 using UnityEngine;
 
-namespace TreasureHunt.Player.StarterAssets
+namespace StarterAssets
 {
     public class UICanvasControllerInput : MonoBehaviour
     {

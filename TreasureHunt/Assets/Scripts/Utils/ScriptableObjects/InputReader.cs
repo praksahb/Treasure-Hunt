@@ -7,7 +7,7 @@ namespace TreasureHunt.InputSystem
     [CreateAssetMenu(menuName = "ScriptableObjects/InputReader", fileName = "InputReader")]
     public class InputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions
     {
-        private GameInput _gameInput;
+        public GameInput _gameInput;
 
         private void OnEnable()
         {
@@ -36,21 +36,9 @@ namespace TreasureHunt.InputSystem
         // rest all are being managed by the standard assets using the unity messages
 
         public event Action PauseEvent;
-        public event Action UnpauseEvent;
+        public Action UnpauseEvent; // is being called from game manager in one button click
         public Action<string> GameOverAction;
         public Action GameWon;
-
-        private void GameOverSwitchDefaultMap(bool value)
-        {
-            if (!value)
-            {
-                SetPlayer();
-            }
-            else
-            {
-                SetUI();
-            }
-        }
 
         public void OnJump(InputAction.CallbackContext context)
         {
@@ -82,7 +70,6 @@ namespace TreasureHunt.InputSystem
             if (context.phase == InputActionPhase.Performed)
             {
                 PauseEvent?.Invoke();
-                SetUI();
             }
         }
 
@@ -91,7 +78,6 @@ namespace TreasureHunt.InputSystem
             if (context.phase == InputActionPhase.Performed)
             {
                 UnpauseEvent?.Invoke();
-                SetPlayer();
             }
         }
     }

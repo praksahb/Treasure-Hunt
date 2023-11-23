@@ -1,22 +1,15 @@
 using TMPro;
-using TreasureHunt.MainMenu;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TreasureHunt
+namespace TreasureHunt.UI
 {
+    // also works as game won panel
     public class GameOverPanel : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI reasonText = null;
         [SerializeField] private Button menuBtn;
         [SerializeField] private Button restartBtn = null;
-
-        private LevelManager levelManager;
-
-        private void Awake()
-        {
-            levelManager = new LevelManager();
-        }
 
         private void OnEnable()
         {
@@ -29,12 +22,12 @@ namespace TreasureHunt
 
         private void LoadMenu()
         {
-            levelManager.LoadMainMenu();
+            LevelLoader.Instance.LoadLevel(Level.MainMenu);
         }
 
         private void RestartLevel()
         {
-            levelManager.RestartLevel();
+            LevelLoader.Instance.LoadLevel(Level.Restart);
         }
 
         private void OnDisable()
