@@ -17,6 +17,7 @@ namespace TreasureHunt.Interactions
 
         private WaitForSeconds waitTime;
         private WaitForSeconds flameTime;
+        private Coroutine flameStart;
 
         private FireTrapData fireTrapData;
 
@@ -34,7 +35,7 @@ namespace TreasureHunt.Interactions
             flameTime = new WaitForSeconds(flameDuration);
             waitTime = new WaitForSeconds(fireTrapData.timeBetweenFlames - flameDuration);
 
-            StartCoroutine(StartFiringRecursive());
+            flameStart = StartCoroutine(StartFiringRecursive());
         }
 
         // Coroutine for starting the fire on the trap with a gap of timeBetweenFlames - flameDuration
@@ -45,12 +46,16 @@ namespace TreasureHunt.Interactions
             Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.Flamethrower, sfxSource);
             EnableCollider();
 
+
             yield return flameTime;
-
             DisableCollider();
-
             yield return waitTime;
-            StartCoroutine(StartFiringRecursive());
+
+            if (flameStart != null)
+            {
+                StopCoroutine(flameStart);
+            }
+            flameStart = StartCoroutine(StartFiringRecursive());
         }
 
         // Enable when fire particle system is played

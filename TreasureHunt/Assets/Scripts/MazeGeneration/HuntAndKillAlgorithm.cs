@@ -20,7 +20,7 @@ namespace TreasureHunt.MazeGeneration
             courseComplete = false;
 
             Random.InitState(seedVal);
-            Debug.Log("Seed: " + seedVal);
+            //Debug.Log("Seed: " + seedVal);
         }
 
         public override void CreateMaze()
