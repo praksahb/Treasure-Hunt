@@ -3,14 +3,10 @@ using UnityEngine;
 
 namespace TreasureHunt.Player.UI
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class PercentText : MonoBehaviour
     {
-        private TextMeshProUGUI healthPercent;
-
-        private void Awake()
-        {
-            healthPercent = GetComponent<TextMeshProUGUI>();
-        }
+        [SerializeField] private TextMeshProUGUI healthPercent;
 
         public void SetPercentText(int value)
         {

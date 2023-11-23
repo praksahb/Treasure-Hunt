@@ -3,15 +3,10 @@ using UnityEngine;
 
 namespace TreasureHunt.Player.UI
 {
+    [RequireComponent(typeof(TextMeshProUGUI))]
     public class InteractableUI : MonoBehaviour
     {
-        private TextMeshProUGUI textField;
-
-
-        private void Awake()
-        {
-            textField = GetComponent<TextMeshProUGUI>();
-        }
+        [SerializeField] private TextMeshProUGUI textField;
 
         public void SetText(string text)
         {

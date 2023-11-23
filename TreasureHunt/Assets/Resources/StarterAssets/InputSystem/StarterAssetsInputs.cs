@@ -13,8 +13,7 @@ namespace TreasureHunt.Player.StarterAssets
         public bool jump;
         public bool sprint;
         public bool use; // added to test door opening/ closing, stealing keys etc.
-        public bool pause;
-        public bool unpause;
+
 
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -24,26 +23,6 @@ namespace TreasureHunt.Player.StarterAssets
         public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM
-        // adding use key functionality
-        public void OnPause(InputValue value)
-        {
-
-            PauseGame(value.isPressed);
-
-        }
-
-        public void OnUnpause(InputValue value)
-        {
-
-            UnpauseGame(value.isPressed);
-
-        }
-
-        public void OnUse(InputValue value)
-        {
-            UseFuncInput(value.isPressed);
-        }
-
         public void OnMove(InputValue value)
         {
             MoveInput(value.Get<Vector2>());
@@ -66,20 +45,16 @@ namespace TreasureHunt.Player.StarterAssets
         {
             SprintInput(value.isPressed);
         }
+
+        public void OnUse(InputValue value)
+        {
+            UseFuncInput(value.isPressed);
+        }
+
 #endif
         public void UseFuncInput(bool newUseState)
         {
             use = newUseState;
-        }
-
-        public void PauseGame(bool newPauseState)
-        {
-            pause = newPauseState;
-        }
-
-        public void UnpauseGame(bool newUnpauseState)
-        {
-            unpause = !newUnpauseState;
         }
 
         public void MoveInput(Vector2 newMoveDirection)

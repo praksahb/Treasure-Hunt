@@ -118,7 +118,6 @@ namespace TreasureHunt.Player.StarterAssets
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
-
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -292,20 +291,16 @@ namespace TreasureHunt.Player.StarterAssets
         }
 
         // Custom functions added
-
         public void SetValues(float moveSpeed, float sprintSpeed, GameObject mainCamera)
         {
             MoveSpeed = moveSpeed;
             SprintSpeed = sprintSpeed;
             _mainCamera = mainCamera;
         }
-
         public void SetPause(bool pause)
         {
             isPause = pause;
         }
-
-
         private void UsePressed()
         {
             if (_input.use)
@@ -314,25 +309,18 @@ namespace TreasureHunt.Player.StarterAssets
                 _input.use = false; // only trigger button press once
             }
         }
-
-
-
         // Using in Update loop after move function sets value for the _speed;
         private void HandleFootsteps()
         {
             if (!Grounded) return;
             if (_input.move == Vector2.zero) return;
-
             footstepTimer -= Time.deltaTime;
-
             if (footstepTimer <= 0)
             {
                 SoundManager.Instance.PlaySfx(TreasureHunt.Sounds.SfxType.Footsteps, sfxSource);
                 footstepTimer = GetCurrentOffset;
             }
 
-
         }
-
     }
 }

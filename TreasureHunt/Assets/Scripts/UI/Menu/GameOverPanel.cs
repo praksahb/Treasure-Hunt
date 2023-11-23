@@ -11,7 +11,6 @@ namespace TreasureHunt.UI
         [SerializeField] private Button menuBtn;
         [SerializeField] private Button restartBtn = null;
 
-
         private void OnEnable()
         {
             menuBtn.onClick.AddListener(LoadMenu);

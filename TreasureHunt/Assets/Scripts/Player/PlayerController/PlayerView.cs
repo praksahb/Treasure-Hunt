@@ -3,32 +3,41 @@ using TreasureHunt.Interactions;
 using TreasureHunt.Player.StarterAssets;
 using TreasureHunt.Player.UI;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace TreasureHunt.Player
 {
+    [RequiredInterface(typeof(IDamageable))]
+    [RequiredInterface(typeof(IDetectable))]
+    [RequireComponent(typeof(FirstPersonController), typeof(AudioSource))]
     public class PlayerView : MonoBehaviour, IDamageable, IDetectable
     {
         //  Properties
         public PlayerController PlayerController { get; set; }
         public Transform PlayerCameraRoot => playerCameraRoot;
-        public AudioSource PlayerAudioSource { get; private set; }
+        public AudioSource PlayerAudioSource => playerAudioSource;
+        public HurtAnimation HurtFeedback => hurtVisualFeedback;
 
         [SerializeField] private Transform playerCameraRoot;
+        [SerializeField] private UI.HealthUI healthUI;
+        [SerializeField] private InteractableUI interactableUI;
+        [SerializeField] private HurtAnimation hurtVisualFeedback;
+        [SerializeField] private FirstPersonController firstPersonController;
+        [SerializeField] private AudioSource playerAudioSource;
 
-        private UI.HealthUI healthUI;
-        private InteractableUI interactableUI;
         private InputReader _input;
-        private FirstPersonController firstPersonController;
         private IInteractable currentInteractable;
         private Coroutine TakeDamageCoroutine;
 
         private void Awake()
         {
-            firstPersonController = GetComponent<FirstPersonController>();
-            healthUI = GetComponentInChildren<HealthUI>();
-            interactableUI = GetComponentInChildren<InteractableUI>();
-            PlayerAudioSource = GetComponent<AudioSource>();
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
+
+            if (_input == null)
+            {
+                Debug.LogError("InputReader resource not found. Make sure the path is correct.");
+            }
+
             LockCursor();
         }
 
@@ -158,6 +167,10 @@ namespace TreasureHunt.Player
 
         public void StartDamage(int damagePerSecond, float damageTimeInterval)
         {
+            if (PlayerController.PlayerModel.Health.CurrentHealth == 0)
+            {
+                return;
+            }
             PlayerController.PlayerModel.IsTakingDamage = true;
             if (TakeDamageCoroutine != null)
             {
