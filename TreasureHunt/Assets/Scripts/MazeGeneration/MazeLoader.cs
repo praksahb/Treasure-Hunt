@@ -55,7 +55,7 @@ namespace TreasureHunt.MazeGeneration
             }
         }
 
-        // for separating gameobjects into walls and floors - used for making floors navigation static
+        // for separating gameobjects into walls and floors - used for making floors navigation static - unoptimized
         private void InitializeParents(Transform parentObj, out Transform floorParent, out Transform wallParent)
         {
             GameObject floorParentObj = new GameObject("Floor");
