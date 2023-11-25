@@ -15,6 +15,10 @@ namespace TreasureHunt
         private void Awake()
         {
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
+            if (_input == null)
+            {
+                Debug.LogError("InputReader resource not found. Make sure the path is correct.");
+            }
         }
 
         private void OnEnable()
@@ -51,7 +55,6 @@ namespace TreasureHunt
         private void _input_UnpauseEvent()
         {
             _input.SetPlayer();
-            Debug.Log("Player: " + _input._gameInput.Player.enabled + ", UI: " + _input._gameInput.UI.enabled);
             if (pauseMenu.gameObject.activeSelf)
             {
                 pauseMenu.gameObject.SetActive(false);
@@ -61,7 +64,6 @@ namespace TreasureHunt
         private void _input_PauseEvent()
         {
             _input.SetUI();
-            Debug.Log("Player: " + _input._gameInput.Player.enabled + ", UI: " + _input._gameInput.UI.enabled);
             if (!pauseMenu.gameObject.activeSelf)
             {
                 pauseMenu.gameObject.SetActive(true);
