@@ -8,14 +8,6 @@ namespace TreasureHunt.Interactions
         private KeyType keyType;
         [SerializeField] private AudioSource sfxSource;
 
-        private void Awake()
-        {
-            if (sfxSource == null)
-            {
-                Debug.Log("k");
-            }
-        }
-
         public void SetKeyType(KeyType keyType)
         {
             this.keyType = keyType;
@@ -24,6 +16,7 @@ namespace TreasureHunt.Interactions
         public void Interact(PlayerController player)
         {
             //Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.CollectKey, sfxSource);
+            // error - sound doesnt play from key's audio source  - playing from player script instead
             player.CollectKey(keyType);
             gameObject.SetActive(false);
             player.PlayerView.SetInteractableText();

@@ -7,7 +7,7 @@ namespace TreasureHunt.InputSystem
     [CreateAssetMenu(menuName = "ScriptableObjects/InputReader", fileName = "InputReader")]
     public class InputReader : ScriptableObject, GameInput.IPlayerActions, GameInput.IUIActions
     {
-        public GameInput _gameInput;
+        private GameInput _gameInput;
 
         private void OnEnable()
         {
