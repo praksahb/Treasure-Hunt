@@ -43,27 +43,55 @@ namespace TreasureHunt.Player
 
         private void OnEnable()
         {
-            firstPersonController.useKeyPressed += OnUseKeyPressed;
+            _input.MoveEvent += Input_MoveEvent;
+            _input.LookEvent += Input_LookEvent;
+            _input.JumpEvent += Input_JumpEvent;
+            _input.SprintEvent += Input_SprintEvent;
+            _input.UseEvent += OnUseKeyPressed;
+
             _input.PauseEvent += Input_PauseEvent;
             _input.UnpauseEvent += Input_UnpauseEvent;
         }
 
         private void OnDisable()
         {
-            firstPersonController.useKeyPressed -= OnUseKeyPressed;
+            _input.MoveEvent -= Input_MoveEvent;
+            _input.LookEvent -= Input_LookEvent;
+            _input.JumpEvent -= Input_JumpEvent;
+            _input.SprintEvent -= Input_SprintEvent;
+            _input.UseEvent -= OnUseKeyPressed;
+
             _input.PauseEvent -= Input_PauseEvent;
             _input.UnpauseEvent -= Input_UnpauseEvent;
         }
 
+        private void Input_MoveEvent(Vector2 moveValue)
+        {
+            firstPersonController.OnMovement(moveValue);
+        }
+
+        private void Input_LookEvent(bool isMouse, Vector2 lookValue)
+        {
+            firstPersonController.OnLookCamera(isMouse, lookValue);
+        }
+
+        private void Input_JumpEvent(bool isJumpPressed)
+        {
+            firstPersonController.OnJumpPress(isJumpPressed);
+        }
+
+        private void Input_SprintEvent(bool isSprintPressed)
+        {
+            firstPersonController.OnSprintPress(isSprintPressed);
+        }
+
         private void Input_UnpauseEvent()
         {
-            firstPersonController.SetPause(false);
             LockCursor();
         }
 
         private void Input_PauseEvent()
         {
-            firstPersonController.SetPause(true);
             UnlockCursor();
         }
 
@@ -83,7 +111,7 @@ namespace TreasureHunt.Player
 
         public void SetFPSControllerValues(float moveSpeed, float sprintSpeed, GameObject mainCamera)
         {
-            firstPersonController.SetValues(moveSpeed, sprintSpeed, mainCamera);
+            firstPersonController.SetValues(moveSpeed, sprintSpeed, mainCamera, playerAudioSource);
         }
 
         // Interaction with use Key

@@ -22,16 +22,7 @@ namespace TreasureHunt.Player
         public PlayerView PlayerView { get; }
         public PlayerModel PlayerModel { get; }
 
-        // Constructors
-        public PlayerController(PlayerModel playerModel, PlayerView playerPrefab)
-        {
-            PlayerModel = playerModel;
-            PlayerView = Object.Instantiate(playerPrefab);
-            PlayerView.PlayerController = this;
-
-            // Set health UI
-            PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
-        }
+        // Constructor
 
         public PlayerController(PlayerModel playerModel, PlayerView playerPrefab, GameObject mainCamera)
         {

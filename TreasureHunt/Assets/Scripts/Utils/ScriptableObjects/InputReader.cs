@@ -32,8 +32,11 @@ namespace TreasureHunt.InputSystem
             _gameInput.UI.Enable();
         }
 
-        // currently only using pause and unpause 
-        // rest all are being managed by the standard assets using the unity messages
+        public event Action<Vector2> MoveEvent;
+        public event Action<bool, Vector2> LookEvent;
+        public event Action<bool> JumpEvent;
+        public event Action<bool> SprintEvent;
+        public event Action UseEvent;
 
         public event Action PauseEvent;
         public Action UnpauseEvent; // is being called from game manager in one button click
@@ -42,27 +45,51 @@ namespace TreasureHunt.InputSystem
 
         public void OnJump(InputAction.CallbackContext context)
         {
-
+            if (context.phase == InputActionPhase.Performed)
+            {
+                JumpEvent?.Invoke(true);
+            }
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                JumpEvent?.Invoke(false);
+            }
         }
 
         public void OnLook(InputAction.CallbackContext context)
         {
+            bool isDeviceMouse = false;
+            if (context.control.device.displayName == "Mouse")
+            {
+                isDeviceMouse = true;
+            }
 
+            //Debug.Log(context.control.device.displayName);
+            LookEvent?.Invoke(isDeviceMouse, context.ReadValue<Vector2>());
         }
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            //Debug.Log("val: " + context.ReadValue<Vector2>());
+            MoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
         public void OnSprint(InputAction.CallbackContext context)
         {
-
+            if (context.phase == InputActionPhase.Performed)
+            {
+                SprintEvent?.Invoke(true);
+            }
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                SprintEvent?.Invoke(false);
+            }
         }
 
         public void OnUse(InputAction.CallbackContext context)
         {
-            // Debug.Log("USE: " + context.phase);
+            if (context.phase == InputActionPhase.Performed)
+            {
+                UseEvent?.Invoke();
+            }
         }
 
         public void OnPause(InputAction.CallbackContext context)
