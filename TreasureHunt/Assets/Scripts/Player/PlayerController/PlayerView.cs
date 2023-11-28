@@ -14,11 +14,13 @@ namespace TreasureHunt.Player
     {
         //  Properties
         public PlayerController PlayerController { get; set; }
-        public Transform PlayerCameraRoot => playerCameraRoot;
+        public Transform PlayerCameraRootAlive => playerCameraRootAlive;
+        public Transform PlayerCameraRootDead => playerCameraRootDead;
         public AudioSource PlayerAudioSource => playerAudioSource;
         public HurtAnimation HurtFeedback => hurtVisualFeedback;
 
-        [SerializeField] private Transform playerCameraRoot;
+        [SerializeField] private Transform playerCameraRootAlive;
+        [SerializeField] private Transform playerCameraRootDead;
         [SerializeField] private UI.HealthUI healthUI;
         [SerializeField] private InteractableUI interactableUI;
         [SerializeField] private HurtAnimation hurtVisualFeedback;

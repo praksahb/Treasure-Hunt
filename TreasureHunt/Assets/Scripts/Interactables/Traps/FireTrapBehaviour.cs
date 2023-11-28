@@ -77,7 +77,6 @@ namespace TreasureHunt.Interactions
         private void OnTriggerEnter(Collider other)
         {
             Debug.Log(other.GetType());
-            if (player != null) return;
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
                 player = damageable;

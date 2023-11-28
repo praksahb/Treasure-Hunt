@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -13,10 +14,13 @@ namespace TreasureHunt.Player
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             if (PlayerModel.Health.CurrentHealth == 0)
             {
-                // game Over.
                 PlayerView.GameOver("Player Died");
+                PlayerDied?.Invoke();
             }
         }
+
+        // public action for invoking virtual camera change
+        public Action PlayerDied;
 
         // Public Properties
         public PlayerView PlayerView { get; }
@@ -40,9 +44,14 @@ namespace TreasureHunt.Player
 
         // Public Member Functions
 
-        public Transform GetFollowCamera()
+        public Transform GetFollowTarget_Alive()
         {
-            return PlayerView.PlayerCameraRoot;
+            return PlayerView.PlayerCameraRootAlive;
+        }
+
+        public Transform GetFollowTarget_Dead()
+        {
+            return PlayerView.PlayerCameraRootDead;
         }
 
         public void CollectKey(Interactions.KeyType keyType)
@@ -57,14 +66,18 @@ namespace TreasureHunt.Player
         }
 
         // Coroutine for taking burn damage overtime
+
+        // reduces health value
+        // plays hurt sound effect 
+        // plays hurt animation crossfade
         public IEnumerator BurnDamage(int damagePerSecond, float damageTimeInterval)
         {
             WaitForSeconds waitTime = new WaitForSeconds(damageTimeInterval);
             while (PlayerModel.IsTakingDamage)
             {
+                TakeDamage(damagePerSecond);
                 Sounds.SoundManager.Instance.PlaySfx(Sounds.SfxType.TakeDamage, PlayerView.PlayerAudioSource);
                 PlayerView.HurtFeedback.Hurt_Start();
-                TakeDamage(damagePerSecond);
                 yield return waitTime;
             }
         }
