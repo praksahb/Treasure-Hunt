@@ -16,6 +16,12 @@ namespace TreasureHunt
 
         private void CheckCollectedKeys()
         {
+            if (playerController == null)
+            {
+                Debug.LogError("Player Controller not set in inventory UI");
+                return;
+            }
+
             for (int i = 0; i < transform.childCount; i++)
             {
                 CollectedKey keyUI = transform.GetChild(i).GetComponent<CollectedKey>();

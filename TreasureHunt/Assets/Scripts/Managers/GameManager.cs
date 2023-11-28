@@ -14,11 +14,13 @@ namespace TreasureHunt
 
         private void Awake()
         {
+
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
             if (_input == null)
             {
                 Debug.LogError("InputReader resource not found. Make sure the path is correct.");
             }
+            _input.InitializeGameInput(); // re-enable input controls to player action map
         }
 
         private void OnEnable()
@@ -40,16 +42,21 @@ namespace TreasureHunt
             pauseMenu.SetGameManager(this);
         }
 
+        private void OnDestroy()
+        {
+            _input.Cleanup();
+        }
+
         private void SubscribePauseEvents()
         {
             _input.PauseEvent += _input_PauseEvent;
-            _input.UnpauseEvent += _input_UnpauseEvent;
+            _input.UnpauseAction += _input_UnpauseEvent;
         }
 
         private void UnsubscribePauseEvents()
         {
             _input.PauseEvent -= _input_PauseEvent;
-            _input.UnpauseEvent -= _input_UnpauseEvent;
+            _input.UnpauseAction -= _input_UnpauseEvent;
         }
 
         private void _input_UnpauseEvent()
@@ -72,6 +79,7 @@ namespace TreasureHunt
 
         private void _input_GameOverAction(string reason)
         {
+            _input.SetUI();
             gameOverMenu.gameObject.SetActive(true);
             gameOverMenu.SetReasonText(reason);
             UnsubscribePauseEvents();
@@ -79,6 +87,7 @@ namespace TreasureHunt
 
         private void GameWin()
         {
+            _input.SetUI();
             gameWonMenu.gameObject.SetActive(true);
             UnsubscribePauseEvents();
         }
@@ -86,7 +95,7 @@ namespace TreasureHunt
         // return to game from pause menu, via button click
         public void ReturnToGame()
         {
-            _input.UnpauseEvent?.Invoke();
+            _input.UnpauseAction?.Invoke();
         }
     }
 }

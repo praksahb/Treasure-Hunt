@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace TreasureHunt.Interactions
 {
+    // Currently only one collider will take damage, which ever enters first.
+
     public class FireTrapBehaviour : MonoBehaviour
     {
         [SerializeField] private Transform flameSpawnPoint;
@@ -10,9 +12,6 @@ namespace TreasureHunt.Interactions
         private ParticleSystem flameParticles;
         private CapsuleCollider capsuleCollider;
         private AudioSource sfxSource;
-
-        // private int numOfDamageableObjects;
-        //private IDamageable[] damageableObjects; // can be a array instead of size 1 for one player 
         private IDamageable player;
 
         private WaitForSeconds waitTime;
@@ -25,8 +24,6 @@ namespace TreasureHunt.Interactions
         {
             sfxSource = GetComponent<AudioSource>();
             capsuleCollider = GetComponentInChildren<CapsuleCollider>();
-            //numOfDamageableObjects = 1; // currently only one player can be damaged by fire
-            //damageableObjects = new IDamageable[numOfDamageableObjects];
         }
 
         private void StartFiringCoroutine()
@@ -72,25 +69,16 @@ namespace TreasureHunt.Interactions
             if (capsuleCollider != null)
             {
                 capsuleCollider.enabled = false;
-
-                // Stops any damage-taking object(Player) not exited trigger collider
-                //foreach (IDamageable damageable in damageableObjects)
-                //{
-                //    damageable.StopDamage();
-                //}
-                //damageableObjects.Clear();
-
                 player?.StopDamage();
             }
         }
 
         // collision detection  to reduce player health
-
         private void OnTriggerEnter(Collider other)
         {
+            Debug.Log(other.GetType());
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                //damageableObjects.Add(damageable);
                 player = damageable;
                 damageable.StartDamage(fireTrapData.damagePerSecond, fireTrapData.damageTimeInterval);
             }
@@ -100,7 +88,6 @@ namespace TreasureHunt.Interactions
         {
             if (other.TryGetComponent<IDamageable>(out IDamageable damageable))
             {
-                //damageableObjects.Remove(damageable);
                 player = null;
                 damageable.StopDamage();
             }

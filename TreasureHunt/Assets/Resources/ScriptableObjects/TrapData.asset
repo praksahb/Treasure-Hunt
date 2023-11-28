@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireTrapData:
     flameDuration: 5
-    timeBetweenFlames: 8
+    timeBetweenFlames: 10
     damagePerSecond: 5
     damageTimeInterval: 1

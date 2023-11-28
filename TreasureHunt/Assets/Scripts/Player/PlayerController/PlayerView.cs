@@ -14,11 +14,13 @@ namespace TreasureHunt.Player
     {
         //  Properties
         public PlayerController PlayerController { get; set; }
-        public Transform PlayerCameraRoot => playerCameraRoot;
+        public Transform PlayerCameraRootAlive => playerCameraRootAlive;
+        public Transform PlayerCameraRootDead => playerCameraRootDead;
         public AudioSource PlayerAudioSource => playerAudioSource;
         public HurtAnimation HurtFeedback => hurtVisualFeedback;
 
-        [SerializeField] private Transform playerCameraRoot;
+        [SerializeField] private Transform playerCameraRootAlive;
+        [SerializeField] private Transform playerCameraRootDead;
         [SerializeField] private UI.HealthUI healthUI;
         [SerializeField] private InteractableUI interactableUI;
         [SerializeField] private HurtAnimation hurtVisualFeedback;
@@ -32,7 +34,6 @@ namespace TreasureHunt.Player
         private void Awake()
         {
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
-
             if (_input == null)
             {
                 Debug.LogError("InputReader resource not found. Make sure the path is correct.");
@@ -43,27 +44,60 @@ namespace TreasureHunt.Player
 
         private void OnEnable()
         {
-            firstPersonController.useKeyPressed += OnUseKeyPressed;
+            _input.MoveEvent += Input_MoveEvent;
+            _input.LookEvent += Input_LookEvent;
+            _input.JumpEvent += Input_JumpEvent;
+            _input.SprintEvent += Input_SprintEvent;
+            _input.UseEvent += OnUseKeyPressed;
+
             _input.PauseEvent += Input_PauseEvent;
-            _input.UnpauseEvent += Input_UnpauseEvent;
+            _input.UnpauseAction += Input_UnpauseEvent;
         }
 
         private void OnDisable()
         {
-            firstPersonController.useKeyPressed -= OnUseKeyPressed;
+            _input.MoveEvent -= Input_MoveEvent;
+            _input.LookEvent -= Input_LookEvent;
+            _input.JumpEvent -= Input_JumpEvent;
+            _input.SprintEvent -= Input_SprintEvent;
+            _input.UseEvent -= OnUseKeyPressed;
+
             _input.PauseEvent -= Input_PauseEvent;
-            _input.UnpauseEvent -= Input_UnpauseEvent;
+            _input.UnpauseAction -= Input_UnpauseEvent;
+        }
+
+        private void OnDestroy()
+        {
+            _input.Cleanup();
+        }
+
+        private void Input_MoveEvent(Vector2 moveValue)
+        {
+            firstPersonController.OnMovement(moveValue);
+        }
+
+        private void Input_LookEvent(bool isMouse, Vector2 lookValue)
+        {
+            firstPersonController.OnLookCamera(isMouse, lookValue);
+        }
+
+        private void Input_JumpEvent(bool isJumpPressed)
+        {
+            firstPersonController.OnJumpPress(isJumpPressed);
+        }
+
+        private void Input_SprintEvent(bool isSprintPressed)
+        {
+            firstPersonController.OnSprintPress(isSprintPressed);
         }
 
         private void Input_UnpauseEvent()
         {
-            firstPersonController.SetPause(false);
             LockCursor();
         }
 
         private void Input_PauseEvent()
         {
-            firstPersonController.SetPause(true);
             UnlockCursor();
         }
 
@@ -81,9 +115,9 @@ namespace TreasureHunt.Player
 
         // Set values for the FirstPersonController from playerData
 
-        public void SetFPSControllerValues(float moveSpeed, float sprintSpeed, GameObject mainCamera)
+        public void SetFPSControllerValues(float moveSpeed, float sprintSpeed)
         {
-            firstPersonController.SetValues(moveSpeed, sprintSpeed, mainCamera);
+            firstPersonController.SetValues(moveSpeed, sprintSpeed, playerAudioSource);
         }
 
         // Interaction with use Key
@@ -151,7 +185,6 @@ namespace TreasureHunt.Player
         public void GameOver(string reason)
         {
             _input.GameOverAction?.Invoke(reason);
-            firstPersonController.enabled = false;
             UnlockCursor();
         }
 
@@ -159,7 +192,6 @@ namespace TreasureHunt.Player
         public void GameWon()
         {
             _input.GameWon?.Invoke();
-            firstPersonController.enabled = false;
             UnlockCursor();
         }
 
