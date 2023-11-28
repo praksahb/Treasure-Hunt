@@ -9,7 +9,7 @@ namespace TreasureHunt.InputSystem
     {
         private GameInput _gameInput;
 
-        private void OnEnable()
+        public void InitializeGameInput()
         {
             if (_gameInput == null)
             {
@@ -17,6 +17,18 @@ namespace TreasureHunt.InputSystem
                 _gameInput.Player.SetCallbacks(this);
                 _gameInput.UI.SetCallbacks(this);
                 SetPlayer();
+            }
+        }
+
+        // cleanup can be called to destroy or dereference the input reader 
+        public void Cleanup()
+        {
+            if (_gameInput != null)
+            {
+                _gameInput.Player.Disable();
+                _gameInput.UI.Disable();
+                _gameInput.Dispose();
+                _gameInput = null;
             }
         }
 

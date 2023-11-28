@@ -67,17 +67,16 @@ namespace TreasureHunt.Player.StarterAssets
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
+        private CharacterController _controller;
         private AudioSource sfxSource;
 
-        //player controls using input reader
+        //player controls using input reader - from playerView
         private Vector2 _moveDirection;
         private Vector2 _lookDirection;
         private bool _isJumping;
         private bool _isSprinting;
         private bool _isCurrentDeviceMouse;
 
-        private CharacterController _controller;
-        private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
 
@@ -248,11 +247,10 @@ namespace TreasureHunt.Player.StarterAssets
             }
         }
 
-        public void SetValues(float moveSpeed, float sprintSpeed, GameObject mainCamera, AudioSource audioSource)
+        public void SetValues(float moveSpeed, float sprintSpeed, AudioSource audioSource)
         {
             MoveSpeed = moveSpeed;
             SprintSpeed = sprintSpeed;
-            _mainCamera = mainCamera;
             sfxSource = audioSource;
         }
 

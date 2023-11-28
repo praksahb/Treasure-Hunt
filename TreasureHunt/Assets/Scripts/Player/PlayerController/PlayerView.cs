@@ -32,7 +32,6 @@ namespace TreasureHunt.Player
         private void Awake()
         {
             _input = Resources.Load<InputReader>("InputSystem/InputReader");
-
             if (_input == null)
             {
                 Debug.LogError("InputReader resource not found. Make sure the path is correct.");
@@ -63,6 +62,11 @@ namespace TreasureHunt.Player
 
             _input.PauseEvent -= Input_PauseEvent;
             _input.UnpauseAction -= Input_UnpauseEvent;
+        }
+
+        private void OnDestroy()
+        {
+            _input.Cleanup();
         }
 
         private void Input_MoveEvent(Vector2 moveValue)
@@ -109,9 +113,9 @@ namespace TreasureHunt.Player
 
         // Set values for the FirstPersonController from playerData
 
-        public void SetFPSControllerValues(float moveSpeed, float sprintSpeed, GameObject mainCamera)
+        public void SetFPSControllerValues(float moveSpeed, float sprintSpeed)
         {
-            firstPersonController.SetValues(moveSpeed, sprintSpeed, mainCamera, playerAudioSource);
+            firstPersonController.SetValues(moveSpeed, sprintSpeed, playerAudioSource);
         }
 
         // Interaction with use Key
@@ -179,7 +183,6 @@ namespace TreasureHunt.Player
         public void GameOver(string reason)
         {
             _input.GameOverAction?.Invoke(reason);
-            firstPersonController.enabled = false;
             UnlockCursor();
         }
 
@@ -187,7 +190,6 @@ namespace TreasureHunt.Player
         public void GameWon()
         {
             _input.GameWon?.Invoke();
-            firstPersonController.enabled = false;
             UnlockCursor();
         }
 

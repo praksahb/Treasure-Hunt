@@ -24,17 +24,17 @@ namespace TreasureHunt.Player
 
         // Constructor
 
-        public PlayerController(PlayerModel playerModel, PlayerView playerPrefab, GameObject mainCamera)
+        public PlayerController(PlayerModel playerModel, PlayerView playerPrefab, Vector2 spawnPoint)
         {
             PlayerModel = playerModel;
-            PlayerView = Object.Instantiate(playerPrefab);
+            PlayerView = Object.Instantiate(playerPrefab, spawnPoint, Quaternion.identity);
             PlayerView.PlayerController = this;
 
             // Set health UI
             PlayerView.SetMaxHealth(PlayerModel.Health.MaxHealth);
             PlayerView.SetHealth(PlayerModel.Health.CurrentHealth);
             // Set Values for FirstPersonController
-            PlayerView.SetFPSControllerValues(PlayerModel.MoveSpeed, PlayerModel.SprintSpeed, mainCamera);
+            PlayerView.SetFPSControllerValues(PlayerModel.MoveSpeed, PlayerModel.SprintSpeed);
 
         }
 

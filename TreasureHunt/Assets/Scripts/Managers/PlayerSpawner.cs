@@ -6,13 +6,8 @@ namespace TreasureHunt.Player
     public class PlayerSpawner : MonoBehaviour
     {
         [SerializeField] private PlayerView playerPrefab;
-
-
-        [SerializeField] private GameObject mainCamera;
         [SerializeField] private CinemachineVirtualCamera virtualCamera;
-
         [SerializeField] private Transform spawnPosition = null;
-
         [SerializeField] private KeysInventoryUI keyInventoryUI;
 
         private GameManager gameManager;
@@ -29,7 +24,7 @@ namespace TreasureHunt.Player
         private void Start()
         {
             PlayerModel pModel = new PlayerModel(playerData);
-            playerController = new PlayerController(pModel, playerPrefab, mainCamera);
+            playerController = new PlayerController(pModel, playerPrefab, spawnPosition.position);
             virtualCamera.Follow = playerController.GetFollowCamera();
             keyInventoryUI.SetPlayerController(playerController);
         }
