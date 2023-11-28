@@ -50,7 +50,7 @@ namespace TreasureHunt.Player
             _input.UseEvent += OnUseKeyPressed;
 
             _input.PauseEvent += Input_PauseEvent;
-            _input.UnpauseEvent += Input_UnpauseEvent;
+            _input.UnpauseAction += Input_UnpauseEvent;
         }
 
         private void OnDisable()
@@ -62,7 +62,7 @@ namespace TreasureHunt.Player
             _input.UseEvent -= OnUseKeyPressed;
 
             _input.PauseEvent -= Input_PauseEvent;
-            _input.UnpauseEvent -= Input_UnpauseEvent;
+            _input.UnpauseAction -= Input_UnpauseEvent;
         }
 
         private void Input_MoveEvent(Vector2 moveValue)

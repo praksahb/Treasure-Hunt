@@ -49,10 +49,10 @@ namespace TreasureHunt.Player.StarterAssets
         public float BottomClamp = -90.0f;
 
         [Header("Footstep Parameters")]
-        [SerializeField] private float baseStepSpeed = 0.5f;
+        [SerializeField] private float baseStepTime = 0.5f;
         [SerializeField] private float sprintSpeedMultiplier = 0.6f;
         private float footstepTimer = 0;
-        private float GetCurrentOffset => _isSprinting ? baseStepSpeed * sprintSpeedMultiplier : baseStepSpeed;
+        private float GetCurrentOffset => _isSprinting ? baseStepTime * sprintSpeedMultiplier : baseStepTime;
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -96,7 +96,6 @@ namespace TreasureHunt.Player.StarterAssets
             GroundedCheck();
             Move();
             HandleFootsteps();
-
         }
 
         private void LateUpdate()
@@ -236,11 +235,11 @@ namespace TreasureHunt.Player.StarterAssets
 
         // Custom functions added
 
-        // Using in Update loop after move function sets value for the _speed;
         private void HandleFootsteps()
         {
             // return early if jumping or stationary
             if (!Grounded || _moveDirection == Vector2.zero) return;
+            // else plays a footstep after every offset Time
             footstepTimer -= Time.deltaTime;
             if (footstepTimer <= 0)
             {

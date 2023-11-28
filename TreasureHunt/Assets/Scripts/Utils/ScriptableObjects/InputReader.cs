@@ -39,7 +39,7 @@ namespace TreasureHunt.InputSystem
         public event Action UseEvent;
 
         public event Action PauseEvent;
-        public Action UnpauseEvent; // is being called from game manager in one button click
+        public Action UnpauseAction; // is being called from game manager in one button click
         public Action<string> GameOverAction;
         public Action GameWon;
 
@@ -57,7 +57,6 @@ namespace TreasureHunt.InputSystem
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            Debug.Log(context.control.device);
             bool isDeviceMouse = context.control.device is Mouse;
             LookEvent?.Invoke(isDeviceMouse, context.ReadValue<Vector2>());
         }
@@ -99,7 +98,7 @@ namespace TreasureHunt.InputSystem
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                UnpauseEvent?.Invoke();
+                UnpauseAction?.Invoke();
             }
         }
     }

@@ -6,7 +6,7 @@ namespace TreasureHunt.Player
 {
     public class PlayerController
     {
-        // Private Member Functions 
+        // Private Member Function
         private void TakeDamage(int damage)
         {
             PlayerModel.Health.CurrentHealth -= damage;

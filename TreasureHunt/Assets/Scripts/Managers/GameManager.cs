@@ -43,13 +43,13 @@ namespace TreasureHunt
         private void SubscribePauseEvents()
         {
             _input.PauseEvent += _input_PauseEvent;
-            _input.UnpauseEvent += _input_UnpauseEvent;
+            _input.UnpauseAction += _input_UnpauseEvent;
         }
 
         private void UnsubscribePauseEvents()
         {
             _input.PauseEvent -= _input_PauseEvent;
-            _input.UnpauseEvent -= _input_UnpauseEvent;
+            _input.UnpauseAction -= _input_UnpauseEvent;
         }
 
         private void _input_UnpauseEvent()
@@ -86,7 +86,7 @@ namespace TreasureHunt
         // return to game from pause menu, via button click
         public void ReturnToGame()
         {
-            _input.UnpauseEvent?.Invoke();
+            _input.UnpauseAction?.Invoke();
         }
     }
 }
