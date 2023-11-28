@@ -57,13 +57,8 @@ namespace TreasureHunt.InputSystem
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            bool isDeviceMouse = false;
-            if (context.control.device.displayName == "Mouse")
-            {
-                isDeviceMouse = true;
-            }
-
-            //Debug.Log(context.control.device.displayName);
+            Debug.Log(context.control.device);
+            bool isDeviceMouse = context.control.device is Mouse;
             LookEvent?.Invoke(isDeviceMouse, context.ReadValue<Vector2>());
         }
 
