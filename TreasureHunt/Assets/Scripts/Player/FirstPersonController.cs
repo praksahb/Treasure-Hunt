@@ -83,6 +83,7 @@ namespace TreasureHunt.Player.StarterAssets
         private void Start()
         {
             _controller = GetComponent<CharacterController>();
+            _controller.detectCollisions = false;
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
@@ -275,6 +276,14 @@ namespace TreasureHunt.Player.StarterAssets
         public void OnSprintPress(bool isSprintPressed)
         {
             _isSprinting = isSprintPressed;
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.gameObject.name != "Wall(Clone)")
+            {
+                Debug.Log(hit.gameObject.name);
+            }
         }
     }
 }
