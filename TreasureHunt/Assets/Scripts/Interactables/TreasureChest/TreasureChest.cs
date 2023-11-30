@@ -34,7 +34,7 @@ namespace TreasureHunt.Interactions
                 isOpen = true;
                 animation.Play();
                 player.CollectChestItem();
-                player.PlayerView.SetInteractableText();
+                player.PlayerView.SetInteractableText(InteractionType.ClearData);
             }
         }
 
@@ -59,7 +59,7 @@ namespace TreasureHunt.Interactions
                 }
                 else
                 {
-                    player.PlayerView.SetInteractableText("Locked. Find Key.");
+                    player.PlayerView.SetInteractableText(InteractionType.TreasureLocked);
                 }
             }
             OpenChest(player);
@@ -67,14 +67,7 @@ namespace TreasureHunt.Interactions
 
         public void UIFeedback(PlayerController player)
         {
-            if (isLocked)
-            {
-                player.PlayerView.SetInteractableText("Find Key.");
-            }
-            if (!isOpen)
-            {
-                player.PlayerView.SetInteractableText("Open Chest.");
-            }
+            player.PlayerView.SetInteractableText(InteractionType.TreasureCollect);
         }
     }
 }

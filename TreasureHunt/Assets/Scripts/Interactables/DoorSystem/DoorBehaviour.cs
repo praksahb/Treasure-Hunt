@@ -7,16 +7,20 @@ namespace TreasureHunt.Interactions
 {
     public class DoorBehaviour : MonoBehaviour, IInteractable
     {
-        private KeyType requiredKey;
+        // public property to modify door state from outside (door manager)
+        public bool SetDoorLockState { get { return isLocked; } set { isLocked = value; } }
 
+        // components
         private Animator anim;
+        private AudioSource sfxSource;
 
+        // variables
+        private KeyType requiredKey;
         private bool isOpen;
         private bool isLocked;
         private bool isInteractable;
 
         private SoundManager soundInstance;
-        private AudioSource sfxSource;
 
         private void Awake()
         {
@@ -28,8 +32,7 @@ namespace TreasureHunt.Interactions
         {
             anim = GetComponentInChildren<Animator>();
             isOpen = false;
-            isInteractable = false;
-            isLocked = true;
+            isInteractable = true;
         }
 
         private void OpenCloseDoor(PlayerController player)
@@ -102,30 +105,23 @@ namespace TreasureHunt.Interactions
                 else
                 {
                     soundInstance.PlaySfx(SfxType.DoorLocked, sfxSource);
-                    player.PlayerView.SetInteractableText("Locked. Find Key.");
+                    player.PlayerView.SetInteractableText(InteractionType.DoorLocked);
+                    return;
                 }
             }
-
             OpenCloseDoor(player);
         }
 
         public void UIFeedback(PlayerController player)
         {
             // Send UI message for user interaction
-            if (isInteractable)
+            if (!isOpen)
             {
-                if (!isOpen)
-                {
-                    player.PlayerView.SetInteractableText("Open Door.");
-                }
-                else
-                {
-                    player.PlayerView.SetInteractableText("Close Door.");
-                }
+                player.PlayerView.SetInteractableText(InteractionType.DoorOpen);
             }
             else
             {
-                player.PlayerView.SetInteractableText("Unlock Door");
+                player.PlayerView.SetInteractableText(InteractionType.DoorClose);
             }
         }
     }

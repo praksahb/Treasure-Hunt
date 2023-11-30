@@ -9,6 +9,7 @@ namespace TreasureHunt.InputSystem
     {
         private GameInput _gameInput;
 
+        // initializing from game manager script 
         public void InitializeGameInput()
         {
             if (_gameInput == null)
