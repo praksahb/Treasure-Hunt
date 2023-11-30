@@ -225,7 +225,7 @@ namespace TreasureHunt.Player
         {
             if (hit.gameObject.name != "Wall(Clone)")
             {
-                Debug.Log(hit.gameObject.name);
+                //Debug.Log(hit.gameObject.name);
             }
         }
     }

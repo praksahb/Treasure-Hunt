@@ -6,10 +6,12 @@ namespace TreasureHunt.UI
     public class MainMenuPanel : MonoBehaviour
     {
         [SerializeField] private Button startGameBtn;
+        [SerializeField] private TMPro.TMP_Dropdown graphicsOption;
 
         private void OnEnable()
         {
             startGameBtn.onClick.AddListener(LoadTestLevel);
+            graphicsOption.onValueChanged.AddListener(ChangeGraphicsSettings);
         }
 
         private void OnDisable()
@@ -20,6 +22,12 @@ namespace TreasureHunt.UI
         private void LoadTestLevel()
         {
             LevelLoader.Instance.LoadLevel(Level.TestLevel);
+        }
+
+        private void ChangeGraphicsSettings(int qualityIndex)
+        {
+            QualitySettings.SetQualityLevel(qualityIndex);
+            Debug.Log(QualitySettings.renderPipeline.name);
         }
     }
 }
