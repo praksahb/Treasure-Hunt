@@ -19,12 +19,12 @@ namespace TreasureHunt.Interactions
             // error - sound doesnt play from key's audio source  - playing from player script instead
             player.CollectKey(keyType);
             gameObject.SetActive(false);
-            player.PlayerView.SetInteractableText();
+            player.PlayerView.SetInteractableText(InteractionType.ClearData);
         }
 
         public void UIFeedback(PlayerController player)
         {
-            player.PlayerView.SetInteractableText("Collect Key");
+            player.PlayerView.SetInteractableText(InteractionType.CollectKey);
         }
     }
 }

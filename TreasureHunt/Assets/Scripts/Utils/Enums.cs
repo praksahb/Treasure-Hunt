@@ -8,7 +8,19 @@ namespace TreasureHunt.Interactions
         KeyType3,
         TreasureKey,
     }
+
+    public enum InteractionType
+    {
+        ClearData = -1,
+        DoorLocked = 0,
+        DoorOpen,
+        DoorClose,
+        CollectKey,
+        TreasureLocked,
+        TreasureCollect,
+    }
 }
+
 
 namespace TreasureHunt.Enemy
 {

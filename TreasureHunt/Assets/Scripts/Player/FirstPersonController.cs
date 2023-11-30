@@ -277,13 +277,5 @@ namespace TreasureHunt.Player.StarterAssets
         {
             _isSprinting = isSprintPressed;
         }
-
-        private void OnControllerColliderHit(ControllerColliderHit hit)
-        {
-            if (hit.gameObject.name != "Wall(Clone)")
-            {
-                Debug.Log(hit.gameObject.name);
-            }
-        }
     }
 }

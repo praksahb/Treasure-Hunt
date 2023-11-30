@@ -12,22 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fecc3afaa4356ca4d86d1ae04a4bae27, type: 3}
   m_Name: DoorData
   m_EditorClassIdentifier: 
+  lockState: 1
   doorInfoList:
   - doorName: FirstDoor
     requiredKey: 1
     doorPrefab: {fileID: 2615550677934133808, guid: a41da42dc76e28041b6845a75941e729,
       type: 3}
-    spawnPosition: {x: 17.92, y: -2.18, z: 2.75}
-    spawnRotation: {x: 0, y: 180, z: 0}
+    spawnPosition: {x: 22.37706, y: -2.247673, z: 2.566952}
+    localScaleValues: {x: 0.78, y: 0.44, z: 0.42}
+    spawnRotationAngle: 0
   - doorName: SecondDoor
     requiredKey: 2
     doorPrefab: {fileID: 2615550677934133808, guid: a41da42dc76e28041b6845a75941e729,
       type: 3}
     spawnPosition: {x: -2.09, y: -2.18, z: 27.55}
-    spawnRotation: {x: 0, y: 180, z: 0}
+    localScaleValues: {x: 0.76, y: 0.435, z: 0.44}
+    spawnRotationAngle: 180
   - doorName: ThirdDoor
     requiredKey: 3
     doorPrefab: {fileID: 2615550677934133808, guid: a41da42dc76e28041b6845a75941e729,
       type: 3}
-    spawnPosition: {x: 22.29, y: -2.25, z: 27.39775}
-    spawnRotation: {x: 0, y: 0, z: 0}
+    spawnPosition: {x: 17.7327, y: -2.25, z: 27.56657}
+    localScaleValues: {x: 0.78, y: 0.44, z: 0.44}
+    spawnRotationAngle: 180

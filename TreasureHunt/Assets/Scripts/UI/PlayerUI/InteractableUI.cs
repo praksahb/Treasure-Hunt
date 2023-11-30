@@ -1,21 +1,32 @@
 using TMPro;
+using TreasureHunt.Interactions;
 using UnityEngine;
 
 namespace TreasureHunt.Player.UI
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
     public class InteractableUI : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI headerField;
         [SerializeField] private TextMeshProUGUI textField;
 
-        public void SetText(string text)
+        private InteractionData interactionData;
+
+        private void Awake()
         {
+            interactionData = Resources.Load<InteractionData>("ScriptableObjects/InteractionData");
+        }
+
+        private void SetText(string header, string text)
+        {
+            headerField.SetText(header);
             textField.SetText(text);
         }
 
-        public void ClearText()
+        public void SetupInteractionUI(InteractionType interactionType)
         {
-            textField.SetText("");
+            int index = (int)interactionType;
+            InteractableData interaction = interactionData.interactables[index];
+            SetText(interaction.headerField, interaction.textField);
         }
     }
 }

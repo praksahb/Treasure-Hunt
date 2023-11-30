@@ -143,21 +143,22 @@ namespace TreasureHunt.Player
             if (currentInteractable == interactable)
             {
                 currentInteractable = null;
-                SetInteractableText();
+                SetInteractableText(InteractionType.ClearData);
             }
         }
 
         // Interaction UI related
 
-        public void SetInteractableText(string text = null)
+        public void SetInteractableText(InteractionType interaction)
         {
-            if (text == null)
+            if (interaction == InteractionType.ClearData)
             {
-                interactableUI.ClearText();
+                interactableUI.gameObject.SetActive(false);
             }
             else
             {
-                interactableUI.SetText(text);
+                interactableUI.gameObject.SetActive(true);
+                interactableUI.SetupInteractionUI(interaction);
             }
         }
 
@@ -217,6 +218,14 @@ namespace TreasureHunt.Player
             if (TakeDamageCoroutine != null)
             {
                 StopCoroutine(TakeDamageCoroutine);
+            }
+        }
+
+        private void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.gameObject.name != "Wall(Clone)")
+            {
+                Debug.Log(hit.gameObject.name);
             }
         }
     }
