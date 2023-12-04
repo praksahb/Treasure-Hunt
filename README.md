@@ -20,4 +20,3 @@ Play link: [Webgl](https://devlovex.itch.io/treasure-hunt)
   - Generic Singleton used in two scripts - SoundManager and LevelLoader
   - Using a modified Unity standard template for First Person Controller for current projects needs and making it more performant.
   - UI Screens for Start menu, Pause Menu and Game over and Game win(both identical)
-  - 
