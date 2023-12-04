@@ -1,5 +1,6 @@
 # Treasure-Hunt
 3d Maze Treasure Hunt - First Person View
+
 Play link: [Webgl](https://devlovex.itch.io/treasure-hunt)
 
 
