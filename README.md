@@ -3,6 +3,10 @@
 
 Play link: [Webgl](https://devlovex.itch.io/treasure-hunt)
 
+![main_menu](https://github.com/praksahb/Treasure-Hunt/assets/39479839/446e7ea8-6c24-4311-bcaa-f4f9a798a8b6)
+![interaction1](https://github.com/praksahb/Treasure-Hunt/assets/39479839/da03b2f2-7434-4f17-9938-03407f243b2d)
+    ![interaction2](https://github.com/praksahb/Treasure-Hunt/assets/39479839/b1f107bb-1fb5-413f-a291-5d84f7705f76)
+   ![take_damage](https://github.com/praksahb/Treasure-Hunt/assets/39479839/51bfb175-fdd1-4e85-aa46-5547af8d4000)
 
 ## Game Objective
 - Collect final Treasure Chest at the end of level.(diagonally opposite to spawn point)
