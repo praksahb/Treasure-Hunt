@@ -10,7 +10,7 @@ Play link: [Webgl](https://devlovex.itch.io/treasure-hunt)
 - For unlocking doors, needs to be unlocked by keys once. Keys are  with each enemy for each door.
 - For collecting chest, need final treasure key.
 
-  ## Implementation Details
+## Implementation Details
 
   - Using a maze generation algorithm (Hunt & Kill) for generating procedurally generated maze of custom sizes in scene hierarchy. Using a custom editor window script for handling the random maze generation.
   - MVC for player controller, and for enemy controller.
